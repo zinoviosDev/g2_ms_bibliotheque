@@ -1,0 +1,68 @@
+ms_gestion_bibliotheque_home:
+    path:     /{page}
+    defaults: 
+        _controller: MSGestionBibliothequeBundle:Oeuvre:index
+        page: 1
+    requirements:
+        _format: html
+        page: \d*
+    
+ms_gestion_bibliotheque_oeuvre_view:
+    path:      /oeuvre/{id}
+    defaults: 
+        _controller: MSGestionBibliothequeBundle:Oeuvre:view
+    requirements:
+        _format: html
+        id: \d+
+
+ms_gestion_bibliotheque_emprunts_index:
+    path:      /gestionnaire/emprunt/
+    defaults: 
+        _controller: MSGestionBibliothequeBundle:Emprunt:index
+    requirements:
+        _format: html
+    
+ms_gestion_bibliotheque_emprunts_view:
+    path:      /gestionnaire/emprunt/{id}
+    defaults: 
+        _controller: MSGestionBibliothequeBundle:Emprunt:view
+    requirements:
+        _format: html
+        id: \d+
+    
+ms_gestion_bibliotheque_emprunts_add:
+    path:      /gestionnaire/emprunt/add
+    defaults: 
+        _controller: MSGestionBibliothequeBundle:Emprunt:add
+    requirements:
+        _format: html
+    
+ms_gestion_bibliotheque_reservations_index:
+    path:      /reservation/
+    defaults: 
+        _controller: MSGestionBibliothequeBundle:Reservation:index
+    requirements:
+        _format: html
+    
+ms_gestion_bibliotheque_reservations_view:
+    path:      /reservation/{id}
+    defaults: 
+        _controller: MSGestionBibliothequeBundle:Reservation:view
+    requirements:
+        _format: html
+        id: \d+
+        
+ms_gestion_bibliotheque_reservations_annulation:
+    path:      /reservation/annulation/{id}
+    defaults: 
+        _controller: MSGestionBibliothequeBundle:Reservation:annulation
+    requirements:
+        _format: html
+        id: \d+ 
+    
+ms_gestion_bibliotheque_reservations_add:
+    path:      /reservation/add
+    defaults: 
+        _controller: MSGestionBibliothequeBundle:Reservation:add
+    requirements:
+        _format: html

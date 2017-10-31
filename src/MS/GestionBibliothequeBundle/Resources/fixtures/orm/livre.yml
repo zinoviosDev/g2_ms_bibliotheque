@@ -1,0 +1,15 @@
+include:
+    - oeuvre.yml
+
+MS\GestionBibliothequeBundle\Entity\Livre:
+    livre (extends oeuvre) {1..500}:
+        titre: <sentence(5)>
+        sujet: <sentence(10)>
+        dateDePublication: <dateTimeBetween()>
+        langue: français
+        isbn: <ean13()>
+        nbrePages: <numberBetween(20, 1000)>
+        description: <fr_FR:paragraphs(3, true)>
+        resume: <fr_FR:paragraphs(6, true)>
+        exemplaires : '3x @exemplaire*'
+        

@@ -1,0 +1,24 @@
+{% extends "MSGestionBibliothequeBundle::layout.html.twig" %}
+
+{% block title %}
+  Vos réservations - {{ parent() }}
+{% endblock %}
+
+{% block ms_gestionbibliotheque_body %}
+
+  <h2>Vos réservations</h2>
+
+  <ul>
+    {% for reservation in listReservations %}
+      <li>
+        <a href="{{ path('ms_gestion_bibliotheque_reservations_view', {'id': reservation.id}) }}">
+          {{ reservation.title }}
+        </a>
+        le {{ reservation.dateReservation|date('d/m/Y') }}
+      </li>
+    {% else %}
+      <li>Réservations non encore disponibles. Revenez dans un moment !</li>
+    {% endfor %}
+  </ul>
+
+{% endblock %}

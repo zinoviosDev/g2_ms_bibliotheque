@@ -1,0 +1,25 @@
+{% extends "MSGestionBibliothequeBundle::layout.html.twig" %}
+
+{% block title %}
+  Accueil - {{ parent() }}
+{% endblock %}
+
+{% block ms_gestionbibliotheque_body %}
+
+  <h2>Liste des oeuvres</h2>
+
+  <ul>
+    {% for oeuvre in listOeuvres %}
+      <li>
+        <a href="{{ path('ms_gestion_bibliotheque_oeuvre_view', {'id': oeuvre.id}) }}">
+          {{ oeuvre.title }}
+        </a>
+        par {{ oeuvre.author }},
+        le {{ oeuvre.date|date('d/m/Y') }}
+      </li>
+    {% else %}
+      <li>Oeuvres non encore disponibles sur le site. Revenez dans un moment !</li>
+    {% endfor %}
+  </ul>
+
+{% endblock %}

@@ -1,0 +1,31 @@
+{% extends "MSGestionBibliothequeBundle::layout.html.twig" %}
+
+{% block title %}
+  Affichage d'une réservation - {{ parent() }}
+{% endblock %}
+
+{% block ms_gestionbibliotheque_body %}
+
+  <h2>Réservation</h2>
+  <ul>
+  	<li>Oeuvre réservée : {{ reservation.oeuvre.titre }}</li>
+  	<li>Date de réservation : {{ reservation.dateReservation|date('d/m/Y') }}</li>
+  	<li></li>
+  </ul>
+  
+  <div class="well">
+    <!-- contenu réservation -->
+  </div>
+
+  <p>
+    <a href="{{ path('ms_gestion_bibliotheque_home') }}" class="btn btn-default">
+      <i class="glyphicon glyphicon-chevron-left"></i>
+      Retour à la liste
+    </a>
+    <a href="{{ path('ms_gestion_bibliotheque_reservations_annulation', {'id': reservation.id}) }}" class="btn btn-danger">
+      <i class="glyphicon glyphicon-trash"></i>
+      Annuler la réservation
+    </a>
+  </p>
+
+{% endblock %}

@@ -1,0 +1,18 @@
+include:
+    - oeuvre.yml
+    - livre.yml
+    
+MS\GestionBibliothequeBundle\Entity\Auteur:
+    auteur {1..250}:    
+        prenom: <fr_FR:firstNameMale()>
+        nom: <fr_FR:lastName()>
+        genre: "male"
+        dateNaissance: <dateTimeBetween("-400 years", "now")>
+        oeuvres : '2x @livre*'
+        
+    auteur2 {1..250}:    
+        prenom: <fr_FR:firstNameFemale()>
+        nom: <fr_FR:lastName()>
+        genre: "female"
+        dateNaissance: <dateTimeBetween("-400 years", "now")>
+        #oeuvres : '[@livre*]'

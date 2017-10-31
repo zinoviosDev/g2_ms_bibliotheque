@@ -1,0 +1,10 @@
+oc_platform:
+    resource: "@OCPlatformBundle/Resources/config/routing.yml"
+    prefix:   /platform
+ms_gestionBibliotheque:
+    resource: "@MSGestionBibliothequeBundle/Resources/config/routing.yml"
+    prefix:   /bibliotheque
+easy_admin_bundle:
+    resource: "@EasyAdminBundle/Controller/AdminController.php"
+    type:     annotation
+    prefix:   /admin

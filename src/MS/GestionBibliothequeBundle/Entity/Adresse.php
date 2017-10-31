@@ -1,0 +1,186 @@
+<?php namespace MS\GestionBibliothequeBundle\Entity;
+
+use Doctrine\ORM\Mapping as ORM;
+
+/**
+ * Représente une adresse postale d'une Personne (physique ou morale) ou d'un Exemplaire
+ * @access public
+ * @author marc
+ * @package model
+ * @ORM\Entity 
+ * @ORM\Table(name="adresse")
+ */
+class Adresse extends AbstractEntity {
+	
+    /**
+     * @var int
+     *
+     * @ORM\Column(name="id", type="integer")
+     * @ORM\Id
+     * @ORM\GeneratedValue(strategy="AUTO")
+     */
+    private $id;
+	
+	/**
+	 * @ORM\Column(type="integer", name="numero")
+	 */
+	private $numero = 0;
+	
+	/**
+	 * @ORM\Column(type="string", name="libelle_voie")
+	 */
+	private $libelleVoie = null;
+	
+	/**
+	 * @ORM\Column(type="integer", name="code_postal")
+	 */
+	private $codePostal = 0;
+	
+	/**
+	 * @ORM\Column(type="string", name="ville")
+	 */
+	private $ville = null;
+	
+	/**
+	 * Many Adresses can be attached to One Personne (Unidirectional with Join Table)
+	 */
+	private $personne = null;
+	
+	/**
+	 * Many Adresses can be attached to one Exemplaire
+	 * @ORM\ManyToOne(targetEntity="Exemplaire", inversedBy="adresses")
+	 * @ORM\JoinColumn(name="exemplaire_id", referencedColumnName="id")
+	 */
+	private $exemplaire = null;
+	
+
+    /**
+     * Get id
+     *
+     * @return integer
+     */
+    public function getId()
+    {
+        return $this->id;
+    }
+
+    /**
+     * Set numero
+     *
+     * @param integer $numero
+     *
+     * @return Adresse
+     */
+    public function setNumero($numero)
+    {
+        $this->numero = $numero;
+
+        return $this;
+    }
+
+    /**
+     * Get numero
+     *
+     * @return integer
+     */
+    public function getNumero()
+    {
+        return $this->numero;
+    }
+
+    /**
+     * Set libelleVoie
+     *
+     * @param string $libelleVoie
+     *
+     * @return Adresse
+     */
+    public function setLibelleVoie($libelleVoie)
+    {
+        $this->libelleVoie = $libelleVoie;
+
+        return $this;
+    }
+
+    /**
+     * Get libelleVoie
+     *
+     * @return string
+     */
+    public function getLibelleVoie()
+    {
+        return $this->libelleVoie;
+    }
+
+    /**
+     * Set codePostal
+     *
+     * @param integer $codePostal
+     *
+     * @return Adresse
+     */
+    public function setCodePostal($codePostal)
+    {
+        $this->codePostal = $codePostal;
+
+        return $this;
+    }
+
+    /**
+     * Get codePostal
+     *
+     * @return integer
+     */
+    public function getCodePostal()
+    {
+        return $this->codePostal;
+    }
+
+    /**
+     * Set ville
+     *
+     * @param string $ville
+     *
+     * @return Adresse
+     */
+    public function setVille($ville)
+    {
+        $this->ville = $ville;
+
+        return $this;
+    }
+
+    /**
+     * Get ville
+     *
+     * @return string
+     */
+    public function getVille()
+    {
+        return $this->ville;
+    }
+
+    /**
+     * Set exemplaire
+     *
+     * @param \MS\GestionBibliothequeBundle\Entity\Exemplaire $exemplaire
+     *
+     * @return Adresse
+     */
+    public function setExemplaire(\MS\GestionBibliothequeBundle\Entity\Exemplaire $exemplaire = null)
+    {
+        $this->exemplaire = $exemplaire;
+
+        return $this;
+    }
+
+    /**
+     * Get exemplaire
+     *
+     * @return \MS\GestionBibliothequeBundle\Entity\Exemplaire
+     */
+    public function getExemplaire()
+    {
+        return $this->exemplaire;
+    }
+}
