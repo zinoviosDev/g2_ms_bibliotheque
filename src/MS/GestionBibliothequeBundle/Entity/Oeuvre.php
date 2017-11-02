@@ -15,7 +15,7 @@ use DateTime;
  * @ORM\DiscriminatorColumn(name="DISCR", type="string")
  * @ORM\DiscriminatorMap({"livre" = "Livre", "dvd" = "DVD" })
  */
-abstract class Oeuvre {
+abstract class Oeuvre extends AbstractEntity {
     
 	/**
      * @var int
@@ -88,22 +88,6 @@ abstract class Oeuvre {
 	 */
 	private $commentaires = array();
 	
-	/**
-     * @return the $etat
-     */
-    public function getEtat()
-    {
-        return $this->etat;
-    }
-
-    /**
-     * @param string $etat
-     */
-    public function setEtat($etat)
-    {
-        $this->etat = $etat;
-    }
-
     public function __construct() {
 	    $this->exemplaires = new ArrayCollection();
 	    $this->commentaires = new ArrayCollection();
@@ -142,6 +126,10 @@ abstract class Oeuvre {
      */
     public function getTitre()
     {
+        return $this->titre;
+    }
+    
+    public function titre() {
         return $this->titre;
     }
 
@@ -263,6 +251,30 @@ abstract class Oeuvre {
     public function getEditeur()
     {
         return $this->editeur;
+    }
+
+    /**
+     * Set auteur
+     *
+     * @param \MS\GestionBibliothequeBundle\Entity\Auteur $auteur
+     *
+     * @return Oeuvre
+     */
+    public function setAuteur(\MS\GestionBibliothequeBundle\Entity\Auteur $auteur = null)
+    {
+        $this->auteur = $auteur;
+
+        return $this;
+    }
+
+    /**
+     * Get auteur
+     *
+     * @return \MS\GestionBibliothequeBundle\Entity\Auteur
+     */
+    public function getAuteur()
+    {
+        return $this->auteur;
     }
 
     /**

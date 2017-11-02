@@ -53,7 +53,7 @@ class ReservationController extends Controller {
         if ($request->isMethod('POST')) {            
             $request->getSession()->getFlashBag()->add('notice', 'Annonce bien enregistrée.');
             // Puis on redirige vers la page de visualisation de cettte annonce
-            return $this->redirectToRoute('ms_gestion_bibliotheque_reservations_view', array('id' => 5));
+            return $this->redirectToRoute('g2_ms_gestion_bibliotheque_reservations_view', array('id' => 5));
         }
         // Si on n'est pas en POST, alors on affiche le formulaire
         return $this->render('MSGestionBibliothequeBundle:Reservation:add.html.twig', array(

@@ -1,0 +1,30 @@
+MS\GestionBibliothequeBundle\Entity\Adresse:
+    adresse{1..100}:    
+        numero: <numberBetween(1, 150)>
+        libelleVoie: <fr_FR:streetName()>
+        codePostal: <numberBetween(13001, 13016)>
+        ville: "Marseille"
+        
+MS\GestionBibliothequeBundle\Entity\CarteBibliotheque:
+    carteBibliotheque{1..100}:
+        numeroCarte: "E100<creditCardNumber()>"
+        motDePasse: <password()>
+               
+MS\GestionBibliothequeBundle\Entity\Oeuvre:
+    oeuvre (template):    
+        titre: <sentence(5)>
+        sujet: <sentence(10)>
+        dateDePublication: <dateTimeBetween()>
+        langue: français
+
+MS\GestionBibliothequeBundle\Entity\Livre:
+    livre{1..500} (extends oeuvre):
+        titre: <sentence(5)>
+        sujet: <sentence(10)>
+        dateDePublication: <dateTimeBetween()>
+        langue: français
+        isbn: <ean13()>
+        nbrePages: <numberBetween(20, 1000)>
+        description: <fr_FR:paragraphs(3, true)>
+        resume: <fr_FR:paragraphs(6, true)>
+        format: ''

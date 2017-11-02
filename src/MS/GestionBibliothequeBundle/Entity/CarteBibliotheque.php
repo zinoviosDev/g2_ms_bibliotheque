@@ -29,7 +29,7 @@ class CarteBibliotheque {
 	
 	/**
 	 * AttributeType string
-	 * @ORM\Column(type="string", name="MOT_DE_PASSE")
+	 * @ORM\Column(type="string", name="mot_de_passe")
 	 */
 	private $motDePasse = null;
 	

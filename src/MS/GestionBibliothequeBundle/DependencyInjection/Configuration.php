@@ -18,7 +18,7 @@ class Configuration implements ConfigurationInterface
     public function getConfigTreeBuilder()
     {
         $treeBuilder = new TreeBuilder();
-        $rootNode = $treeBuilder->root('ms_gestion_bibliotheque');
+        $rootNode = $treeBuilder->root('g2_ms_gestion_bibliotheque');
 
         // Here you should define the parameters that are allowed to
         // configure your bundle. See the documentation linked above for

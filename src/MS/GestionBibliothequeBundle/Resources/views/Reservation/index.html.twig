@@ -11,7 +11,7 @@
   <ul>
     {% for reservation in listReservations %}
       <li>
-        <a href="{{ path('ms_gestion_bibliotheque_reservations_view', {'id': reservation.id}) }}">
+        <a href="{{ path('g2_ms_gestion_bibliotheque_reservations_view', {'id': reservation.id}) }}">
           {{ reservation.title }}
         </a>
         le {{ reservation.dateReservation|date('d/m/Y') }}

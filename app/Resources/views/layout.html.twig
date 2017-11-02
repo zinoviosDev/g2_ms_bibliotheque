@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <meta charset="utf-8">
+  <meta http-equiv="Content-Type" content="text/html" charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
   <title>{% block title %}Bibliothèque du temps libre{% endblock %}</title>
@@ -9,46 +9,123 @@
   {% block stylesheets %}
     {# On charge le CSS de bootstrap depuis le site directement #}
     <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
+    <link rel="stylesheet" href="{{ asset('bundles/g2_ms_gestion_bibliotheque/stylesheet/main.css') }}" type="text/css" />
   {% endblock %}
 </head>
 
 <body>
   <div class="container">
-    <div id="header" class="jumbotron">
-      <h1>Bibliothèque Le Temps Libre</h1>
-      <p>
-        Consultation des oeuvres (livres, DVD) et gestion des vos réservations
-      </p>
-    </div>
-
+  	<!-- block haut de page -->
+  	<header class="row panel">
+		<nav class="navbar navbar-default navbar-fixed-top" role="navigation">
+			<div class="container">
+				 <!-- Title -->
+		        <div class="navbar-header pull-left">
+		          <a href="." class="navbar-brand">Bibliothèque Le Temps Libre</a>
+		        </div>
+				<div class="navbar-header">
+					<button type="button" class="navbar-toggle collapsed"
+						data-toggle="collapse" data-target=".bs-js-navbar-scrollspy">
+						<span class="icon-bar"> <span class="sr-only">Toggle navigation</span>
+						</span> <span class="icon-bar"></span> <span class="icon-bar"></span>
+					</button>
+				</div>
+				<div class="collapse navbar-collapse bs-js-navbar-scrollspy" id="menu_bar" role="navigation">
+					<div class="nav navbar-nav">
+						<!--ul class="nav pull-right">			            
+				            <li class="nav pull-left"><a href="AfficheCours.php">Cours</a></li>
+				            <li class="nav pull-left"><a href="AfficheEnseignants.php">Enseignants</a></li>
+				            <li class="nav pull-left"><a href="AfficheEtudiants.php">Etudiants</a></li>
+				        </ul-->
+				        <!-- mettre en place une barre de recherche -->
+				        <form class="form-inline my-2 my-lg-0">
+                          <input class="form-control mr-sm-2 menu-consult-search" type="search" 
+                          	placeholder="Rechercher une oeuvre par titre ou par auteur" aria-label="Search">
+                          <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Rechercher</button>
+                        </form>
+			       </div>
+			       <div class="nav navbar-nav pull-right">
+			       		<div class="col-md-8 welcome-user"><strong>Bonjour user</strong></div>
+			       		<div class="col-md-4">
+    						<ul class="nav">
+    						{# TODO: to implement
+    				            {% if user.authentifie %}
+    				            <li class="navbar-text">
+    				            	<strong>Bonjour user</strong></li>
+    				            {% endif %}
+    				        #}
+    				        {# TODO: suppress after implementing #}
+    				            <li class="dropdown pull-right">
+    				              <a href="#" data-toggle="dropdown" class="dropdown-toggle user-profil"><span class="glyphicon glyphicon-user"></span><b class="caret"></b></a>
+    				              <ul class="dropdown-menu">
+    				                <li>
+    				                  <a href="/users/id" title="Profil">Profil</a>
+    				                </li>
+    				                <li>
+    				                	{# TODO: to implement
+    				                	<?php 
+    				                		if($authentifie){
+    				                			echo('<a href="logout.php" title="Déconnexion">Déconnexion</a>');
+    				                		}
+    				                		else {
+    				                			echo('<a href="login.php" title="Connexion">Connexion</a>');
+    				                		}
+    				                	?>
+    				                	#}
+    				                	<a href="logout.php" title="Déconnexion">Déconnexion</a> {# TODO: suppress after implementing #}
+    				                	<a href="login.php" title="Connexion">Connexion</a> {# TODO: suppress after implementing #}
+    				                </li>
+    				              </ul>
+    				            </li>
+    				         </ul>
+				         </div>
+				     </div>
+				</div>
+				<div class="row sous-titre">
+                    Consultation des oeuvres (livres, DVD) et gestion de vos réservations et emprunts
+                </div>
+			</div>
+		</nav>
+	</header>
+	<div class="body_main container">
+	<!-- fin block haut de page -->
+	
     <div class="row">
-      <div id="menu" class="col-md-3">
-        <h3>Les oeuvres</h3>
+      <!-- block menu gauche -->
+      <aside id="menu_gauche" class="col-md-2">
+        <h4>Rechercher des livres / DVDs</h4>
         <ul class="nav nav-pills nav-stacked">
-          <li><a href="{{ path('ms_gestion_bibliotheque_home') }}">Accueil</a></li>
-          <li><a href="">Rechercher une oeuvre (non actif)</a></li>
+          <li><a href="">DVDs</a></li>
+          <li><a href="">Livres</a></li>
         </ul>
-
-        <h4>Gestion des réservations</h4>
+        <h4>Vos réservations</h4>
 		<ul class="nav nav-pills nav-stacked">
-          <li><a href="{{ path('ms_gestion_bibliotheque_reservations_index') }}">Consulter vos réservations</a></li>
-          <li><a href="{{ path('ms_gestion_bibliotheque_reservations_add') }}">Ajouter une réservation</a></li>
+          <li><a href="{{ path('g2_ms_gestion_bibliotheque_reservations_index') }}">Consulter vos réservations</a></li>
         </ul>
-      </div>
-      <div id="content" class="col-md-9">
+        <h4>Vos emprunts</h4>
+		<ul class="nav nav-pills nav-stacked">
+          <li><a href="{{ path('g2_ms_gestion_bibliotheque_reservations_index') }}">Consulter vos emprunts</a></li>
+        </ul>
+      </aside>
+      <section id="content" class="col-md-10">
         {% block body %}
         {% endblock %}
-      </div>
+      </section>
     </div>
-
+    <!-- fin block menu gauche -->
     <hr>
-
+	</div>
     <footer>
       <p>Dernière édition du site : {{ 'now'|date('Y') }}.</p>
     </footer>
   </div>
 
   {% block javascripts %}
+    <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+	<!--[if lt IE 9]>
+	  <script src="http://cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7/html5shiv.js"></script>
+	  <script src="http://cdnjs.cloudflare.com/ajax/libs/respond.js/1.3.0/respond.js"></script>
+	<![endif]-->
     {# Ajoutez ces lignes JavaScript si vous comptez vous servir des fonctionnalités du bootstrap Twitter #}
     <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
     <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>

@@ -19,7 +19,7 @@ class Dummy {
      * @var int
      * 
      * @ORM\Id
-     * @ORM\Column(name="id")
+     * @ORM\Column(name="id", type="integer")
      * @ORM\GeneratedValue(strategy="AUTO")
      */
     private $id;

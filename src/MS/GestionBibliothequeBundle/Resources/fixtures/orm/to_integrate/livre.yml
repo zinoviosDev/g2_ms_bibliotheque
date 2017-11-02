@@ -7,9 +7,9 @@ MS\GestionBibliothequeBundle\Entity\Livre:
         sujet: <sentence(10)>
         dateDePublication: <dateTimeBetween()>
         langue: français
-        isbn: <ean13()>
+        isbn: <isbn13()>
         nbrePages: <numberBetween(20, 1000)>
         description: <fr_FR:paragraphs(3, true)>
         resume: <fr_FR:paragraphs(6, true)>
-        exemplaires: '<numberBetween(1, 2)>x @exemplaire*'
+        format: ''
         

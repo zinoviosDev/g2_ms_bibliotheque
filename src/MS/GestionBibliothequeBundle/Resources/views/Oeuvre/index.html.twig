@@ -9,13 +9,13 @@
   <h2>Liste des oeuvres</h2>
 
   <ul>
-    {% for oeuvre in listOeuvres %}
+    {% for oeuvre in listeOeuvres %}
       <li>
-        <a href="{{ path('ms_gestion_bibliotheque_oeuvre_view', {'id': oeuvre.id}) }}">
-          {{ oeuvre.title }}
+        <a href="{# { path('g2_ms_gestion_bibliotheque_oeuvre_view', {'id': oeuvre.id}) } #}">
+          {{ oeuvre.titre }}
         </a>
-        par {{ oeuvre.author }},
-        le {{ oeuvre.date|date('d/m/Y') }}
+        par {# { oeuvre.auteur.prenom }} {{ oeuvre.auteur.nom } #},
+        le {{ oeuvre.dateDePublication|date('d/m/Y') }}
       </li>
     {% else %}
       <li>Oeuvres non encore disponibles sur le site. Revenez dans un moment !</li>

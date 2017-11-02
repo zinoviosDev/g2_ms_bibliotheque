@@ -15,10 +15,7 @@ use DateTime;
  * @ORM\DiscriminatorColumn(name="DISCR", type="string")
  * @ORM\DiscriminatorMap({"livre" = "Livre", "dvd" = "DVD" })
  */
-abstract class Oeuvre {
-    const ETAT_NEUF = 0;
-    const ETAT_MOYEN = 1;
-    const ETAT_DEGRADE= 2;
+abstract class Oeuvre extends AbstractEntity {
     
 	/**
      * @var int
@@ -61,14 +58,6 @@ abstract class Oeuvre {
 	private $langue = null;
 	
 	/**
-	 * One Oeuvre has Many Emprunt
-	 * AssociationType model.Emprunt
-	 * AssociationMultiplicity 0..*
-	 * @ORM\OneToMany(targetEntity="Emprunt", mappedBy="oeuvre")
-	 */
-	private $emprunts;
-	
-	/**
 	 * One Editeur has Many Oeuvre (One To Many, Bidirectional)
 	 * AssociationType model.Editeur
 	 * AssociationMultiplicity 1
@@ -78,38 +67,28 @@ abstract class Oeuvre {
 	private $editeur;
 	
 	/**
-	 * Many Auteur have Many Oeuvre ( Many-To-Many, Unidirectional)
 	 * AssociationType model.Auteur
 	 * AssociationMultiplicity *..*
+	 * @ORM\ManyToOne(targetEntity="Auteur", inversedBy="oeuvres")
+	 * @ORM\JoinColumn(name="auteur_id", referencedColumnName="id")
 	 */
-	private $auteurs;
-	
-	/**
-	 * AssociationType model.Reservation (One To Many, bidirectional)
-	 * AssociationMultiplicity 0..*
-	 * @ORM\OneToMany(targetEntity="Reservation", mappedBy="oeuvre")
-	 */
-	private $reservations;
-	
-	private $etat = ETAT_NEUF;
+	private $auteur;
 
 	/**
 	 * AssociationType model.Exemplaire (One To Many, bidirectional)
 	 * AssociationMultiplicity *
-	 * @ORM\OneToMany(targetEntity="Exemplaire", mappedBy="exemplaireOeuvre")
+	 * @ORM\OneToMany(targetEntity="Exemplaire", mappedBy="oeuvre", cascade={"persist"})
 	 */
 	private $exemplaires;
 	
 	/**
 	 * AssociationType model.Commentaire
 	 * AssociationMultiplicity *
-	 * @ORM\OneToMany(targetEntity="Commentaire", mappedBy="commentaireOeuvre")
+	 * @ORM\OneToMany(targetEntity="Commentaire", mappedBy="commentaireOeuvre", cascade={"persist"})
 	 */
 	private $commentaires = array();
 	
-	public function __construct() {
-	    $this->emprunts = new ArrayCollection();
-	    $this->reservations = new ArrayCollection();
+    public function __construct() {
 	    $this->exemplaires = new ArrayCollection();
 	    $this->commentaires = new ArrayCollection();
 	}
