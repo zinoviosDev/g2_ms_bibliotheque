@@ -3,7 +3,7 @@ oc_platform:
     prefix:   /platform
 ms_gestionBibliotheque:
     resource: "@MSGestionBibliothequeBundle/Resources/config/routing.yml"
-    prefix:   /bibliotheque
+    prefix:   /
 easy_admin_bundle:
     resource: "@EasyAdminBundle/Controller/AdminController.php"
     type:     annotation

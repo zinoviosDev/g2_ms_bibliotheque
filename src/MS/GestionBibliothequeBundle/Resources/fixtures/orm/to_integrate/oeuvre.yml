@@ -1,7 +1,10 @@
+include:
+    - exemplaire.yml
+
 MS\GestionBibliothequeBundle\Entity\Oeuvre:
     oeuvre (template):    
         titre: <sentence(5)>
         sujet: <sentence(10)>
         dateDePublication: <dateTimeBetween()>
         langue: français
-        exemplaires : '3x @exemplaire*'
+        exemplaires: '<numberBetween(1, 10)>x @exemplaire*'

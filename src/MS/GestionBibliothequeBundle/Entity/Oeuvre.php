@@ -58,14 +58,6 @@ abstract class Oeuvre {
 	private $langue = null;
 	
 	/**
-	 * One Oeuvre has Many Emprunt
-	 * AssociationType model.Emprunt
-	 * AssociationMultiplicity 0..*
-	 * @ORM\OneToMany(targetEntity="Emprunt", mappedBy="oeuvre")
-	 */
-	private $emprunts;
-	
-	/**
 	 * One Editeur has Many Oeuvre (One To Many, Bidirectional)
 	 * AssociationType model.Editeur
 	 * AssociationMultiplicity 1
@@ -81,25 +73,18 @@ abstract class Oeuvre {
 	 * @ORM\JoinColumn(name="auteur_id", referencedColumnName="id")
 	 */
 	private $auteur;
-	
-	/**
-	 * AssociationType model.Reservation (One To Many, bidirectional)
-	 * AssociationMultiplicity 0..*
-	 * @ORM\OneToMany(targetEntity="Reservation", mappedBy="oeuvre")
-	 */
-	private $reservations;
 
 	/**
 	 * AssociationType model.Exemplaire (One To Many, bidirectional)
 	 * AssociationMultiplicity *
-	 * @ORM\OneToMany(targetEntity="Exemplaire", mappedBy="oeuvre")
+	 * @ORM\OneToMany(targetEntity="Exemplaire", mappedBy="oeuvre", cascade={"persist"})
 	 */
 	private $exemplaires;
 	
 	/**
 	 * AssociationType model.Commentaire
 	 * AssociationMultiplicity *
-	 * @ORM\OneToMany(targetEntity="Commentaire", mappedBy="commentaireOeuvre")
+	 * @ORM\OneToMany(targetEntity="Commentaire", mappedBy="commentaireOeuvre", cascade={"persist"})
 	 */
 	private $commentaires = array();
 	
@@ -120,8 +105,6 @@ abstract class Oeuvre {
     }
 
     public function __construct() {
-	    $this->emprunts = new ArrayCollection();
-	    $this->reservations = new ArrayCollection();
 	    $this->exemplaires = new ArrayCollection();
 	    $this->commentaires = new ArrayCollection();
 	}
@@ -259,40 +242,6 @@ abstract class Oeuvre {
     }
 
     /**
-     * Add emprunt
-     *
-     * @param \MS\GestionBibliothequeBundle\Entity\Emprunt $emprunt
-     *
-     * @return Oeuvre
-     */
-    public function addEmprunt(\MS\GestionBibliothequeBundle\Entity\Emprunt $emprunt)
-    {
-        $this->emprunts[] = $emprunt;
-
-        return $this;
-    }
-
-    /**
-     * Remove emprunt
-     *
-     * @param \MS\GestionBibliothequeBundle\Entity\Emprunt $emprunt
-     */
-    public function removeEmprunt(\MS\GestionBibliothequeBundle\Entity\Emprunt $emprunt)
-    {
-        $this->emprunts->removeElement($emprunt);
-    }
-
-    /**
-     * Get emprunts
-     *
-     * @return \Doctrine\Common\Collections\Collection
-     */
-    public function getEmprunts()
-    {
-        return $this->emprunts;
-    }
-
-    /**
      * Set editeur
      *
      * @param \MS\GestionBibliothequeBundle\Entity\Editeur $editeur
@@ -314,40 +263,6 @@ abstract class Oeuvre {
     public function getEditeur()
     {
         return $this->editeur;
-    }
-
-    /**
-     * Add reservation
-     *
-     * @param \MS\GestionBibliothequeBundle\Entity\Reservation $reservation
-     *
-     * @return Oeuvre
-     */
-    public function addReservation(\MS\GestionBibliothequeBundle\Entity\Reservation $reservation)
-    {
-        $this->reservations[] = $reservation;
-
-        return $this;
-    }
-
-    /**
-     * Remove reservation
-     *
-     * @param \MS\GestionBibliothequeBundle\Entity\Reservation $reservation
-     */
-    public function removeReservation(\MS\GestionBibliothequeBundle\Entity\Reservation $reservation)
-    {
-        $this->reservations->removeElement($reservation);
-    }
-
-    /**
-     * Get reservations
-     *
-     * @return \Doctrine\Common\Collections\Collection
-     */
-    public function getReservations()
-    {
-        return $this->reservations;
     }
 
     /**

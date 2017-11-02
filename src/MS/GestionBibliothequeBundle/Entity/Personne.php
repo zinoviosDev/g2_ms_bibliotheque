@@ -29,20 +29,14 @@ abstract class Personne  extends AbstractEntity {
 	 * One Personne has Many Adresse (Unidirectional with Join Table)
 	 * AssociationType model.Adresse
 	 * AssociationMultiplicity 1..*
-	 * @ORM\ManyToMany(targetEntity="Adresse")
-	 * @ORM\JoinTable(name="personnes_adresses",
-	 *     joinColumns={@ORM\JoinColumn(name="personne_id", referencedColumnName="id")},
-	 *     inverseJoinColumns={@ORM\JoinColumn(name="adresse_id", referencedColumnName="id", unique=true)}
-	 *   )
+	 * @ORM\OneToMany(targetEntity="Adresse", mappedBy="personne", cascade={"persist"})
 	 */
-	private $adressesPersonne;
+	private $adresses;
 	
 	public function __construct() {
-	    $this->adressesPersonne = new ArrayCollection();
+	    $this->adresses = new ArrayCollection();
 	}
 	
-    
-
     /**
      * Get id
      *
@@ -54,36 +48,44 @@ abstract class Personne  extends AbstractEntity {
     }
 
     /**
-     * Add adressesPersonne
+     * Add adresses
      *
-     * @param \MS\GestionBibliothequeBundle\Entity\Adresse $adressesPersonne
+     * @param \MS\GestionBibliothequeBundle\Entity\Adresse $adresses
      *
      * @return Personne
      */
-    public function addAdressesPersonne(\MS\GestionBibliothequeBundle\Entity\Adresse $adressesPersonne)
+    public function addAdresses(\MS\GestionBibliothequeBundle\Entity\Adresse $adresses)
     {
-        $this->adressesPersonne[] = $adressesPersonne;
+        $this->adresses[] = $adresses;
 
         return $this;
     }
 
     /**
-     * Remove adressesPersonne
+     * Remove adresses
      *
-     * @param \MS\GestionBibliothequeBundle\Entity\Adresse $adressesPersonne
+     * @param \MS\GestionBibliothequeBundle\Entity\Adresse $adresses
      */
-    public function removeAdressesPersonne(\MS\GestionBibliothequeBundle\Entity\Adresse $adressesPersonne)
+    public function removeAdresses(\MS\GestionBibliothequeBundle\Entity\Adresse $adresses)
     {
-        $this->adressesPersonne->removeElement($adressesPersonne);
+        $this->adresses->removeElement($adresses);
     }
 
     /**
-     * Get adressesPersonne
+     * Get adresses
      *
      * @return \Doctrine\Common\Collections\Collection
      */
-    public function getAdressesPersonne()
+    public function getAdresses()
     {
-        return $this->adressesPersonne;
+        return $this->adresses;
+    }
+    
+    /**
+     * @param \Doctrine\Common\Collections\ArrayCollection $adresses
+     */
+    public function setAdresses($adresses)
+    {
+        $this->adresses = $adresses;
     }
 }

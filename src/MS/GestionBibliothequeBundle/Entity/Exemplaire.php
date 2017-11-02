@@ -43,18 +43,34 @@ class Exemplaire {
 	
 	/**
 	 * AssociationType model.Oeuvre (Many To One, Unidirectional)
-	 * AssociationMultiplicity 0..*
+	 * AssociationMultiplicity 1..*
 	 * @ORM\ManyToOne(targetEntity="Oeuvre", inversedBy="oeuvre")
 	 * @ORM\JoinColumn(name="oeuvre_id", referencedColumnName="id")
 	 */
 	private $oeuvre;
 	
 	/**
-	 * AssociationType model.Adresse (One To Many, bidirectional)
-	 * AssociationMultiplicity *
-	 * @ORM\OneToMany(targetEntity="Adresse", mappedBy="exemplaire")
+	 * AssociationType model.Adresse (One To One)
+	 * AssociationMultiplicity 1..1
+	 * @ORM\OneToOne(targetEntity="MS\GestionBibliothequeBundle\Entity\Adresse", cascade={"persist"})
+	 * @ORM\JoinColumn(nullable=false)
 	 */
-	private $adresses;
+	private $adresse;
+	
+	/**
+	 * One Oeuvre has 0 or 1 Emprunt
+	 * AssociationType model.Emprunt
+	 * AssociationMultiplicity 1..1
+	 * @ORM\OneToOne(targetEntity="Emprunt", cascade={"persist"})
+	 */
+	private $emprunt;
+	
+	/**
+	 * AssociationType model.Reservation (One To One)
+	 * AssociationMultiplicity 1..1
+	 * @ORM\OneToOne(targetEntity="Reservation", cascade={"persist"})
+	 */
+	private $reservation;
 	
 	/**
 	 * @ORM\Column(type="integer")
@@ -62,17 +78,9 @@ class Exemplaire {
 	private $etat = self::ETAT_NEUF;
 	
 	
-	public function __construct() {
-	    $this->adresses = new ArrayCollection();
-	}
+	public function __construct() {}
 
-    /**
-     * @param \Doctrine\Common\Collections\ArrayCollection $adresses
-     */
-    public function setAdresses($adresses)
-    {
-        $this->adresses = $adresses;
-    }
+    
 
     /**
      * Get id
@@ -181,36 +189,74 @@ class Exemplaire {
     }
 
     /**
-     * Add adress
+     * Set adresse
      *
-     * @param \MS\GestionBibliothequeBundle\Entity\Adresse $adress
+     * @param \MS\GestionBibliothequeBundle\Entity\Adresse $adresse
      *
      * @return Exemplaire
      */
-    public function addAdress(\MS\GestionBibliothequeBundle\Entity\Adresse $adress)
+    public function setAdresse(\MS\GestionBibliothequeBundle\Entity\Adresse $adresse)
     {
-        $this->adresses[] = $adress;
+        $this->adresse = $adresse;
 
         return $this;
     }
 
     /**
-     * Remove adress
+     * Get adresse
      *
-     * @param \MS\GestionBibliothequeBundle\Entity\Adresse $adress
+     * @return \MS\GestionBibliothequeBundle\Entity\Adresse
      */
-    public function removeAdress(\MS\GestionBibliothequeBundle\Entity\Adresse $adress)
+    public function getAdresse()
     {
-        $this->adresses->removeElement($adress);
+        return $this->adresse;
     }
 
     /**
-     * Get adresses
+     * Set emprunt
      *
-     * @return \Doctrine\Common\Collections\Collection
+     * @param \MS\GestionBibliothequeBundle\Entity\Emprunt $emprunt
+     *
+     * @return Exemplaire
      */
-    public function getAdresses()
+    public function setEmprunt(\MS\GestionBibliothequeBundle\Entity\Emprunt $emprunt = null)
     {
-        return $this->adresses;
+        $this->emprunt = $emprunt;
+
+        return $this;
+    }
+
+    /**
+     * Get emprunt
+     *
+     * @return \MS\GestionBibliothequeBundle\Entity\Emprunt
+     */
+    public function getEmprunt()
+    {
+        return $this->emprunt;
+    }
+
+    /**
+     * Set reservation
+     *
+     * @param \MS\GestionBibliothequeBundle\Entity\Reservation $reservation
+     *
+     * @return Exemplaire
+     */
+    public function setReservation(\MS\GestionBibliothequeBundle\Entity\Reservation $reservation = null)
+    {
+        $this->reservation = $reservation;
+
+        return $this;
+    }
+
+    /**
+     * Get reservation
+     *
+     * @return \MS\GestionBibliothequeBundle\Entity\Reservation
+     */
+    public function getReservation()
+    {
+        return $this->reservation;
     }
 }

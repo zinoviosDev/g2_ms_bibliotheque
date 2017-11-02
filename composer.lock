@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "5ab160ab99541daf56da44c264b25771",
+    "content-hash": "84c3215965043a05f0338fb3845fa0d9",
     "packages": [
         {
             "name": "composer/ca-bundle",
@@ -650,16 +650,16 @@
         },
         {
             "name": "doctrine/doctrine-fixtures-bundle",
-            "version": "v2.4.0",
+            "version": "v2.4.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/doctrine/DoctrineFixturesBundle.git",
-                "reference": "7bb198c044b798b54e6be37c7929339aa645c3bf"
+                "reference": "74b8cc70a4a25b774628ee59f4cdf3623a146273"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/doctrine/DoctrineFixturesBundle/zipball/7bb198c044b798b54e6be37c7929339aa645c3bf",
-                "reference": "7bb198c044b798b54e6be37c7929339aa645c3bf",
+                "url": "https://api.github.com/repos/doctrine/DoctrineFixturesBundle/zipball/74b8cc70a4a25b774628ee59f4cdf3623a146273",
+                "reference": "74b8cc70a4a25b774628ee59f4cdf3623a146273",
                 "shasum": ""
             },
             "require": {
@@ -703,7 +703,7 @@
                 "Fixture",
                 "persistence"
             ],
-            "time": "2017-09-10T23:22:01+00:00"
+            "time": "2017-10-30T19:26:42+00:00"
         },
         {
             "name": "doctrine/inflector",
@@ -1063,16 +1063,16 @@
         },
         {
             "name": "javiereguiluz/easyadmin-bundle",
-            "version": "v1.17.5",
+            "version": "v1.17.6",
             "source": {
                 "type": "git",
                 "url": "https://github.com/javiereguiluz/EasyAdminBundle.git",
-                "reference": "f2fec43743dfaa576d5549f858695f38303e9cbe"
+                "reference": "4552ca050bdcc3d9de4b43da4200fcf0f0f1b2db"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/javiereguiluz/EasyAdminBundle/zipball/f2fec43743dfaa576d5549f858695f38303e9cbe",
-                "reference": "f2fec43743dfaa576d5549f858695f38303e9cbe",
+                "url": "https://api.github.com/repos/javiereguiluz/EasyAdminBundle/zipball/4552ca050bdcc3d9de4b43da4200fcf0f0f1b2db",
+                "reference": "4552ca050bdcc3d9de4b43da4200fcf0f0f1b2db",
                 "shasum": ""
             },
             "require": {
@@ -1100,7 +1100,7 @@
                 "symfony/twig-bundle": "~2.3|~3.0|~4.0",
                 "symfony/validator": "~2.3|~3.0|~4.0",
                 "twig/extensions": "~1.0",
-                "twig/twig": "~1.14,>=1.14.2|~2.0"
+                "twig/twig": "~1.26|~2.0"
             },
             "require-dev": {
                 "doctrine/doctrine-fixtures-bundle": "~2.2",
@@ -1148,7 +1148,7 @@
                 "backend",
                 "generator"
             ],
-            "time": "2017-10-20T17:44:34+00:00"
+            "time": "2017-11-01T19:02:08+00:00"
         },
         {
             "name": "jdorn/sql-formatter",
@@ -2759,16 +2759,16 @@
         },
         {
             "name": "nelmio/alice",
-            "version": "v3.1.0",
+            "version": "v3.1.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/nelmio/alice.git",
-                "reference": "11025bcbfe79594225f5d2332c52cbe90c29872f"
+                "reference": "bd42498862813b1d0b4de8c43877a0a33611f2b4"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/nelmio/alice/zipball/11025bcbfe79594225f5d2332c52cbe90c29872f",
-                "reference": "11025bcbfe79594225f5d2332c52cbe90c29872f",
+                "url": "https://api.github.com/repos/nelmio/alice/zipball/bd42498862813b1d0b4de8c43877a0a33611f2b4",
+                "reference": "bd42498862813b1d0b4de8c43877a0a33611f2b4",
                 "shasum": ""
             },
             "require": {
@@ -2828,7 +2828,7 @@
                 "faker",
                 "test"
             ],
-            "time": "2017-10-22T15:46:01+00:00"
+            "time": "2017-10-31T11:42:23+00:00"
         },
         {
             "name": "sensio/generator-bundle",
@@ -3024,7 +3024,7 @@
     "stability-flags": {
         "hautelook/alice-bundle": 10,
         "nelmio/alice": 10,
-        "theofidry/alice-data-fixtures": 10
+        "theofidry/alice-data-fixtures": 5
     },
     "prefer-stable": false,
     "prefer-lowest": false,

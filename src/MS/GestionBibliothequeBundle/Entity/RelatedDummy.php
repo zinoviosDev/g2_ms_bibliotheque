@@ -8,9 +8,9 @@ use Doctrine\ORM\Mapping as ORM;
  * @author marc
  * @package model
  * @ORM\Entity
- * @ORM\Table(name="dummy_related")
+ * @ORM\Table(name="related_dummy")
  */
-class DummyRelated {
+class RelatedDummy {
     
     /**
      * @var int
@@ -26,6 +26,12 @@ class DummyRelated {
      * @ORM\Column(type="string")
      */
     private $name = null;
+    
+    /**
+     * @ORM\ManyToOne(targetEntity="MS\GestionBibliothequeBundle\Entity\Dummy")
+     * @ORM\JoinColumn(nullable=false)
+     */
+    private $dummy;
     
     /**
      * @return the $id
@@ -51,4 +57,28 @@ class DummyRelated {
         $this->name = $name;
     }
 
+
+    /**
+     * Set dummy
+     *
+     * @param \MS\GestionBibliothequeBundle\Entity\Dummy $dummy
+     *
+     * @return DummyRelated
+     */
+    public function setDummy(\MS\GestionBibliothequeBundle\Entity\Dummy $dummy)
+    {
+        $this->dummy = $dummy;
+
+        return $this;
+    }
+
+    /**
+     * Get dummy
+     *
+     * @return \MS\GestionBibliothequeBundle\Entity\Dummy
+     */
+    public function getDummy()
+    {
+        return $this->dummy;
+    }
 }

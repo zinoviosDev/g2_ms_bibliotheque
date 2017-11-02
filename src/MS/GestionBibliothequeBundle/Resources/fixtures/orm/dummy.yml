@@ -1,5 +1,0 @@
-MS\GestionBibliothequeBundle\Entity\Dummy:
-    dummy_{1..10}:
-        name: <fr_FR:name()>
-        dummy_related (unique): '@dummy_related*'
-

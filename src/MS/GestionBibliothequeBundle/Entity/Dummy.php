@@ -1,4 +1,7 @@
-<?php namespace MS\GestionBibliothequeBundle\Entity;
+<?php 
+declare(strict_types=1);
+
+namespace MS\GestionBibliothequeBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 
@@ -14,9 +17,9 @@ class Dummy {
     
     /**
      * @var int
-     *
-     * @ORM\Column(name="id", type="integer")
+     * 
      * @ORM\Id
+     * @ORM\Column(name="id")
      * @ORM\GeneratedValue(strategy="AUTO")
      */
     private $id;
@@ -26,15 +29,19 @@ class Dummy {
      * @ORM\Column(type="string")
      */
     private $name = null;
-    
+      
+
     /**
-     * One Dummy has One Dummy.
-     * @ORM\OneToOne(targetEntity="DummyRelated", cascade={"persist"})
+     * Constructor
      */
-    private $dummyRelated = null;
-    
+    public function __construct()
+    {
+    }
+
     /**
-     * @return the $id
+     * Get id
+     *
+     * @return integer
      */
     public function getId()
     {
@@ -42,36 +49,26 @@ class Dummy {
     }
 
     /**
-     * @return the $name
+     * Set name
+     *
+     * @param string $name
+     *
+     * @return Dummy
+     */
+    public function setName($name)
+    {
+        $this->name = $name;
+
+        return $this;
+    }
+
+    /**
+     * Get name
+     *
+     * @return string
      */
     public function getName()
     {
         return $this->name;
     }
-
-    /**
-     * @return the $dummyRelated
-     */
-    public function getDummyRelated()
-    {
-        return $this->dummyRelated;
-    }
-
-    /**
-     * @param field_type $name
-     */
-    public function setName($name)
-    {
-        $this->name = $name;
-    }
-
-    /**
-     * @param field_type $dummyRelated
-     */
-    public function setDummyRelated($dummyRelated)
-    {
-        $this->dummyRelated = $dummyRelated;
-    }
-
-    
 }

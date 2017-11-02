@@ -43,15 +43,15 @@ class Adresse extends AbstractEntity {
 	
 	/**
 	 * Many Adresses can be attached to One Personne (Unidirectional with Join Table)
+	 * @ORM\ManyToOne(targetEntity="Personne", inversedBy="adresses")
 	 */
 	private $personne = null;
 	
 	/**
-	 * Many Adresses can be attached to one Exemplaire
-	 * @ORM\ManyToOne(targetEntity="Exemplaire", inversedBy="adresses")
-	 * @ORM\JoinColumn(name="exemplaire_id", referencedColumnName="id")
+	 * One Adresse can be attached to one Exemplaire (mapped by Exemplaire)
 	 */
 	private $exemplaire = null;
+	
 	
 
     /**
@@ -161,26 +161,26 @@ class Adresse extends AbstractEntity {
     }
 
     /**
-     * Set exemplaire
+     * Set personne
      *
-     * @param \MS\GestionBibliothequeBundle\Entity\Exemplaire $exemplaire
+     * @param \MS\GestionBibliothequeBundle\Entity\Personne $personne
      *
      * @return Adresse
      */
-    public function setExemplaire(\MS\GestionBibliothequeBundle\Entity\Exemplaire $exemplaire = null)
+    public function setPersonne(\MS\GestionBibliothequeBundle\Entity\Personne $personne = null)
     {
-        $this->exemplaire = $exemplaire;
+        $this->personne = $personne;
 
         return $this;
     }
 
     /**
-     * Get exemplaire
+     * Get personne
      *
-     * @return \MS\GestionBibliothequeBundle\Entity\Exemplaire
+     * @return \MS\GestionBibliothequeBundle\Entity\Personne
      */
-    public function getExemplaire()
+    public function getPersonne()
     {
-        return $this->exemplaire;
+        return $this->personne;
     }
 }
