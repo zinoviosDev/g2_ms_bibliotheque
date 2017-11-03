@@ -15,3 +15,7 @@
 !var/SymfonyRequirements.php
 /vendor/
 /web/bundles/easyadmin
+/.settings/*
+!/.settings
+!/.project
+!/.buildpath

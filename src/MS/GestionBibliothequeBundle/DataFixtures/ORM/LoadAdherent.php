@@ -45,7 +45,6 @@ class LoadAdherent implements FixtureInterface
             $adherent2->hydrate($data);
             $manager->persist($adherent2);
         }
-        // On déclenche l'enregistrement de toutes les catégories
         $manager->flush();
     }
 }

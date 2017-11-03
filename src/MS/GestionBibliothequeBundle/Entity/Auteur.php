@@ -16,15 +16,6 @@ use DateTime;
  */
 class Auteur extends Personne {
     
-    /**
-     * @var int
-     *
-     * @ORM\Column(name="id", type="integer")
-     * @ORM\Id
-     * @ORM\GeneratedValue(strategy="AUTO")
-     */
-    private $id;
-    
 	/**
 	 * AttributeType string
 	 * @ORM\Column(type="string", name="nom")
@@ -54,7 +45,7 @@ class Auteur extends Personne {
 	 * Many Auteur have Many Oeuvre ( Many-To-Many, Unidirectional)
 	 * AssociationType model.Oeuvre
 	 * AssociationMultiplicity *..*
-	 * @ORM\OneToMany(targetEntity="Oeuvre", mappedBy="oeuvre", cascade={"persist"})
+	 * @ORM\OneToMany(targetEntity="Oeuvre", mappedBy="auteur", cascade={"persist"})
 	 */
 	private $oeuvres;
 	
@@ -62,17 +53,6 @@ class Auteur extends Personne {
     public function __construct() {
 	    $this->oeuvres = new ArrayCollection();
 	}
-
-
-    /**
-     * Get id
-     *
-     * @return integer
-     */
-    public function getId()
-    {
-        return $this->id;
-    }
 
     /**
      * Set nom

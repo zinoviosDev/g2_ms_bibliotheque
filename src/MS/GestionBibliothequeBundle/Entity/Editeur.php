@@ -15,15 +15,6 @@ require_once 'Personne.php';
  */
 class Editeur extends Personne {
     
-    /**
-     * @var int
-     *
-     * @ORM\Column(name="id", type="integer")
-     * @ORM\Id
-     * @ORM\GeneratedValue(strategy="AUTO")
-     */
-    private $id;
-    
 	/**
 	 * AttributeType string
 	 * @ORM\Column(type="string", name="sigle")
@@ -47,16 +38,6 @@ class Editeur extends Personne {
 	 public function __construct() {
 	     $this->oeuvres = new ArrayCollection();
 	 }
-
-    /**
-     * Get id
-     *
-     * @return integer
-     */
-    public function getId()
-    {
-        return $this->id;
-    }
 
     /**
      * Set sigle

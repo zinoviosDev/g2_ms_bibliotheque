@@ -1,0 +1,28 @@
+{% extends "MSGestionBibliothequeBundle::layout.html.twig" %}
+
+{% block title %}
+  Livre "{{ livre.titre }}"
+{% endblock %}
+
+{% block g2_ms_gestionbibliotheque_body %}
+
+  <h2>{{ livre.titre }}</h2>
+  <div class="well">
+      <i>Publié le {{ livre.dateDePublication|date('d/m/Y') }} par {{ livre.auteur.prenom }} {{ livre.auteur.nom }}, 
+      édité par {{ livre.editeur.sigle }}</i><br />
+      <p><b>Sujet :</b> {{ livre.sujet }} <br />
+      <b>Langue :</b> {{ livre.langue }} <br />
+      <b>ISBN :</b> {{ livre.isbn }} <br />
+      <b>Nombre de pages :</b> {{ livre.nbrePages }} <br /></p>
+      <p><b>Description :</b> {{ livre.description }}</p>
+      <p><b>Résumé :</b> {{ livre.resume }}</p>
+  </div>
+
+  <p>
+    <a href="{{ path('g2_ms_gestion_bibliotheque_home') }}" class="btn btn-default">
+      <i class="glyphicon glyphicon-chevron-left"></i>
+      Retour à la liste
+    </a>
+  </p>
+
+{% endblock %}

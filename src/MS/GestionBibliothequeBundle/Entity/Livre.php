@@ -9,17 +9,9 @@ use Doctrine\ORM\Mapping as ORM;
  * @package model
  * @ORM\Entity 
  * @ORM\Table(name="livre")
+ * @ORM\Entity(repositoryClass="MS\GestionBibliothequeBundle\Repository\LivreRepository")
  */
 class Livre extends Oeuvre {
-    
-    /**
-     * @var int
-     *
-     * @ORM\Column(name="id", type="integer")
-     * @ORM\Id
-     * @ORM\GeneratedValue(strategy="AUTO")
-     */
-    private $id;
     
 	/**
 	 * AttributeType string
@@ -50,18 +42,6 @@ class Livre extends Oeuvre {
 	 * @ORM\Column(type="string", name="format", nullable=true)
 	 */
 	private $format = null;
-
-	
-
-    /**
-     * Get id
-     *
-     * @return integer
-     */
-    public function getId()
-    {
-        return $this->id;
-    }
 
     /**
      * Set isbn

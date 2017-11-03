@@ -3,7 +3,7 @@ MS\GestionBibliothequeBundle\Entity\Personne:
         prenom: <fr_FR:firstNameMale()>
         nom: <fr_FR:lastName()>
         genre: "male"
-        dateNaissance: <dateTimeBetween("-200 years", "now")>
+        dateNaissance: <dateTimeBetween("-200 years", "now")>regex
 
 MS\GestionBibliothequeBundle\Entity\Auteur:
     auteur_male{1..25} (extends personne_physique):    
@@ -79,12 +79,12 @@ MS\GestionBibliothequeBundle\Entity\Adresse:
         personne (unique): '@editeur*'
         
 MS\GestionBibliothequeBundle\Entity\CarteBibliotheque:
-    carteBibliotheque{1..50}:
+    carteBibliotheque_adherent_male{1..50}:
         numeroCarte: "E100<creditCardNumber()>"
         motDePasse: <password()>
         adherent (unique): '@adherent_male*'
         
-    carteBibliotheque{1..50}:
+    carteBibliotheque_adherent_female{1..50}:
         numeroCarte: "E100<creditCardNumber()>"
         motDePasse: <password()>
         adherent (unique): '@adherent_female*'
@@ -97,7 +97,7 @@ MS\GestionBibliothequeBundle\Entity\Oeuvre:
         langue: français
 
 MS\GestionBibliothequeBundle\Entity\Livre:
-    livre{1..500} (extends oeuvre):
+    livre_auteur_male{1..250} (extends oeuvre):
         titre: <sentence(3)>
         sujet: <sentence(10)>
         dateDePublication: '<dateTimeBetween("-200 years", "now")>'
@@ -106,10 +106,23 @@ MS\GestionBibliothequeBundle\Entity\Livre:
         nbrePages: <numberBetween(20, 1000)>
         description: <fr_FR:paragraphs(3, true)>
         resume: <fr_FR:paragraphs(6, true)>
-        format: ''
+        auteur: '@auteur_male*'
+        editeur: '@editeur*'
+        
+    livre_auteur_female{1..250} (extends oeuvre):
+        titre: <sentence(3)>
+        sujet: <sentence(10)>
+        dateDePublication: '<dateTimeBetween("-200 years", "now")>'
+        langue: français
+        isbn: <ean13()>
+        nbrePages: <numberBetween(20, 1000)>
+        description: <fr_FR:paragraphs(3, true)>
+        resume: <fr_FR:paragraphs(6, true)>
+        auteur: '@auteur_female*'
+        editeur: '@editeur*'
         
 MS\GestionBibliothequeBundle\Entity\DVD:
-    dvd{1..500} (extends oeuvre):
+    dvd_auteur_male{1..250} (extends oeuvre):
         titre: <sentence(3)>
         sujet: <sentence(10)>
         dateDePublication: '<dateTimeBetween("-10 years", "now")>'
@@ -117,12 +130,25 @@ MS\GestionBibliothequeBundle\Entity\DVD:
         duree: <(date_create_from_format("H:i:s", "01:30:00"))>
         contenu: <fr_FR:paragraphs(3, true)>
         type: 50%? film
+        auteur: '@auteur_male*'
+        editeur: '@editeur*'
+        
+    dvd_auteur_female{1..250} (extends oeuvre):
+        titre: <sentence(3)>
+        sujet: <sentence(10)>
+        dateDePublication: '<dateTimeBetween("-10 years", "now")>'
+        langue: français
+        duree: <(date_create_from_format("H:i:s", "01:30:00"))>
+        contenu: <fr_FR:paragraphs(3, true)>
+        type: 50%? film
+        auteur: '@auteur_female*'
+        editeur: '@editeur*'
 
 parameters:
     datePublicationComment: <dateTimeBetween("-3 years", "now")>
     
 MS\GestionBibliothequeBundle\Entity\Commentaire:
-    commentaire{1..200}:
+    commentaire_adherent_male_livre{1..100}:
         titre: <sentence(3)>
         datePublication: '<dateTimeBetween("-3 years", "now")>'
         dateModification: '<dateTimeBetween("-3 years", "now")>'
@@ -130,7 +156,7 @@ MS\GestionBibliothequeBundle\Entity\Commentaire:
         adherent: '@adherent_male*'
         oeuvre: '@livre*'
         
-    commentaire{1..200}:
+    commentaire_adherent_female_livre{1..100}:
         titre: <sentence(3)>
         datePublication: '<dateTimeBetween("-3 years", "now")>'
         dateModification: '<dateTimeBetween("-3 years", "now")>'
@@ -138,7 +164,7 @@ MS\GestionBibliothequeBundle\Entity\Commentaire:
         adherent: '@adherent_female*'
         oeuvre: '@livre*'
         
-    commentaire{1..200}:
+    commentaire_adherent_male_dvd{1..100}:
         titre: <sentence(3)>
         datePublication: '<dateTimeBetween("-3 years", "now")>'
         dateModification: '<dateTimeBetween("-3 years", "now")>'
@@ -146,7 +172,7 @@ MS\GestionBibliothequeBundle\Entity\Commentaire:
         adherent: '@adherent_male*'
         oeuvre: '@dvd*'
         
-    commentaire{1..200}:
+    commentaire_adherent_female_dvd{1..100}:
         titre: <sentence(3)>
         datePublication: '<dateTimeBetween("-3 years", "now")>'
         dateModification: '<dateTimeBetween("-3 years", "now")>'
@@ -154,4 +180,31 @@ MS\GestionBibliothequeBundle\Entity\Commentaire:
         adherent: '@adherent_female*'
         oeuvre: '@dvd*'
         
+#MS\GestionBibliothequeBundle\Entity\Exemplaire:
+#    exemplaire_livre_emprunt_auteur_male{1..500}:
+#        cote: '<regexify([A-Z][0-9]{2})>'
+#        etat: 0
+#        mode_acces: 0
+#        oeuvre: '@livre_auteur_male*'
+#        
+#    exemplaire_livre_emprunt_auteur_female{1..500}:
+#        cote: '<regexify([A-Z][0-9]{2})>'
+#        etat: 0
+#        mode_acces: 0
+#        oeuvre: '@livre_auteur_female*'
+        
+#MS\GestionBibliothequeBundle\Entity\Adresse:
+#    adresse_exemplaire_livre_emprunt_auteur_male{1..500}:    
+#        numero: <numberBetween(1, 150)>
+#        libelleVoie: <fr_FR:streetName()>
+#        codePostal: <numberBetween(13001, 13016)>
+#        ville: "Marseille"
+#        exemplaire: '@exemplaire_livre_emprunt_auteur_male*'
+#        
+#    adresse_exemplaire_livre_emprunt_auteur_female{1..500}:    
+#        numero: <numberBetween(1, 150)>
+#        libelleVoie: <fr_FR:streetName()>
+#        codePostal: <numberBetween(13001, 13016)>
+#        ville: "Marseille"
+#        exemplaire: '@exemplaire_livre_emprunt_auteur_female*'
         

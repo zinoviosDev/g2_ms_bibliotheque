@@ -4,21 +4,35 @@
   Accueil - {{ parent() }}
 {% endblock %}
 
-{% block ms_gestionbibliotheque_body %}
+{% block g2_ms_gestionbibliotheque_body %}
 
-  <h2>Liste des oeuvres</h2>
-
+  <h2>Derniers livres publiés</h2>
   <ul>
-    {% for oeuvre in listOeuvres %}
+    {% for livre in listeLivres %}
       <li>
-        <a href="{{ path('ms_gestion_bibliotheque_oeuvre_view', {'id': oeuvre.id}) }}">
-          {{ oeuvre.title }}
+        <a href="{{ path('g2_ms_gestion_bibliotheque_livre_view', {'id': livre.id}) }}">
+          {{ livre.titre }}
         </a>
-        par {{ oeuvre.author }},
-        le {{ oeuvre.date|date('d/m/Y') }}
+        par {{ livre.auteur.prenom }} {{ livre.auteur.nom }},
+        le {{ livre.dateDePublication |date('d/m/Y') }}
       </li>
     {% else %}
-      <li>Oeuvres non encore disponibles sur le site. Revenez dans un moment !</li>
+      <li>Livres non encore disponibles sur le site. Revenez dans un moment !</li>
+    {% endfor %}
+  </ul>
+  <hr />
+  <h2>Derniers DVDs publiés</h2>
+  <ul>
+    {% for dvd in listeDVDs %}
+      <li>
+        <a href="{{ path('g2_ms_gestion_bibliotheque_dvd_view', {'id': dvd.id}) }}">
+          {{ dvd.titre }}
+        </a>
+        par {{ dvd.auteur.prenom }} {{ dvd.auteur.nom }},
+        le {{ dvd.dateDePublication |date('d/m/Y') }}
+      </li>
+    {% else %}
+      <li>DVDs non encore disponibles sur le site. Revenez dans un moment !</li>
     {% endfor %}
   </ul>
 

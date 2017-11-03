@@ -54,7 +54,7 @@ class Commentaire {
 	 * @ORM\ManyToOne(targetEntity="Adherent", inversedBy="commentaires")
 	 * @ORM\JoinColumn(name="adherent_id", referencedColumnName="id")
 	 */
-	private $commentaireAdherent;
+	private $adherent;
 	
 	/**
 	 * AssociationType model.Oeuvre
@@ -62,7 +62,7 @@ class Commentaire {
 	 * @ORM\ManyToOne(targetEntity="Oeuvre", inversedBy="commentairesOeuvre")
 	 * @ORM\JoinColumn(name="oeuvre_id", referencedColumnName="id")
 	 */
-	public $commentaireOeuvre;
+	public $oeuvre;
 
 	
 
@@ -173,50 +173,50 @@ class Commentaire {
     }
 
     /**
-     * Set commentaireAdherent
+     * Set adherent
      *
-     * @param \MS\GestionBibliothequeBundle\Entity\Adherent $commentaireAdherent
+     * @param \MS\GestionBibliothequeBundle\Entity\Adherent $adherent
      *
      * @return Commentaire
      */
-    public function setCommentaireAdherent(\MS\GestionBibliothequeBundle\Entity\Adherent $commentaireAdherent = null)
+    public function setAdherent(\MS\GestionBibliothequeBundle\Entity\Adherent $adherent = null)
     {
-        $this->commentaireAdherent = $commentaireAdherent;
+        $this->adherent = $adherent;
 
         return $this;
     }
 
     /**
-     * Get commentaireAdherent
+     * Get adherent
      *
      * @return \MS\GestionBibliothequeBundle\Entity\Adherent
      */
-    public function getCommentaireAdherent()
+    public function getAdherent()
     {
-        return $this->commentaireAdherent;
+        return $this->adherent;
     }
 
     /**
-     * Set commentaireOeuvre
+     * Set oeuvre
      *
-     * @param \MS\GestionBibliothequeBundle\Entity\Oeuvre $commentaireOeuvre
+     * @param \MS\GestionBibliothequeBundle\Entity\Oeuvre $oeuvre
      *
      * @return Commentaire
      */
-    public function setCommentaireOeuvre(\MS\GestionBibliothequeBundle\Entity\Oeuvre $commentaireOeuvre = null)
+    public function setOeuvre(\MS\GestionBibliothequeBundle\Entity\Oeuvre $oeuvre = null)
     {
-        $this->commentaireOeuvre = $commentaireOeuvre;
+        $this->oeuvre = $oeuvre;
 
         return $this;
     }
 
     /**
-     * Get commentaireOeuvre
+     * Get oeuvre
      *
      * @return \MS\GestionBibliothequeBundle\Entity\Oeuvre
      */
-    public function getCommentaireOeuvre()
+    public function getOeuvre()
     {
-        return $this->commentaireOeuvre;
+        return $this->oeuvre;
     }
 }

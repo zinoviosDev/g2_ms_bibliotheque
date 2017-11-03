@@ -9,17 +9,9 @@ use Doctrine\ORM\Mapping as ORM;
  * @package model
  * @ORM\Entity 
  * @ORM\Table(name="dvd")
+ * @ORM\Entity(repositoryClass="MS\GestionBibliothequeBundle\Repository\DVDRepository")
  */
 class DVD extends Oeuvre {
-    
-    /**
-     * @var int
-     *
-     * @ORM\Column(name="id", type="integer")
-     * @ORM\Id
-     * @ORM\GeneratedValue(strategy="AUTO")
-     */
-    private $id;
     
 	/**
 	 * AttributeType int
@@ -37,21 +29,9 @@ class DVD extends Oeuvre {
 	/**
 	 * AttributeType string
 	 * Décrit le type de DVD
-	 * @ORM\Column(type="string", name="TYPE_DVD")
+	 * @ORM\Column(type="string", name="type_dvd", nullable=true)
 	 */
 	private $type = null;
-
-    
-
-    /**
-     * Get id
-     *
-     * @return integer
-     */
-    public function getId()
-    {
-        return $this->id;
-    }
 
     /**
      * Set duree

@@ -11,7 +11,7 @@ use Doctrine\Common\Collections\ArrayCollection;
  * @ORM\Entity 
  * @ORM\Table(name="exemplaire")
  */
-class Exemplaire {
+class Exemplaire extends AbstractEntity {
     
     const ETAT_NEUF = 0;
     const ETAT_MOYEN = 1;
@@ -51,8 +51,8 @@ class Exemplaire {
 	
 	/**
 	 * AssociationType model.Adresse (One To Many, bidirectional)
-	 * AssociationMultiplicity *
-	 * @ORM\OneToMany(targetEntity="Adresse", mappedBy="exemplaire")
+	 * AssociationMultiplicity 1..1
+	 * @ORM\OneToOne(targetEntity="Adresse", cascade={"persist"})
 	 */
 	private $adresses;
 	
@@ -62,17 +62,6 @@ class Exemplaire {
 	private $etat = self::ETAT_NEUF;
 	
 	
-	public function __construct() {
-	    $this->adresses = new ArrayCollection();
-	}
-
-    /**
-     * @param \Doctrine\Common\Collections\ArrayCollection $adresses
-     */
-    public function setAdresses($adresses)
-    {
-        $this->adresses = $adresses;
-    }
 
     /**
      * Get id
@@ -181,33 +170,23 @@ class Exemplaire {
     }
 
     /**
-     * Add adress
+     * Set adresses
      *
-     * @param \MS\GestionBibliothequeBundle\Entity\Adresse $adress
+     * @param \MS\GestionBibliothequeBundle\Entity\Adresse $adresses
      *
      * @return Exemplaire
      */
-    public function addAdress(\MS\GestionBibliothequeBundle\Entity\Adresse $adress)
+    public function setAdresses(\MS\GestionBibliothequeBundle\Entity\Adresse $adresses = null)
     {
-        $this->adresses[] = $adress;
+        $this->adresses = $adresses;
 
         return $this;
     }
 
     /**
-     * Remove adress
-     *
-     * @param \MS\GestionBibliothequeBundle\Entity\Adresse $adress
-     */
-    public function removeAdress(\MS\GestionBibliothequeBundle\Entity\Adresse $adress)
-    {
-        $this->adresses->removeElement($adress);
-    }
-
-    /**
      * Get adresses
      *
-     * @return \Doctrine\Common\Collections\Collection
+     * @return \MS\GestionBibliothequeBundle\Entity\Adresse
      */
     public function getAdresses()
     {

@@ -1,0 +1,27 @@
+{% extends "MSGestionBibliothequeBundle::layout.html.twig" %}
+
+{% block title %}
+  Livre "{{ dvd.titre }}"
+{% endblock %}
+
+{% block g2_ms_gestionbibliotheque_body %}
+
+  <h2>{{ dvd.titre }}</h2>
+  <div class="well">
+      <i>Publié le {{ dvd.dateDePublication|date('d/m/Y') }} par {{ dvd.auteur.prenom }} {{ dvd.auteur.nom }}, 
+      édité par {{ dvd.editeur.sigle }}</i><br />
+      <p><b>Sujet :</b> {{ dvd.sujet }} <br />
+      <b>Langue :</b> {{ dvd.langue }} <br />
+      <b>Durée :</b> {{ dvd.duree|date('H:i:s') }} <br />
+      <b>Type :</b> {{ dvd.type }}</p>
+      <p><b>Contenu :</b> {{ dvd.contenu }} <br /></p>
+  </div>
+
+  <p>
+    <a href="{{ path('g2_ms_gestion_bibliotheque_home') }}" class="btn btn-default">
+      <i class="glyphicon glyphicon-chevron-left"></i>
+      Retour à la liste
+    </a>
+  </p>
+
+{% endblock %}

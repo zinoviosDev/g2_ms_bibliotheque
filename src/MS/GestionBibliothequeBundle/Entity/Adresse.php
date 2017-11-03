@@ -48,12 +48,12 @@ class Adresse extends AbstractEntity {
     private $personne = null;
     
     /**
-     * One Adresse can be attached to one Exemplaire (mapped by Exemplaire)
+     * One Adresse can be attached to one Exemplaire
      */
     private $exemplaire = null;
     
     
-    
+
     /**
      * Get id
      *
@@ -63,7 +63,7 @@ class Adresse extends AbstractEntity {
     {
         return $this->id;
     }
-    
+
     /**
      * Set numero
      *
@@ -74,10 +74,10 @@ class Adresse extends AbstractEntity {
     public function setNumero($numero)
     {
         $this->numero = $numero;
-        
+
         return $this;
     }
-    
+
     /**
      * Get numero
      *
@@ -87,7 +87,7 @@ class Adresse extends AbstractEntity {
     {
         return $this->numero;
     }
-    
+
     /**
      * Set libelleVoie
      *
@@ -98,10 +98,10 @@ class Adresse extends AbstractEntity {
     public function setLibelleVoie($libelleVoie)
     {
         $this->libelleVoie = $libelleVoie;
-        
+
         return $this;
     }
-    
+
     /**
      * Get libelleVoie
      *
@@ -111,7 +111,7 @@ class Adresse extends AbstractEntity {
     {
         return $this->libelleVoie;
     }
-    
+
     /**
      * Set codePostal
      *
@@ -122,10 +122,10 @@ class Adresse extends AbstractEntity {
     public function setCodePostal($codePostal)
     {
         $this->codePostal = $codePostal;
-        
+
         return $this;
     }
-    
+
     /**
      * Get codePostal
      *
@@ -135,7 +135,7 @@ class Adresse extends AbstractEntity {
     {
         return $this->codePostal;
     }
-    
+
     /**
      * Set ville
      *
@@ -146,10 +146,10 @@ class Adresse extends AbstractEntity {
     public function setVille($ville)
     {
         $this->ville = $ville;
-        
+
         return $this;
     }
-    
+
     /**
      * Get ville
      *
@@ -159,7 +159,7 @@ class Adresse extends AbstractEntity {
     {
         return $this->ville;
     }
-    
+
     /**
      * Set personne
      *
@@ -170,10 +170,10 @@ class Adresse extends AbstractEntity {
     public function setPersonne(\MS\GestionBibliothequeBundle\Entity\Personne $personne = null)
     {
         $this->personne = $personne;
-        
+
         return $this;
     }
-    
+
     /**
      * Get personne
      *
