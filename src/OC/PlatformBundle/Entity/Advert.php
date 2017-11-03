@@ -53,6 +53,11 @@ class Advert
      * @ORM\Column(name="content", type="text")
      */
     private $content;
+    
+    public function __construct() {
+        // Par défaut, la date de l'annonce est la date d'aujourd'hui
+        $this->date = new \Datetime();
+    }
 
     /**
     * @ORM\OneToOne(targetEntity="OC\PlatformBundle\Entity\Image", cascade={"persist"})
@@ -64,11 +69,6 @@ class Advert
      * @ORM\JoinTable(name="oc_advert_category")
      */
     private $categories;
-    
-    public function __construct() {
-        // Par défaut, la date de l'annonce est la date d'aujourd'hui
-        $this->date = new \Datetime();
-    }
 
     /**
      * Get id

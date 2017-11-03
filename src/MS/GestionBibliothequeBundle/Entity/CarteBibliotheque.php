@@ -7,12 +7,12 @@ use Doctrine\ORM\Mapping as ORM;
  * @access public
  * @author marc
  * @package model
- * @ORM\Entity 
+ * @ORM\Entity
  * @ORM\Table(name="carte_bibliotheque")
  */
 class CarteBibliotheque {
     
-	/**
+    /**
      * @var int
      *
      * @ORM\Column(name="id", type="integer")
@@ -20,28 +20,28 @@ class CarteBibliotheque {
      * @ORM\GeneratedValue(strategy="AUTO")
      */
     private $id;
-	
-	/**
-	 * AttributeType string
-	 * @ORM\Column(type="string", name="numero_carte")
-	 */
-	private $numeroCarte = null;
-	
-	/**
-	 * AttributeType string
-	 * @ORM\Column(type="string", name="mot_de_passe")
-	 */
-	private $motDePasse = null;
-	
-	/**
-	 * One CarteBibliotheque is owned by One Adherent (OneToOne, bidirectional)
-	 * @var Adherent
-	 * @ORM\OneToOne(targetEntity="Adherent", inversedBy="carteBibliotheque")
-	 * @ORM\JoinColumn(name="adherent_id", referencedColumnName="id")
-	 */
-	private $adherent = null;
-
-
+    
+    /**
+     * AttributeType string
+     * @ORM\Column(type="string", name="numero_carte")
+     */
+    private $numeroCarte = null;
+    
+    /**
+     * AttributeType string
+     * @ORM\Column(type="string", name="mot_de_passe")
+     */
+    private $motDePasse = null;
+    
+    /**
+     * One CarteBibliotheque is owned by One Adherent (OneToOne, bidirectional)
+     * @var Adherent
+     * @ORM\OneToOne(targetEntity="Adherent", inversedBy="carteBibliotheque",cascade={"persist"})
+     * @ORM\JoinColumn(name="adherent_id", referencedColumnName="id")
+     */
+    private $adherent = null;
+    
+    
     /**
      * Get id
      *
@@ -51,7 +51,7 @@ class CarteBibliotheque {
     {
         return $this->id;
     }
-
+    
     /**
      * Set numeroCarte
      *
@@ -62,10 +62,10 @@ class CarteBibliotheque {
     public function setNumeroCarte($numeroCarte)
     {
         $this->numeroCarte = $numeroCarte;
-
+        
         return $this;
     }
-
+    
     /**
      * Get numeroCarte
      *
@@ -75,7 +75,7 @@ class CarteBibliotheque {
     {
         return $this->numeroCarte;
     }
-
+    
     /**
      * Set motDePasse
      *
@@ -86,10 +86,10 @@ class CarteBibliotheque {
     public function setMotDePasse($motDePasse)
     {
         $this->motDePasse = $motDePasse;
-
+        
         return $this;
     }
-
+    
     /**
      * Get motDePasse
      *
@@ -99,7 +99,7 @@ class CarteBibliotheque {
     {
         return $this->motDePasse;
     }
-
+    
     /**
      * Set adherent
      *
@@ -110,10 +110,10 @@ class CarteBibliotheque {
     public function setAdherent(\MS\GestionBibliothequeBundle\Entity\Adherent $adherent = null)
     {
         $this->adherent = $adherent;
-
+        
         return $this;
     }
-
+    
     /**
      * Get adherent
      *

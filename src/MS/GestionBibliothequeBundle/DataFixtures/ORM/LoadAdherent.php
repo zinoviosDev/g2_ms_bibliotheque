@@ -47,7 +47,6 @@ class LoadAdherent implements FixtureInterface
         }
         // On déclenche l'enregistrement de toutes les catégories
         $manager->flush();
-
     }
 }
 

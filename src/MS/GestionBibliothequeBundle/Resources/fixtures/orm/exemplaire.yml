@@ -1,8 +1,5 @@
-include:
-    - adresse.yml
-    
 MS\GestionBibliothequeBundle\Entity\Exemplaire:
-    exemplaire{1..1000}:    
+    exemplaire {1..1000}:    
         modeAcces: <numberBetween(0, 1)>
         cote: <regexify('[0-9]{2}0')>
-        #adresse: '@adresse*'
+        adresses : '2x @adresse*'

@@ -9,15 +9,15 @@ use DateTime;
  * @access public
  * @author marc
  * @package model
- * @ORM\Entity 
+ * @ORM\Entity
  * @ORM\Table(name="oeuvre")
  * @ORM\InheritanceType("JOINED")
- * @ORM\DiscriminatorColumn(name="DISCR", type="string")
+ * @ORM\DiscriminatorColumn(name="discr", type="string")
  * @ORM\DiscriminatorMap({"livre" = "Livre", "dvd" = "DVD" })
  */
 abstract class Oeuvre extends AbstractEntity {
     
-	/**
+    /**
      * @var int
      *
      * @ORM\Column(name="id", type="integer")
@@ -25,76 +25,76 @@ abstract class Oeuvre extends AbstractEntity {
      * @ORM\GeneratedValue(strategy="AUTO")
      */
     private $id;
-	
-	/**
-	 * AttributeType string
-	 * Titre de l'oeuvre
-	 * @ORM\Column(type="string", name="titre")
-	 */
-	private $titre = null;
-	
-	/**
-	 * AttributeType string
-	 * @ORM\Column(type="string", name="sujet")
-	 */
-	private $sujet = null;
-	
-	/**
-	 * AttributeType DateTime
-	 * @ORM\Column(type="datetime", name="date_publication")
-	 */
-	private $dateDePublication = null;
-	
-	/**
-	 * AttributeType string
-	 * @ORM\Column(type="string", name="fonds_specifique", nullable=true)
-	 */
-	private $fondsSpecifique = null;
-	
-	/**
-	 * AttributeType string
-	 * @ORM\Column(type="string", name="langue")
-	 */
-	private $langue = null;
-	
-	/**
-	 * One Editeur has Many Oeuvre (One To Many, Bidirectional)
-	 * AssociationType model.Editeur
-	 * AssociationMultiplicity 1
-	 * @ORM\ManyToOne(targetEntity="Editeur", inversedBy="oeuvres")
-	 * @ORM\JoinColumn(name="editeur_id", referencedColumnName="id")
-	 */
-	private $editeur;
-	
-	/**
-	 * AssociationType model.Auteur
-	 * AssociationMultiplicity *..*
-	 * @ORM\ManyToOne(targetEntity="Auteur", inversedBy="oeuvres")
-	 * @ORM\JoinColumn(name="auteur_id", referencedColumnName="id")
-	 */
-	private $auteur;
-
-	/**
-	 * AssociationType model.Exemplaire (One To Many, bidirectional)
-	 * AssociationMultiplicity *
-	 * @ORM\OneToMany(targetEntity="Exemplaire", mappedBy="oeuvre", cascade={"persist"})
-	 */
-	private $exemplaires;
-	
-	/**
-	 * AssociationType model.Commentaire
-	 * AssociationMultiplicity *
-	 * @ORM\OneToMany(targetEntity="Commentaire", mappedBy="commentaireOeuvre", cascade={"persist"})
-	 */
-	private $commentaires = array();
-	
+    
+    /**
+     * AttributeType string
+     * Titre de l'oeuvre
+     * @ORM\Column(type="string", name="titre")
+     */
+    private $titre = null;
+    
+    /**
+     * AttributeType string
+     * @ORM\Column(type="string", name="sujet")
+     */
+    private $sujet = null;
+    
+    /**
+     * AttributeType DateTime
+     * @ORM\Column(type="datetime", name="date_publication")
+     */
+    private $dateDePublication = null;
+    
+    /**
+     * AttributeType string
+     * @ORM\Column(type="string", name="fonds_specifique", nullable=true)
+     */
+    private $fondsSpecifique = null;
+    
+    /**
+     * AttributeType string
+     * @ORM\Column(type="string", name="langue")
+     */
+    private $langue = null;
+    
+    /**
+     * One Editeur has Many Oeuvre (One To Many, Bidirectional)
+     * AssociationType model.Editeur
+     * AssociationMultiplicity 1
+     * @ORM\ManyToOne(targetEntity="Editeur", inversedBy="oeuvres")
+     * @ORM\JoinColumn(name="editeur_id", referencedColumnName="id")
+     */
+    private $editeur;
+    
+    /**
+     * AssociationType model.Auteur
+     * AssociationMultiplicity *..*
+     * @ORM\ManyToOne(targetEntity="Auteur", inversedBy="oeuvres")
+     * @ORM\JoinColumn(name="auteur_id", referencedColumnName="id")
+     */
+    private $auteur;
+    
+    /**
+     * AssociationType model.Exemplaire (One To Many, bidirectional)
+     * AssociationMultiplicity *
+     * @ORM\OneToMany(targetEntity="Exemplaire", mappedBy="oeuvre", cascade={"persist"})
+     */
+    private $exemplaires;
+    
+    /**
+     * AssociationType model.Commentaire
+     * AssociationMultiplicity *
+     * @ORM\OneToMany(targetEntity="Commentaire", mappedBy="commentaireOeuvre", cascade={"persist"})
+     */
+    private $commentaires = array();
+    
     public function __construct() {
-	    $this->exemplaires = new ArrayCollection();
-	    $this->commentaires = new ArrayCollection();
-	}
-	
-	
-
+        $this->exemplaires = new ArrayCollection();
+        $this->commentaires = new ArrayCollection();
+    }
+    
+    
+    
     /**
      * Get id
      *
@@ -104,7 +104,7 @@ abstract class Oeuvre extends AbstractEntity {
     {
         return $this->id;
     }
-
+    
     /**
      * Set titre
      *
@@ -115,10 +115,10 @@ abstract class Oeuvre extends AbstractEntity {
     public function setTitre($titre)
     {
         $this->titre = $titre;
-
+        
         return $this;
     }
-
+    
     /**
      * Get titre
      *
@@ -132,7 +132,7 @@ abstract class Oeuvre extends AbstractEntity {
     public function titre() {
         return $this->titre;
     }
-
+    
     /**
      * Set sujet
      *
@@ -143,10 +143,10 @@ abstract class Oeuvre extends AbstractEntity {
     public function setSujet($sujet)
     {
         $this->sujet = $sujet;
-
+        
         return $this;
     }
-
+    
     /**
      * Get sujet
      *
@@ -156,7 +156,7 @@ abstract class Oeuvre extends AbstractEntity {
     {
         return $this->sujet;
     }
-
+    
     /**
      * Set dateDePublication
      *
@@ -167,10 +167,10 @@ abstract class Oeuvre extends AbstractEntity {
     public function setDateDePublication($dateDePublication)
     {
         $this->dateDePublication = $dateDePublication;
-
+        
         return $this;
     }
-
+    
     /**
      * Get dateDePublication
      *
@@ -180,7 +180,7 @@ abstract class Oeuvre extends AbstractEntity {
     {
         return $this->dateDePublication;
     }
-
+    
     /**
      * Set fondsSpecifique
      *
@@ -191,10 +191,10 @@ abstract class Oeuvre extends AbstractEntity {
     public function setFondsSpecifique($fondsSpecifique)
     {
         $this->fondsSpecifique = $fondsSpecifique;
-
+        
         return $this;
     }
-
+    
     /**
      * Get fondsSpecifique
      *
@@ -204,7 +204,7 @@ abstract class Oeuvre extends AbstractEntity {
     {
         return $this->fondsSpecifique;
     }
-
+    
     /**
      * Set langue
      *
@@ -215,10 +215,10 @@ abstract class Oeuvre extends AbstractEntity {
     public function setLangue($langue)
     {
         $this->langue = $langue;
-
+        
         return $this;
     }
-
+    
     /**
      * Get langue
      *
@@ -228,7 +228,7 @@ abstract class Oeuvre extends AbstractEntity {
     {
         return $this->langue;
     }
-
+    
     /**
      * Set editeur
      *
@@ -239,10 +239,10 @@ abstract class Oeuvre extends AbstractEntity {
     public function setEditeur(\MS\GestionBibliothequeBundle\Entity\Editeur $editeur = null)
     {
         $this->editeur = $editeur;
-
+        
         return $this;
     }
-
+    
     /**
      * Get editeur
      *
@@ -252,7 +252,7 @@ abstract class Oeuvre extends AbstractEntity {
     {
         return $this->editeur;
     }
-
+    
     /**
      * Set auteur
      *
@@ -263,10 +263,10 @@ abstract class Oeuvre extends AbstractEntity {
     public function setAuteur(\MS\GestionBibliothequeBundle\Entity\Auteur $auteur = null)
     {
         $this->auteur = $auteur;
-
+        
         return $this;
     }
-
+    
     /**
      * Get auteur
      *
@@ -276,7 +276,7 @@ abstract class Oeuvre extends AbstractEntity {
     {
         return $this->auteur;
     }
-
+    
     /**
      * Add exemplaire
      *
@@ -287,10 +287,10 @@ abstract class Oeuvre extends AbstractEntity {
     public function addExemplaire(\MS\GestionBibliothequeBundle\Entity\Exemplaire $exemplaire)
     {
         $this->exemplaires[] = $exemplaire;
-
+        
         return $this;
     }
-
+    
     /**
      * Remove exemplaire
      *
@@ -300,7 +300,7 @@ abstract class Oeuvre extends AbstractEntity {
     {
         $this->exemplaires->removeElement($exemplaire);
     }
-
+    
     /**
      * Get exemplaires
      *
@@ -310,7 +310,7 @@ abstract class Oeuvre extends AbstractEntity {
     {
         return $this->exemplaires;
     }
-
+    
     /**
      * Add commentaire
      *
@@ -321,10 +321,10 @@ abstract class Oeuvre extends AbstractEntity {
     public function addCommentaire(\MS\GestionBibliothequeBundle\Entity\Commentaire $commentaire)
     {
         $this->commentaires[] = $commentaire;
-
+        
         return $this;
     }
-
+    
     /**
      * Remove commentaire
      *
@@ -334,7 +334,7 @@ abstract class Oeuvre extends AbstractEntity {
     {
         $this->commentaires->removeElement($commentaire);
     }
-
+    
     /**
      * Get commentaires
      *

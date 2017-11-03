@@ -16,6 +16,9 @@ php bin/console doctrine:cache:delete
 - Generate entities:
 bin/console doctrine:generate:entities OCPlatformBundle:Advert
 
+-Dql request example:
+php bin/console doctrine:query:dql "SELECT a FROM MSGestionBibliothequeBundle:Livre a WHERE a.id < 2"
+
 - Load fixtures:
-php bin/console -vv hautelook:fixtures:load -b MSGestionBibliothequeBundle
+php bin/console hautelook:fixtures:load -b MSGestionBibliothequeBundle
 php bin/console doctrine:fixtures:load --fixtures=/var/www/html/g2_ms_bibliotheque/src/MS/GestionBibliothequeBundle/DataFixtures/ORM/LoadDummy.php

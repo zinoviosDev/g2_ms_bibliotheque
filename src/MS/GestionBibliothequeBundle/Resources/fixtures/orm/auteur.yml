@@ -1,21 +1,18 @@
 include:
-    - personne.yml
+    - oeuvre.yml
     - livre.yml
-    - adresse.yml
     
 MS\GestionBibliothequeBundle\Entity\Auteur:
-    auteur{1..25} (extends personne):    
+    auteur {1..250}:    
         prenom: <fr_FR:firstNameMale()>
         nom: <fr_FR:lastName()>
         genre: "male"
         dateNaissance: <dateTimeBetween("-400 years", "now")>
-        oeuvres: '@livre<numberBetween(1, 10)>'
-        adresses: '@adresse{1..2}'
+        oeuvres : '2x @livre*'
         
-    auteur2{1..25} (extends personne):    
+    auteur2 {1..250}:    
         prenom: <fr_FR:firstNameFemale()>
         nom: <fr_FR:lastName()>
         genre: "female"
         dateNaissance: <dateTimeBetween("-400 years", "now")>
-        oeuvres: '@livre<numberBetween(1, 10)>'
-        adresses: '@adresse{1..2}'
+        #oeuvres : '[@livre*]'

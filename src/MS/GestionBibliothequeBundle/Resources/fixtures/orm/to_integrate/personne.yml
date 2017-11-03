@@ -1,8 +1,0 @@
-MS\GestionBibliothequeBundle\Entity\Personne:
-    personne (template):    
-        prenom: <fr_FR:firstNameMale()>
-        nom: <fr_FR:lastName()>
-        genre: "male"
-        dateNaissance: <dateTimeBetween("-400 years", "now")>
-        oeuvres: '2x @livre*'
-        adresses: '@adresse{1..2}'

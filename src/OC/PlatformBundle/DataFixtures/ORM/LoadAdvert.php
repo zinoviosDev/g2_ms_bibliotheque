@@ -6,9 +6,6 @@ namespace OC\PlatformBundle\DataFixtures\ORM;
 use Doctrine\Common\DataFixtures\FixtureInterface;
 use Doctrine\Common\Persistence\ObjectManager;
 use OC\PlatformBundle\Entity\Advert;
-use OC\PlatformBundle\Entity\Application;
-use OC\PlatformBundle\Entity\Category;
-use OC\PlatformBundle\Entity\Image;
 
 class LoadAdvert implements FixtureInterface
 {
@@ -37,61 +34,18 @@ class LoadAdvert implements FixtureInterface
                 'date'    => new \Datetime())
         );
         
-        foreach ($listAdverts as $adv) {
-            // On crée l'Advert
-            $advert = new Advert();
-            $advert->setTitle($adv["title"]);
-            $advert->setAuthor($adv["author"]);
-            $advert->setContent($adv["content"]);
-            $advert->setDate($adv["date"]);
-            
-            // Création de l'entité Image
-            $image = new Image();
-            $image->setUrl('http://sdz-upload.s3.amazonaws.com/prod/upload/job-de-reve.jpg');
-            $image->setAlt('Job de rêve');
-            
-            // Création d'une première candidature
-            $application1 = new Application();
-            $application1->setAuthor('Marine');
-            $application1->setContent("J'ai toutes les qualités requises.");
-            
-            // Création d'une deuxième candidature par exemple
-            $application2 = new Application();
-            $application2->setAuthor('Pierre');
-            $application2->setContent("Je suis très motivé.");
-            
-            // On lie les candidatures à l'annonce
-            $application1->setAdvert($advert);
-            $application2->setAdvert($advert);
-            $manager->persist($application1);
-            $manager->persist($application2);
-            
-            // Liste des noms de catégorie à ajouter
-            $names = array(
-                'Développement web',
-                'Développement mobile',
-                'Graphisme',
-                'Intégration',
-                'Réseau'
-            );
-            
-            foreach ($names as $name) {
-                // On crée la catégorie
-                $category = new Category();
-                $category->setName($name);
-                
-                // On la persiste
-//                 $manager->persist($category);
-                $advert->addCategory($category);
-            }
-            
-            // On lie l'image à l'annonce
-            $advert->setImage($image);
+        foreach ($listAdverts as $advert) {
+            // On crée la catégorie
+            $obj = new Advert();
+            $obj->setTitle($advert["title"]);
+            $obj->setAuthor($advert["author"]);
+            $obj->setContent($advert["content"]);
+            $obj->setDate($advert["date"]);
             // On la persiste
-            $manager->persist($advert);
+            $manager->persist($obj);
         }
         
-        // On déclenche l'enregistrement de tous les Advert
+        // On déclenche l'enregistrement de toutes les catégories
         $manager->flush();
     }
 }

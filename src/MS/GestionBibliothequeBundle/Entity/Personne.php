@@ -11,7 +11,7 @@ use Doctrine\Common\Collections\ArrayCollection;
  * @ORM\Entity 
  * @ORM\Table(name="personne")
  * @ORM\InheritanceType("JOINED")
- * @ORM\DiscriminatorColumn(name="DISCR", type="string")
+ * @ORM\DiscriminatorColumn(name="discr", type="string")
  * @ORM\DiscriminatorMap({"adherent" = "Adherent", "auteur" = "Auteur", "editeur" = "Editeur" })
  */
 abstract class Personne  extends AbstractEntity {
@@ -29,14 +29,20 @@ abstract class Personne  extends AbstractEntity {
 	 * One Personne has Many Adresse (Unidirectional with Join Table)
 	 * AssociationType model.Adresse
 	 * AssociationMultiplicity 1..*
-	 * @ORM\OneToMany(targetEntity="Adresse", mappedBy="personne", cascade={"persist"})
+	 * @ORM\ManyToMany(targetEntity="Adresse")
+	 * @ORM\JoinTable(name="personnes_adresses",
+	 *     joinColumns={@ORM\JoinColumn(name="personne_id", referencedColumnName="id")},
+	 *     inverseJoinColumns={@ORM\JoinColumn(name="adresse_id", referencedColumnName="id", unique=true)}
+	 *   )
 	 */
-	private $adresses;
+	private $adressesPersonne;
 	
 	public function __construct() {
-	    $this->adresses = new ArrayCollection();
+	    $this->adressesPersonne = new ArrayCollection();
 	}
 	
+    
+
     /**
      * Get id
      *
@@ -48,44 +54,36 @@ abstract class Personne  extends AbstractEntity {
     }
 
     /**
-     * Add adresses
+     * Add adressesPersonne
      *
-     * @param \MS\GestionBibliothequeBundle\Entity\Adresse $adresses
+     * @param \MS\GestionBibliothequeBundle\Entity\Adresse $adressesPersonne
      *
      * @return Personne
      */
-    public function addAdresses(\MS\GestionBibliothequeBundle\Entity\Adresse $adresses)
+    public function addAdressesPersonne(\MS\GestionBibliothequeBundle\Entity\Adresse $adressesPersonne)
     {
-        $this->adresses[] = $adresses;
+        $this->adressesPersonne[] = $adressesPersonne;
 
         return $this;
     }
 
     /**
-     * Remove adresses
+     * Remove adressesPersonne
      *
-     * @param \MS\GestionBibliothequeBundle\Entity\Adresse $adresses
+     * @param \MS\GestionBibliothequeBundle\Entity\Adresse $adressesPersonne
      */
-    public function removeAdresses(\MS\GestionBibliothequeBundle\Entity\Adresse $adresses)
+    public function removeAdressesPersonne(\MS\GestionBibliothequeBundle\Entity\Adresse $adressesPersonne)
     {
-        $this->adresses->removeElement($adresses);
+        $this->adressesPersonne->removeElement($adressesPersonne);
     }
 
     /**
-     * Get adresses
+     * Get adressesPersonne
      *
      * @return \Doctrine\Common\Collections\Collection
      */
-    public function getAdresses()
+    public function getAdressesPersonne()
     {
-        return $this->adresses;
-    }
-    
-    /**
-     * @param \Doctrine\Common\Collections\ArrayCollection $adresses
-     */
-    public function setAdresses($adresses)
-    {
-        $this->adresses = $adresses;
+        return $this->adressesPersonne;
     }
 }

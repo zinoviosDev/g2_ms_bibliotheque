@@ -1,0 +1,4 @@
+MS\GestionBibliothequeBundle\Entity\DummyRelated:
+    dummy_related_{1..10}:
+        name: <fr_FR:name()>
+

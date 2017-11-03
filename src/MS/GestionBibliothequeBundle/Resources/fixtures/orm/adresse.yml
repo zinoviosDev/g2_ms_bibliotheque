@@ -1,5 +1,5 @@
 MS\GestionBibliothequeBundle\Entity\Adresse:
-    adresse{1..100}:    
+    adresse {1..1000}:    
         numero: <numberBetween(1, 150)>
         libelleVoie: <fr_FR:streetName()>
         codePostal: <numberBetween(13001, 13016)>
