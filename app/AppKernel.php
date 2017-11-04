@@ -18,6 +18,7 @@ class AppKernel extends Kernel
             new OC\PlatformBundle\OCPlatformBundle(),
             new MS\GestionBibliothequeBundle\MSGestionBibliothequeBundle(),
             new EasyCorp\Bundle\EasyAdminBundle\EasyAdminBundle(),
+            new MSGestionBiblioUserBundle\MSGestionBiblioUserBundle(),
         ];
 
         if (in_array($this->getEnvironment(), ['dev', 'test'], true)) {

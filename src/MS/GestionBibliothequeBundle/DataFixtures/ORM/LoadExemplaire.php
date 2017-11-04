@@ -18,12 +18,10 @@ class LoadExemplaire implements FixtureInterface
         foreach ($arrayFields as $data) {
             $ex = new Exemplaire();
             $ex->hydrate($data);
-            $livre = $manager->getRepository('MSGestionBibliothequeBundle:Livre')->find(1);
-            $adresse = $manager->getRepository('MSGestionBibliothequeBundle:Adresse')->find(1);
-            $arrayAdresses = array();
-            array_push($arrayAdresses, $adresse);
+            $livre = $manager->getRepository('MSGestionBibliothequeBundle:Livre')->findOneBy(array('isbn' => '5540299360751'));
+            $adresse = $manager->getRepository('MSGestionBibliothequeBundle:Adresse')->findOneBy(array('codePostal' => 13001));
             $ex->setOeuvre($livre);
-            $ex->setAdresses($arrayAdresses);
+            $ex->setAdresse($adresse);
             $manager->persist($ex);
             break;
         }

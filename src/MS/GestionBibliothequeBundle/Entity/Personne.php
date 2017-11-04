@@ -35,13 +35,11 @@ abstract class Personne  extends AbstractEntity {
 	 *     inverseJoinColumns={@ORM\JoinColumn(name="adresse_id", referencedColumnName="id", unique=true)}
 	 *   )
 	 */
-	private $adressesPersonne;
+	private $adresses;
 	
 	public function __construct() {
-	    $this->adressesPersonne = new ArrayCollection();
+	    $this->adresses = new ArrayCollection();
 	}
-	
-    
 
     /**
      * Get id
@@ -54,36 +52,36 @@ abstract class Personne  extends AbstractEntity {
     }
 
     /**
-     * Add adressesPersonne
+     * Add adress
      *
-     * @param \MS\GestionBibliothequeBundle\Entity\Adresse $adressesPersonne
+     * @param \MS\GestionBibliothequeBundle\Entity\Adresse $adress
      *
      * @return Personne
      */
-    public function addAdressesPersonne(\MS\GestionBibliothequeBundle\Entity\Adresse $adressesPersonne)
+    public function addAdress(\MS\GestionBibliothequeBundle\Entity\Adresse $adress)
     {
-        $this->adressesPersonne[] = $adressesPersonne;
+        $this->adresses[] = $adress;
 
         return $this;
     }
 
     /**
-     * Remove adressesPersonne
+     * Remove adress
      *
-     * @param \MS\GestionBibliothequeBundle\Entity\Adresse $adressesPersonne
+     * @param \MS\GestionBibliothequeBundle\Entity\Adresse $adress
      */
-    public function removeAdressesPersonne(\MS\GestionBibliothequeBundle\Entity\Adresse $adressesPersonne)
+    public function removeAdress(\MS\GestionBibliothequeBundle\Entity\Adresse $adress)
     {
-        $this->adressesPersonne->removeElement($adressesPersonne);
+        $this->adresses->removeElement($adress);
     }
 
     /**
-     * Get adressesPersonne
+     * Get adresses
      *
      * @return \Doctrine\Common\Collections\Collection
      */
-    public function getAdressesPersonne()
+    public function getAdresses()
     {
-        return $this->adressesPersonne;
+        return $this->adresses;
     }
 }

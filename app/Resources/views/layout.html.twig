@@ -44,37 +44,27 @@
                           <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Rechercher</button>
                         </form>
 			       </div>
+			       {% if app.user %}{% endif %}
 			       <div class="nav navbar-nav pull-right">
-			       		<div class="col-md-8 welcome-user"><strong>Bonjour user</strong></div>
+			       		<div class="col-md-8 welcome-user">
 			       		<div class="col-md-4">
     						<ul class="nav">
-    						{# TODO: to implement
-    				            {% if user.authentifie %}
-    				            <li class="navbar-text">
-    				            	<strong>Bonjour user</strong></li>
-    				            {% endif %}
-    				        #}
-    				        {# TODO: suppress after implementing #}
     				            <li class="dropdown pull-right">
     				              <a href="#" data-toggle="dropdown" class="dropdown-toggle user-profil"><span class="glyphicon glyphicon-user"></span><b class="caret"></b></a>
     				              <ul class="dropdown-menu">
+    				                {% if app.user %}
     				                <li>
     				                  <a href="/users/id" title="Profil">Profil</a>
     				                </li>
-    				                <li>
-    				                	{# TODO: to implement
-    				                	<?php 
-    				                		if($authentifie){
-    				                			echo('<a href="logout.php" title="Déconnexion">Déconnexion</a>');
-    				                		}
-    				                		else {
-    				                			echo('<a href="login.php" title="Connexion">Connexion</a>');
-    				                		}
-    				                	?>
-    				                	#}
-    				                	<a href="logout.php" title="Déconnexion">Déconnexion</a> {# TODO: suppress after implementing #}
-    				                	<a href="login.php" title="Connexion">Connexion</a> {# TODO: suppress after implementing #}
-    				                </li>
+        				        	<li class="navbar-text">
+        				            	<a href="{{ path('logout	') }}" title="Déconnexion">Déconnexion</a> {# TODO: suppress after implementing #}
+        				            </li>
+            				        {% endif %}
+				                	{% if not app.user %}
+            				        	<li class="navbar-text">
+            				            	<a href="{{ path('login') }}" title="Connexion">Connexion</a> {# TODO: suppress after implementing #}
+            				            </li>
+            				        {% endif %}
     				              </ul>
     				            </li>
     				         </ul>
@@ -98,6 +88,7 @@
           <li><a href="">DVDs</a></li>
           <li><a href="">Livres</a></li>
         </ul>
+        {% if is_granted('ROLE_ADHERENT') %}
         <h4>Vos réservations</h4>
 		<ul class="nav nav-pills nav-stacked">
           <li><a href="{{ path('g2_ms_gestion_bibliotheque_reservations_index') }}">Consulter vos réservations</a></li>
@@ -106,6 +97,7 @@
 		<ul class="nav nav-pills nav-stacked">
           <li><a href="{{ path('g2_ms_gestion_bibliotheque_reservations_index') }}">Consulter vos emprunts</a></li>
         </ul>
+        {% endif %}
       </aside>
       <section id="content" class="col-md-10">
         <br />

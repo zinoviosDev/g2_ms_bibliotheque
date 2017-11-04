@@ -1,0 +1,4 @@
+services:
+#    ms_gestion_biblio_user.example:
+#        class: MSGestionBiblioUserBundle\Example
+#        arguments: ["@service_id", "plain_value", "%parameter%"]

@@ -84,9 +84,9 @@ abstract class Oeuvre extends AbstractEntity {
     /**
      * AssociationType model.Commentaire
      * AssociationMultiplicity *
-     * @ORM\OneToMany(targetEntity="Commentaire", mappedBy="commentaireOeuvre", cascade={"persist"})
+     * @ORM\OneToMany(targetEntity="Commentaire", mappedBy="oeuvre", cascade={"persist"})
      */
-    private $commentaires = array();
+    private $commentaires;
     
     public function __construct() {
         $this->exemplaires = new ArrayCollection();

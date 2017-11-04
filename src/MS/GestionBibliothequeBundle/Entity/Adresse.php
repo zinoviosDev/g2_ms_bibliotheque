@@ -43,17 +43,9 @@ class Adresse extends AbstractEntity {
     
     /**
      * Many Adresses can be attached to One Personne (Unidirectional with Join Table)
-     * @ORM\ManyToOne(targetEntity="Personne", inversedBy="adresses", cascade={"persist"})
      */
     private $personne = null;
     
-    /**
-     * One Adresse can be attached to one Exemplaire
-     */
-    private $exemplaire = null;
-    
-    
-
     /**
      * Get id
      *

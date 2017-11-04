@@ -59,7 +59,7 @@ class Commentaire {
 	/**
 	 * AssociationType model.Oeuvre
 	 * AssociationMultiplicity 0 to Many
-	 * @ORM\ManyToOne(targetEntity="Oeuvre", inversedBy="commentairesOeuvre")
+	 * @ORM\ManyToOne(targetEntity="Oeuvre", inversedBy="commentaires")
 	 * @ORM\JoinColumn(name="oeuvre_id", referencedColumnName="id")
 	 */
 	public $oeuvre;

@@ -44,24 +44,24 @@ class Exemplaire extends AbstractEntity {
 	/**
 	 * AssociationType model.Oeuvre (Many To One, Unidirectional)
 	 * AssociationMultiplicity 0..*
-	 * @ORM\ManyToOne(targetEntity="Oeuvre", inversedBy="oeuvre")
-	 * @ORM\JoinColumn(name="oeuvre_id", referencedColumnName="id")
+	 * @ORM\ManyToOne(targetEntity="Oeuvre", inversedBy="exemplaires")
+	 * @ORM\JoinColumn(name="oeuvre_id", referencedColumnName="id", nullable=false)
 	 */
 	private $oeuvre;
 	
 	/**
-	 * AssociationType model.Adresse (One To Many, bidirectional)
+	 * AssociationType model.Adresse (One To One)
 	 * AssociationMultiplicity 1..1
 	 * @ORM\OneToOne(targetEntity="Adresse", cascade={"persist"})
+	 * @ORM\JoinColumn(nullable=false)
 	 */
-	private $adresses;
+	private $adresse;
 	
 	/**
 	 * @ORM\Column(type="integer")
 	 */
 	private $etat = self::ETAT_NEUF;
-	
-	
+    	
 
     /**
      * Get id
@@ -170,26 +170,26 @@ class Exemplaire extends AbstractEntity {
     }
 
     /**
-     * Set adresses
+     * Set adresse
      *
-     * @param \MS\GestionBibliothequeBundle\Entity\Adresse $adresses
+     * @param \MS\GestionBibliothequeBundle\Entity\Adresse $adresse
      *
      * @return Exemplaire
      */
-    public function setAdresses(\MS\GestionBibliothequeBundle\Entity\Adresse $adresses = null)
+    public function setAdresse(\MS\GestionBibliothequeBundle\Entity\Adresse $adresse = null)
     {
-        $this->adresses = $adresses;
+        $this->adresse = $adresse;
 
         return $this;
     }
 
     /**
-     * Get adresses
+     * Get adresse
      *
      * @return \MS\GestionBibliothequeBundle\Entity\Adresse
      */
-    public function getAdresses()
+    public function getAdresse()
     {
-        return $this->adresses;
+        return $this->adresse;
     }
 }

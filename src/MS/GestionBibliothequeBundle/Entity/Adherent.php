@@ -69,6 +69,12 @@ class Adherent extends Personne
      * @ORM\Column(name="numTelephone", type="string", length=50, nullable=true)
      */
     private $numTelephone;
+    
+    /**
+     * @var array
+     * @ORM\OneToMany(targetEntity="Commentaire", mappedBy="adherent", cascade={"persist"})
+     */
+    private $commentaires;
 
 
     /**
