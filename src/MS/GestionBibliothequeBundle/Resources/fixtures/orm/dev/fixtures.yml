@@ -1,14 +1,15 @@
 MS\GestionBibliothequeBundle\Entity\Personne:
-    personne_physique_male (template):    
-        prenom: <fr_FR:firstNameMale()>
+    personne_physique (template):
+        prenom: <fr_FR:firstName()>
         nom: <fr_FR:lastName()>
         genre: "male"
         dateNaissance: <dateTimeBetween("-200 years", "now")>
-    personne_physique_female (template):    
+    personne_physique_male (template, extends personne_physique):
+        prenom: <fr_FR:firstNameMale()>
+        genre: "male"
+    personne_physique_female (template, extends personne_physique):    
         prenom: <fr_FR:firstNameFemale()>
-        nom: <fr_FR:lastName()>
         genre: "female"
-        dateNaissance: <dateTimeBetween("-200 years", "now")>
 MS\GestionBibliothequeBundle\Entity\Auteur:
     auteur_male{1..25} (extends personne_physique_male):
     auteur_female{1..25} (extends personne_physique_female):
@@ -16,17 +17,28 @@ MS\GestionBibliothequeBundle\Entity\Editeur:
     editeur{1..25}:    
         sigle: '<creditCardNumber()>'
         raisonSociale: '<isbn13()>'
-MS\GestionBibliothequeBundle\Entity\Adherent:
-    adherent_male{1..50} (extends personne_physique_male):
-        dateNaissance: <dateTimeBetween("-90 years", "now")>
-        nbreEmpruntsAuthorises: 10
-        email: '<fr_FR:email()>'
-        numTelephone: "<regexify('(0|\\+33|0033)[1-9][0-9]{8}')>"
-    adherent_female{1..50} (extends personne_physique_female):
-        dateNaissance: <dateTimeBetween("-200 years", "now")>
-        nbreEmpruntsAuthorises: 10
-        email: '<fr_FR:email()>'
-        numTelephone: "<regexify('(0|\\+33|0033)[1-9][0-9]{8}')>"
+#MS\UserBundle\Entity\User:
+#    user_{Louise, Amélie, Anna}:
+#        username: '<{username_<current()>}>'
+#        salt: ''
+#        roles: '<(array("ROLE_ADHERENT"))>'
+#MS\GestionBibliothequeBundle\Entity\Adherent:
+#    adherent_male{1..50} (extends personne_physique_male):
+#        dateNaissance: <dateTimeBetween("-90 years", "now")>
+#        nbreEmpruntsAuthorises: 10
+#        email: '<fr_FR:email()>'
+#        numTelephone: "<regexify('(0|\\+33|0033)[1-9][0-9]{8}')>"
+#    adherent_female{1..50} (extends personne_physique_female):
+#        dateNaissance: <dateTimeBetween("-200 years", "now")>
+#        nbreEmpruntsAuthorises: 10
+#        email: '<fr_FR:email()>'
+#        numTelephone: "<regexify('(0|\\+33|0033)[1-9][0-9]{8}')>"
+#adherent_{Louise, Amélie, Anna} (extends personne_physique_female):
+#    prenom: '<{adherent_<current()>}>'
+#    dateNaissance: <dateTimeBetween("-90 years", "now")>
+#    email: '<(strtolower(<current()>))>@gmail.com'
+#    nbreEmpruntsAuthorises: 10
+#    numTelephone: "<regexify('(0|\\+33|0033)[1-9][0-9]{8}')>"
 MS\GestionBibliothequeBundle\Entity\Adresse:
     adresse (template):
         numero: <numberBetween(1, 150)>
@@ -37,20 +49,26 @@ MS\GestionBibliothequeBundle\Entity\Adresse:
         personne (unique): '@auteur_male*'
     adresse_auteur_female{1..25} (extends adresse):
         personne (unique): '@auteur_female*'
-    adresse_adherent_male{1..50} (extends adresse):
-        personne: '@adherent_male*'
-    adresse_adherent_female{1..50} (extends adresse):
-        personne: '@adherent_female*'
+#    adresse_adherent_male{1..50} (extends adresse):
+#        personne: '@adherent_male*'
+#    adresse_adherent_female{1..50} (extends adresse):
+#        personne: '@adherent_female*'
+#    adresse_Louise(extends adresse):
+#        personne (unique): '@adherent_Louise*'
+#    adresse_Amélie(extends adresse):
+#        personne (unique): '@adherent_Amélie*'
+#    adresse_Anna(extends adresse):
+#        personne (unique): '@adherent_Anna*'
     adresse_editeur{1..25} (extends adresse):
         personne: '@editeur*'
 MS\GestionBibliothequeBundle\Entity\CarteBibliotheque:
     carteBibliotheque_adherent (template):
         numeroCarte: "E100<creditCardNumber()>"
         motDePasse: <password()>
-    carteBibliotheque_adherent_male{1..50} (extends carteBibliotheque_adherent):
-        adherent (unique): '@adherent_male*'
-    carteBibliotheque_adherent_female{1..50} (extends carteBibliotheque_adherent):
-        adherent (unique): '@adherent_female*'
+#    carteBibliotheque_adherent_male{1..50} (extends carteBibliotheque_adherent):
+#        adherent (unique): '@adherent_male*'
+#    carteBibliotheque_adherent_female{1..50} (extends carteBibliotheque_adherent):
+#        adherent (unique): '@adherent_female*'
 MS\GestionBibliothequeBundle\Entity\Oeuvre:
     oeuvre (template):    
         titre: <sentence(5)>
@@ -93,18 +111,18 @@ MS\GestionBibliothequeBundle\Entity\Commentaire:
         datePublication: '<dateTimeBetween("-3 years", "now")>'
         dateModification: '<dateTimeBetween("-3 years", "now")>'
         contenu: <sentence(10)>
-    commentaire_adherent_male_livre{1..100} (extends commentaire_adherent):
-        adherent: '@adherent_male*'
-        oeuvre: '@livre*'
-    commentaire_adherent_female_livre{1..100} (extends commentaire_adherent):
-        adherent: '@adherent_female*'
-        oeuvre: '@livre*'
-    commentaire_adherent_male_dvd{1..100} (extends commentaire_adherent):
-        adherent: '@adherent_male*'
-        oeuvre: '@dvd*'
-    commentaire_adherent_female_dvd{1..100} (extends commentaire_adherent):
-        adherent: '@adherent_female*'
-        oeuvre: '@dvd*'
+#    commentaire_adherent_male_livre{1..100} (extends commentaire_adherent):
+#        adherent: '@adherent_male*'
+#        oeuvre: '@livre*'
+#    commentaire_adherent_female_livre{1..100} (extends commentaire_adherent):
+#        adherent: '@adherent_female*'
+#        oeuvre: '@livre*'
+#    commentaire_adherent_male_dvd{1..100} (extends commentaire_adherent):
+#        adherent: '@adherent_male*'
+#        oeuvre: '@dvd*'
+#    commentaire_adherent_female_dvd{1..100} (extends commentaire_adherent):
+#        adherent: '@adherent_female*'
+#        oeuvre: '@dvd*'
 MS\GestionBibliothequeBundle\Entity\Exemplaire:
     exemplaire (template):
         cote: '<regexify([A-Z][0-9]{2})>'

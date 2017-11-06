@@ -3,6 +3,8 @@
 namespace MS\GestionBibliothequeBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Doctrine\Common\Collections\ArrayCollection;
+use MS\UserBundle\Entity\User;
 
 /**
  * Adherent
@@ -12,14 +14,6 @@ use Doctrine\ORM\Mapping as ORM;
  */
 class Adherent extends Personne
 {
-    /**
-     * @var int
-     *
-     * @ORM\Column(name="id", type="integer")
-     * @ORM\Id
-     * @ORM\GeneratedValue(strategy="AUTO")
-     */
-    private $id;
     
     /**
      * @var string
@@ -75,16 +69,21 @@ class Adherent extends Personne
      * @ORM\OneToMany(targetEntity="Commentaire", mappedBy="adherent", cascade={"persist"})
      */
     private $commentaires;
-
-
+    
     /**
-     * Get id
-     *
-     * @return int
+     * @var CarteBibliotheque
+     * @ORM\OneToOne(targetEntity="MS\GestionBibliothequeBundle\Entity\CarteBibliotheque", cascade={"persist"})
      */
-    public function getId()
-    {
-        return $this->id;
+    private $carteBibliotheque;
+    
+    /**
+     * @var User
+     * @ORM\OneToOne(targetEntity="MS\UserBundle\Entity\User", inversedBy="adherent", cascade={"persist"})
+     */
+    private $userCredentials;
+
+    public function __construct() {
+        $this->commentaires = new ArrayCollection();
     }
 
     /**
@@ -200,7 +199,7 @@ class Adherent extends Personne
     /**
      * Get nbreEmpruntsAuthorises
      *
-     * @return int
+     * @return integer
      */
     public function getNbreEmpruntsAuthorises()
     {
@@ -253,5 +252,87 @@ class Adherent extends Personne
     public function getNumTelephone()
     {
         return $this->numTelephone;
+    }
+
+    /**
+     * Add commentaire
+     *
+     * @param \MS\GestionBibliothequeBundle\Entity\Commentaire $commentaire
+     *
+     * @return Adherent
+     */
+    public function addCommentaire(\MS\GestionBibliothequeBundle\Entity\Commentaire $commentaire)
+    {
+        $this->commentaires[] = $commentaire;
+
+        return $this;
+    }
+
+    /**
+     * Remove commentaire
+     *
+     * @param \MS\GestionBibliothequeBundle\Entity\Commentaire $commentaire
+     */
+    public function removeCommentaire(\MS\GestionBibliothequeBundle\Entity\Commentaire $commentaire)
+    {
+        $this->commentaires->removeElement($commentaire);
+    }
+
+    /**
+     * Get commentaires
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getCommentaires()
+    {
+        return $this->commentaires;
+    }
+
+    /**
+     * Set carteBibliotheque
+     *
+     * @param \MS\GestionBibliothequeBundle\Entity\CarteBibliotheque $carteBibliotheque
+     *
+     * @return Adherent
+     */
+    public function setCarteBibliotheque(\MS\GestionBibliothequeBundle\Entity\CarteBibliotheque $carteBibliotheque = null)
+    {
+        $this->carteBibliotheque = $carteBibliotheque;
+
+        return $this;
+    }
+
+    /**
+     * Get carteBibliotheque
+     *
+     * @return \MS\GestionBibliothequeBundle\Entity\CarteBibliotheque
+     */
+    public function getCarteBibliotheque()
+    {
+        return $this->carteBibliotheque;
+    }
+
+    /**
+     * Set userCredentials
+     *
+     * @param \MS\GestionBibliothequeBundle\Entity\User $userCredentials
+     *
+     * @return Adherent
+     */
+    public function setUserCredentials(\MS\UserBundle\Entity\User $userCredentials = null)
+    {
+        $this->userCredentials = $userCredentials;
+
+        return $this;
+    }
+
+    /**
+     * Get userCredentials
+     *
+     * @return \MS\UserBundle\Entity\User
+     */
+    public function getUserCredentials()
+    {
+        return $this->userCredentials;
     }
 }

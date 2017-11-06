@@ -1,0 +1,15 @@
+{% extends "MSGestionBibliothequeBundle::layout.html.twig" %}
+
+{% block title %}
+  Recherche de livres et DVD par titre ou par auteur - {{ parent() }}
+{% endblock %}
+
+{% block g2_ms_gestionbibliotheque_body %}
+
+  <h4>Formulaire de recherche</h4>
+
+  <div class="well">
+  {{ form(form) }}
+</div>
+
+{% endblock %}

@@ -57,6 +57,14 @@ class Emprunt {
 	 * @ORM\JoinColumn(name="oeuvre_id", referencedColumnName="id")
 	 */
 	private $oeuvre;
+	
+	/**
+	 * @ORM\ManyToOne(targetEntity="MS\GestionBibliothequeBundle\Entity\Exemplaire", inversedBy="emprunts")
+	 * @ORM\JoinColumn(nullable=false)
+	 */
+	private $exemplaire;
+
+    
 
     /**
      * Get id
@@ -210,5 +218,29 @@ class Emprunt {
     public function getOeuvre()
     {
         return $this->oeuvre;
+    }
+
+    /**
+     * Set exemplaire
+     *
+     * @param \MS\GestionBibliothequeBundle\Entity\Exemplaire $exemplaire
+     *
+     * @return Emprunt
+     */
+    public function setExemplaire(\MS\GestionBibliothequeBundle\Entity\Exemplaire $exemplaire)
+    {
+        $this->exemplaire = $exemplaire;
+
+        return $this;
+    }
+
+    /**
+     * Get exemplaire
+     *
+     * @return \MS\GestionBibliothequeBundle\Entity\Exemplaire
+     */
+    public function getExemplaire()
+    {
+        return $this->exemplaire;
     }
 }

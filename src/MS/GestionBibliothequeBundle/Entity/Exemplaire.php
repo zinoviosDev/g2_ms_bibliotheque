@@ -10,6 +10,7 @@ use Doctrine\Common\Collections\ArrayCollection;
  * @package model
  * @ORM\Entity 
  * @ORM\Table(name="exemplaire")
+ * @ORM\Entity(repositoryClass="MS\GestionBibliothequeBundle\Repository\ExemplaireRepository")
  */
 class Exemplaire extends AbstractEntity {
     
@@ -52,8 +53,8 @@ class Exemplaire extends AbstractEntity {
 	/**
 	 * AssociationType model.Adresse (One To One)
 	 * AssociationMultiplicity 1..1
-	 * @ORM\OneToOne(targetEntity="Adresse", cascade={"persist"})
-	 * @ORM\JoinColumn(nullable=false)
+	 * @ORM\ManyToOne(targetEntity="Adresse")
+	 * @ORM\JoinColumn(name="adresse_id", referencedColumnName="id", nullable=false)
 	 */
 	private $adresse;
 	
@@ -61,7 +62,21 @@ class Exemplaire extends AbstractEntity {
 	 * @ORM\Column(type="integer")
 	 */
 	private $etat = self::ETAT_NEUF;
-    	
+	
+    
+	/**
+	 * @ORM\OneToMany(targetEntity="MS\GestionBibliothequeBundle\Entity\Emprunt", mappedBy="exemplaire")
+	 */
+    private $emprunts;
+	
+    
+    /**
+     * Constructor
+     */
+    public function __construct()
+    {
+        $this->emprunts = new \Doctrine\Common\Collections\ArrayCollection();
+    }
 
     /**
      * Get id
@@ -152,7 +167,7 @@ class Exemplaire extends AbstractEntity {
      *
      * @return Exemplaire
      */
-    public function setOeuvre(\MS\GestionBibliothequeBundle\Entity\Oeuvre $oeuvre = null)
+    public function setOeuvre(\MS\GestionBibliothequeBundle\Entity\Oeuvre $oeuvre)
     {
         $this->oeuvre = $oeuvre;
 
@@ -176,7 +191,7 @@ class Exemplaire extends AbstractEntity {
      *
      * @return Exemplaire
      */
-    public function setAdresse(\MS\GestionBibliothequeBundle\Entity\Adresse $adresse = null)
+    public function setAdresse(\MS\GestionBibliothequeBundle\Entity\Adresse $adresse)
     {
         $this->adresse = $adresse;
 
@@ -191,5 +206,39 @@ class Exemplaire extends AbstractEntity {
     public function getAdresse()
     {
         return $this->adresse;
+    }
+
+    /**
+     * Add emprunt
+     *
+     * @param \MS\GestionBibliothequeBundle\Entity\Emprunt $emprunt
+     *
+     * @return Exemplaire
+     */
+    public function addEmprunt(\MS\GestionBibliothequeBundle\Entity\Emprunt $emprunt)
+    {
+        $this->emprunts[] = $emprunt;
+
+        return $this;
+    }
+
+    /**
+     * Remove emprunt
+     *
+     * @param \MS\GestionBibliothequeBundle\Entity\Emprunt $emprunt
+     */
+    public function removeEmprunt(\MS\GestionBibliothequeBundle\Entity\Emprunt $emprunt)
+    {
+        $this->emprunts->removeElement($emprunt);
+    }
+
+    /**
+     * Get emprunts
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getEmprunts()
+    {
+        return $this->emprunts;
     }
 }

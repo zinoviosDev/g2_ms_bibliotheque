@@ -4,6 +4,9 @@ namespace src\MS\GestionBibliothequeBundle\DataFixtures\ORM;
 use Doctrine\Common\DataFixtures\FixtureInterface;
 use Doctrine\Common\Persistence\ObjectManager;
 use MS\GestionBibliothequeBundle\Entity\Adherent;
+use MS\UserBundle\Entity\User;
+use MS\GestionBibliothequeBundle\Entity\Adresse;
+use MS\GestionBibliothequeBundle\Entity\CarteBibliotheque;
 
 /**
  *
@@ -20,32 +23,85 @@ class LoadAdherent implements FixtureInterface
      *
      */
     public function load(ObjectManager $manager) {
-        $arrayFields = array(
-            array("DateNaissance" => date_create_from_format("d/m/Y", "16/08/2002"),
-                "Email" => "john.doe@gmail.com",
-                "Genre" => "male",
-                "NbreEmpruntsAuthorises" => (int)10,
+        $adherentsArray = array(
+            array(
+                "Prenom" => "John",
                 "Nom" => "Doe",
+                "DateNaissance" => date_create_from_format("d/m/Y", "16/08/2002"),
+                "Genre" => "male",
+                "Email" => "john.doe@gmail.com",
                 "NumTelephone" => "+33608654232",
-                "Prenom" => "John"
+                "NbreEmpruntsAuthorises" => (int)10
+            ),
+            array(
+                "Prenom" => "Louise",
+                "Nom" => "Fournier",
+                "DateNaissance" => date_create_from_format("d/m/Y", "16/08/2002"),
+                "Genre" => "female",
+                "Email" => "louise.fournier@gmail.com",
+                "NumTelephone" => "0491010203",
+                "NbreEmpruntsAuthorises" => (int)10
+            ),
+            array(
+                "Prenom" => "Amélie",
+                "Nom" => "Rousset",
+                "DateNaissance" => date_create_from_format("d/m/Y", "16/08/2002"),
+                "Genre" => "female",
+                "Email" => "amelie.rousset@gmail.com",
+                "NumTelephone" => "0491010203",
+                "NbreEmpruntsAuthorises" => (int)10
+            ),
+            array(
+                "Prenom" => "Anna",
+                "Nom" => "Guillou",
+                "DateNaissance" => date_create_from_format("d/m/Y", "16/08/2002"),
+                "Genre" => "female",
+                "Email" => "anna.guillou@gmail.com",
+                "NumTelephone" => "0491010203",
+                "NbreEmpruntsAuthorises" => (int)10
             )
         );
-        $adherent = new Adherent();
-        $adherent->setNom("Doe");
-        $adherent->setPrenom("John");
-        $adherent->setGenre("male");
-        $adherent->setNbreEmpruntsAuthorises("10");
-        $adherent->setNumTelephone("33608654232");
-        $adherent->setEmail("john.doe@gmail.com");
-        $adherent->setDateNaissance(date_create_from_format("d/m/Y", "06/08/2008"));
-        $manager->persist($adherent);
-        
-        foreach ($arrayFields as $data) {
-            $adherent2 = new Adherent();
-            $adherent2->hydrate($data);
-            $manager->persist($adherent2);
+        // adresse + carte bibliotheque
+        $adresseFields = array(
+            array(
+                "Numero" => 7,
+                "LibelleVoie" => "Rue d'Endoume",
+                "CodePostal" => "13007",
+                "Ville" => "Marseille"
+            )
+        );
+        $carteBibliothequeFields = array(
+            array(
+                "NumeroCarte" => "E100275542",
+                "MotDePasse" => "" // unused but causes bug in alice fixture is suppressed
+            )
+        );
+        foreach ($adherentsArray as $data) {
+            $adherent = new Adherent();
+            $adherent->hydrate($data);
+            $user = new User();
+            $user->setUsername($adherent->getPrenom());
+            $user->setPassword($adherent->getPrenom());
+            $user->setSalt('');
+            $user->setRoles(array('ROLE_ADHERENT'));
+            $adherent->setUserCredentials($user);
+            $adresse = new Adresse();
+//             $adresse->hydrate($adresseFields);
+            $adresse->setNumero(7);
+            $adresse->setLibelleVoie("Rue d'Endoume");
+            $adresse->setCodePostal(13007);
+            $adresse->setVille("Marseille");
+            $adherent->addAdress($adresse);
+            $carteBibliotheque = new CarteBibliotheque();
+//             $carteBibliotheque->hydrate($adresseFields);
+            $carteBibliotheque->setNumeroCarte("E100275542");
+            $carteBibliotheque->setMotDePasse("");
+            $adherent->setCarteBibliotheque($carteBibliotheque);
+            $manager->persist($user);
+            $manager->persist($adresse);
+//             $manager->persist($carteBibliotheque);
+            $manager->persist($adherent);
         }
         $manager->flush();
     }
 }
-

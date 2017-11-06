@@ -81,19 +81,19 @@ abstract class Oeuvre extends AbstractEntity {
      */
     private $exemplaires;
     
+    private $nbExemplaires;
+    
     /**
      * AssociationType model.Commentaire
      * AssociationMultiplicity *
      * @ORM\OneToMany(targetEntity="Commentaire", mappedBy="oeuvre", cascade={"persist"})
      */
     private $commentaires;
-    
+
     public function __construct() {
         $this->exemplaires = new ArrayCollection();
         $this->commentaires = new ArrayCollection();
     }
-    
-    
     
     /**
      * Get id
@@ -103,6 +103,22 @@ abstract class Oeuvre extends AbstractEntity {
     public function getId()
     {
         return $this->id;
+    }
+    
+    /**
+     * @return the $nbExemplaires
+     */
+    public function getNbExemplaires()
+    {
+        return $this->nbExemplaires;
+    }
+    
+    /**
+     * @param field_type $nbExemplaires
+     */
+    public function setNbExemplaires($nbExemplaires)
+    {
+        $this->nbExemplaires = $nbExemplaires;
     }
     
     /**

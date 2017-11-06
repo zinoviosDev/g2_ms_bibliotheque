@@ -16,13 +16,30 @@
       <b>Nombre de pages :</b> {{ livre.nbrePages }} <br /></p>
       <p><b>Description :</b> {{ livre.description }}</p>
       <p><b>Résumé :</b> {{ livre.resume }}</p>
+      <p><b>Nombre d'exemplaires :</b> {{ nbreExemplaires }}</p>
+      <p><b>Exemplaires disponibles :</b> {{ nbreExemplairesDisponibles }}</p>
   </div>
-
-  <p>
-    <a href="{{ path('g2_ms_gestion_bibliotheque_home') }}" class="btn btn-default">
-      <i class="glyphicon glyphicon-chevron-left"></i>
-      Retour à la liste
-    </a>
-  </p>
+<div>
+	{% if not is_granted('ROLE_ADHERENT') %}
+        	<p class="btn-info"><em>Veuillez vous connecter pour accéder à la réservation et à l'emprunt des oeuvres</em></p><br /><br />
+        {% endif %}
+</div>
+  <div>
+  	<div>
+        <a href="{{ path('g2_ms_gestion_bibliotheque_home') }}" class="btn btn-default">
+          <i class="glyphicon glyphicon-chevron-left"></i>
+          Retour à la liste
+        </a>
+        {% if is_granted('ROLE_ADHERENT') %}
+        	{% if nbreExemplaires >= nbreExemplairesDisponibles %}
+              	<a href="{{ path('g2_ms_gestion_bibliotheque_emprunts_add', {'id': livre.id}) }}" role="" class="btn btn-primary"><i class="glyphicon glyphicon-book"></i> Emprunter</a>
+            {% endif %}
+            {% if nbreExemplaires < nbreExemplairesDisponibles %}
+              	<a href="{{ path('g2_ms_gestion_bibliotheque_reservations_add', {'id': livre.id}) }}" role="" class="btn btn-primary"><i class="glyphicon glyphicon-book"></i> Réserver ce livre</a>
+              	<p>Vous serez avertis par SMS ou par email de la disponiblité de l'ouvrage, dès retour d'un des exemplaires empruntés.</p>
+            {% endif %}
+        {% endif %}
+    </div>
+  </div>
 
 {% endblock %}

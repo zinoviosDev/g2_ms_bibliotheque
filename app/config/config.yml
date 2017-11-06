@@ -2,7 +2,7 @@ imports:
     - { resource: parameters.yml }
     - { resource: security.yml }
     - { resource: services.yml }
-    - { resource: "@MSGestionBiblioUserBundle/Resources/config/services.yml" }
+    - { resource: "@MSUserBundle/Resources/config/services.yml" }
 
 # Put parameters here that don't need to change on each machine where the app is deployed
 # https://symfony.com/doc/current/best_practices/configuration.html#application-related-configuration
@@ -38,6 +38,8 @@ framework:
 twig:
     debug: '%kernel.debug%'
     strict_variables: '%kernel.debug%'
+    form_themes:
+        - 'bootstrap_3_horizontal_layout.html.twig'
 
 # Doctrine Configuration
 doctrine:
@@ -74,9 +76,9 @@ swiftmailer:
     spool: { type: memory }
     
 # Easyadmin Configuration
-easy_admin:
-    entities:
-        - OC\PlatformBundle\Entity\Advert
-        - OC\PlatformBundle\Entity\Image
-        - OC\PlatformBundle\Entity\Application
-        - OC\PlatformBundle\Entity\Category
+#easy_admin:
+#    entities:
+#        - OC\PlatformBundle\Entity\Advert
+#        - OC\PlatformBundle\Entity\Image
+#        - OC\PlatformBundle\Entity\Application
+#        - OC\PlatformBundle\Entity\Category

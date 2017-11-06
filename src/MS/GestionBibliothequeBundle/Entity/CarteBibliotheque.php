@@ -10,7 +10,7 @@ use Doctrine\ORM\Mapping as ORM;
  * @ORM\Entity
  * @ORM\Table(name="carte_bibliotheque")
  */
-class CarteBibliotheque {
+class CarteBibliotheque extends AbstractEntity {
     
     /**
      * @var int
@@ -33,13 +33,7 @@ class CarteBibliotheque {
      */
     private $motDePasse = null;
     
-    /**
-     * One CarteBibliotheque is owned by One Adherent (OneToOne, bidirectional)
-     * @var Adherent
-     * @ORM\OneToOne(targetEntity="Adherent", inversedBy="carteBibliotheque",cascade={"persist"})
-     * @ORM\JoinColumn(name="adherent_id", referencedColumnName="id")
-     */
-    private $adherent = null;
+    private $adherent;
     
     
     /**

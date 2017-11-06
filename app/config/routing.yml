@@ -1,18 +1,15 @@
-ms_gestion_biblio_user:
-    resource: "@MSGestionBiblioUserBundle/Controller/"
+ms_user:
+    resource: "@MSUserBundle/Controller/"
     type:     annotation
     prefix:   /
 
-oc_platform:
-    resource: "@OCPlatformBundle/Resources/config/routing.yml"
-    prefix:   /platform
 g2_ms_gestionBibliotheque:
     resource: "@MSGestionBibliothequeBundle/Resources/config/routing.yml"
     prefix:   /
 login:
     path: /login
     defaults:
-        _controller: MSGestionBiblioUserBundle:Security:login
+        _controller: MSUserBundle:Security:login
 login_check:
     path: /login_check
 logout:

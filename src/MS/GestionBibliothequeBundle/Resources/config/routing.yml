@@ -1,76 +1,97 @@
 g2_ms_gestion_bibliotheque_home:
     path:     /{page}
-    defaults: 
+    defaults:
         _controller: MSGestionBibliothequeBundle:Oeuvre:index
         page: 1
     requirements:
         _format: html
         page: \d*
+        
+#api_post_show:
+#    path:     /api/posts/{id}
+#    defaults: { _controller: AppBundle:BlogApi:show }
+#    methods:  [GET, HEAD]
     
 g2_ms_gestion_bibliotheque_livre_view:
     path:      /livre/{id}
-    defaults: 
+    defaults:
         _controller: MSGestionBibliothequeBundle:Livre:view
     requirements:
         _format: html
         id: \d+
         
+g2_ms_gestion_bibliotheque_livre_find:
+    path:      /livre/find
+    defaults:
+        _controller: MSGestionBibliothequeBundle:Livre:find
+    requirements:
+        _format: html
+        
 g2_ms_gestion_bibliotheque_dvd_view:
     path:      /dvd/{id}
-    defaults: 
+    defaults:
         _controller: MSGestionBibliothequeBundle:DVD:view
     requirements:
         _format: html
         id: \d+
+        
+g2_ms_gestion_bibliotheque_dvd_find:
+    path:      /dvd/find
+    defaults:
+        _controller: MSGestionBibliothequeBundle:DVD:find
+    requirements:
+        _format: html
 
 g2_ms_gestion_bibliotheque_emprunts_index:
-    path:      /gestionnaire/emprunt/
-    defaults: 
+    path:      /emprunt/
+    defaults:
         _controller: MSGestionBibliothequeBundle:Emprunt:index
     requirements:
         _format: html
     
 g2_ms_gestion_bibliotheque_emprunts_view:
-    path:      /gestionnaire/emprunt/{id}
-    defaults: 
+    path:      /emprunt/{id}
+    defaults:
         _controller: MSGestionBibliothequeBundle:Emprunt:view
     requirements:
         _format: html
         id: \d+
     
 g2_ms_gestion_bibliotheque_emprunts_add:
-    path:      /gestionnaire/emprunt/add
-    defaults: 
+    path:      /emprunt/add/{id}
+    defaults:
         _controller: MSGestionBibliothequeBundle:Emprunt:add
     requirements:
         _format: html
+        id: \d+
     
 g2_ms_gestion_bibliotheque_reservations_index:
     path:      /reservation/
-    defaults: 
+    defaults:
         _controller: MSGestionBibliothequeBundle:Reservation:index
     requirements:
         _format: html
     
 g2_ms_gestion_bibliotheque_reservations_view:
     path:      /reservation/{id}
-    defaults: 
+    defaults:
         _controller: MSGestionBibliothequeBundle:Reservation:view
     requirements:
         _format: html
         id: \d+
-        
+
 g2_ms_gestion_bibliotheque_reservations_annulation:
     path:      /reservation/annulation/{id}
-    defaults: 
+    defaults:
         _controller: MSGestionBibliothequeBundle:Reservation:annulation
     requirements:
         _format: html
-        id: \d+ 
-    
+        id: \d+
+
 g2_ms_gestion_bibliotheque_reservations_add:
     path:      /reservation/add
-    defaults: 
+    defaults:
         _controller: MSGestionBibliothequeBundle:Reservation:add
     requirements:
         _format: html
+
