@@ -1,0 +1,21 @@
+{% extends "MSGestionBibliothequeBundle::layout.html.twig" %}
+
+{% block title %}
+Actions du gestionnaire -
+{{ parent() }}
+{% endblock %}
+
+{% block g2_ms_gestionbibliotheque_body %}
+<h1 class="header teal-text text-lighten-2">Actions</h1>
+<div>
+	<ul>
+		<li>gestion des adhérents //=> entrée menu adhérent (recherche adhérent multicritères)</li>
+        <li>gestion d'emprunt (enregistrer emprunt, retour ...)</li>
+        <li>imprimer un reçu à la demande de l'emprunteur</li>
+        <li>sanctionner un emprunteur (objet perdu, abimé)</li>
+        <li>sanctionner un commentateur</li>
+        <li>gérer les commentaires (confirmer l'affichage des commentaires)</li>
+	</ul>
+	
+</div>
+{% endblock %}

@@ -1,0 +1,64 @@
+SELECT COUNT(e0_.id) AS sclr_0, o1_.id AS id_1, o1_.titre AS titre_2, o1_.sujet AS sujet_3, o1_.date_publication AS date_publication_4, o1_.fonds_specifique AS fonds_specifique_5, o1_.langue AS langue_6, l2_.isbn AS isbn_7, l2_.nbre_pages AS nbre_pages_8, l2_.description AS description_9, l2_.resume AS resume_10, l2_.format AS format_11, p3_.id AS id_12, a4_.nom AS nom_13, a4_.prenom AS prenom_14, a4_.genre AS genre_15, a4_.date_naissance AS date_naissance_16, e0_.id AS id_17, e0_.mode_acces AS mode_acces_18, e0_.cote AS cote_19, e0_.etat AS etat_20, o1_.discr AS discr_21, o1_.editeur_id AS editeur_id_22, o1_.auteur_id AS auteur_id_23, p3_.discr AS discr_24, e0_.oeuvre_id AS oeuvre_id_25, e0_.adresse_id AS adresse_id_26 
+FROM livre l2_ 
+INNER JOIN oeuvre o1_ ON l2_.id = o1_.id 
+INNER JOIN auteur a4_ ON o1_.auteur_id = a4_.id 
+LEFT JOIN personne p3_ ON a4_.id = p3_.id 
+INNER JOIN exemplaire e0_ ON o1_.id = e0_.oeuvre_id
+GROUP BY o1_.id 
+HAVING sclr_0 >= 1 
+ORDER BY o1_.date_publication DESC
+
+SELECT o.id, o.titre, count(e.id) as nb_exemplaires 
+FROM oeuvre as o, exemplaire as e
+WHERE o.id = e.oeuvre_id
+GROUP BY o.id
+HAVING nb_exemplaires >=1
+
+SELECT u FROM MyProject\Model\User u WHERE u.age > 20
+
+SELECT l FROM Livre, a From Auteur, e From Exemplaire WHERE l.a = a.l
+
+php bin/console doctrine:query:dql  
+$query = $em->createQuery('SELECT u.id, a.id as article_id FROM CmsUser u LEFT JOIN u.articles a');
+"SELECT l, a, e FROM MSGestionBibliothequeBundle:Livre l LEFT JOIN a FROM MSGestionBibliothequeBundle:Auteur a LEFT JOIN e FROM MSGestionBibliothequeBundle:Exemplaire e WHERE l.a = a.l"
+
+SELECT a, u FROM OCPlatformBundle:Advert a JOIN a.user u WHERE u.age = 25
+
+php bin/console doctrine:query:dql "SELECT a, e FROM MSGestionBibliothequeBundle:Adherent a JOIN a.emprunts e WHERE a.id=77"
+
+php bin/console doctrine:query:dql "SELECT l FROM MSGestionBibliothequeBundle:Livre l JOIN l.auteur a JOIN l.exemplaires e WHERE l.id=12"
+
+php bin/console doctrine:query:dql "SELECT ex, count(emp.id) FROM MSGestionBibliothequeBundle:Exemplaire ex JOIN ex.emprunts emp GROUP BY ex.id"
+
+emprunt du livre d'ISBN 7403668677691 
+
+// using PDO
+class MyServiceName {
+
+    /**
+     * @var \Doctrine\ORM\EntityManager
+     */
+    private $em;
+
+    /**
+     * @var \Doctrine\DBAL\Connection
+     */
+    private $connection;
+
+    public function __construct(EntityManager $entityManager) {
+        $this->em = $entityManager;
+        $this->connection = $entityManager->getConnection();
+    }
+
+    public function getUsers(){
+        // Update query
+        $this->connection->query('UPDATE statistics SET counter=counter+1 WHERE id = 1')->execute();
+
+        // Prepare (you can use just query() as well)
+        $select = $this->connection->prepare('SELECT * FROM users WHERE username LIKE :username');
+        $select->bindValue(':username', '%sample%');
+        $select->execute();
+
+        return $select->fetch(\PDO::FETCH_ASSOC);
+    }
+}

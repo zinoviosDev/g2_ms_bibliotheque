@@ -6,7 +6,7 @@ use Doctrine\Common\Persistence\ObjectManager;
 use MS\GestionBibliothequeBundle\Entity\Adherent;
 use MS\UserBundle\Entity\User;
 use MS\GestionBibliothequeBundle\Entity\Adresse;
-use MS\GestionBibliothequeBundle\Entity\CarteBibliotheque;
+use MS\GestionBibliothequeBundle\Utils\FakerHelper;
 
 /**
  *
@@ -83,23 +83,19 @@ class LoadAdherent implements FixtureInterface
             $user->setUsername($adherent->getPrenom());
             $user->setPassword($adherent->getPrenom());
             $user->setSalt('');
+            $user->setEmail($adherent->getPrenom() ."@gmail.com");
             $user->setRoles(array('ROLE_ADHERENT'));
             $adherent->setUserCredentials($user);
             $adresse = new Adresse();
-//             $adresse->hydrate($adresseFields);
             $adresse->setNumero(7);
             $adresse->setLibelleVoie("Rue d'Endoume");
             $adresse->setCodePostal(13007);
             $adresse->setVille("Marseille");
             $adherent->addAdress($adresse);
-            $carteBibliotheque = new CarteBibliotheque();
-//             $carteBibliotheque->hydrate($adresseFields);
-            $carteBibliotheque->setNumeroCarte("E100275542");
-            $carteBibliotheque->setMotDePasse("");
-            $adherent->setCarteBibliotheque($carteBibliotheque);
-            $manager->persist($user);
-            $manager->persist($adresse);
-//             $manager->persist($carteBibliotheque);
+            $adherent->setEmail($adherent->getPrenom() ."@gmail.com");
+            $adherent->setNumCarte(FakerHelper::generateKey(10));
+//             $manager->persist($user);
+//             $manager->persist($adresse);
             $manager->persist($adherent);
         }
         $manager->flush();

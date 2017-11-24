@@ -1,5 +1,5 @@
 {
-	"name" : "marc/symfony",
+	"name" : "g2_ms_bibliotheque",
 	"license" : "proprietary",
 	"type" : "project",
 	"autoload" : {
@@ -31,7 +31,16 @@
 		"symfony/polyfill-apcu" : "^1.0",
 		"symfony/swiftmailer-bundle" : "^2.3.10",
 		"symfony/symfony" : "3.3.*",
-		"twig/twig" : "^1.0||^2.0"
+		"twbs/bootstrap" : "~3.3",
+		"twig/twig" : "^1.0||^2.0",
+		"symfony/assetic-bundle" : "~2.8",
+		"leafo/scssphp" : "~0.7",
+		"patchwork/jsqueeze" : "~2.0",
+		"components/jquery" : "~3.2",
+		"skydiver/laravel-materialize-css" : "~0.98",
+		"friendsofsymfony/user-bundle" : "~2.0",
+		"rohnstock/pickadate" : "~3.5",
+		"components/jqueryui" : "~1.12"
 	},
 	"require-dev" : {
 		"doctrine/data-fixtures" : "^1.2",
@@ -39,7 +48,7 @@
 		"hautelook/alice-bundle" : "^2.0@beta",
 		"nelmio/alice" : "^3.0@beta",
 		"sensio/generator-bundle" : "^3.0",
-		"symfony/phpunit-bridge" : "^3.0",
+		"phpunit/phpunit" : "~6.4",
 		"theofidry/alice-data-fixtures" : "^1.0@rc"
 	},
 	"scripts" : {

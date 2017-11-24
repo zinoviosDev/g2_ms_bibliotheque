@@ -1,0 +1,35 @@
+g2_ms_gestion_bibliotheque_gestionnaire_index:
+    path:      /
+    defaults:
+        _controller: MSGestionBibliothequeBundle:Gestionnaire:index
+    requirements:
+        _format: html
+        
+g2_ms_gestion_bibliotheque_gestionnaire_adherent_search:
+    path:      /adherent/search
+    defaults:
+        _controller: MSGestionBibliothequeBundle:Gestionnaire:searchAdherent
+    requirements:
+        _format: html
+        
+g2_ms_gestion_bibliotheque_gestionnaire_adherent_add:
+    path:      /adherent/add
+    defaults:
+        _controller: MSGestionBibliothequeBundle:Gestionnaire:addAdherent
+    requirements:
+        _format: html
+        
+g2_ms_gestion_bibliotheque_gestionnaire_adherent_edit:
+    path:      /adherent/edit/{id}
+    defaults:
+        _controller: MSGestionBibliothequeBundle:Gestionnaire:editAdherent
+    requirements:
+        _format: html
+        id: \d+
+        
+g2_ms_gestion_bibliotheque_gestionnaire_reservation_search:
+    path:      /reservation/search
+    defaults:
+        _controller: MSGestionBibliothequeBundle:Gestionnaire:searchReservation
+    requirements:
+        _format: html

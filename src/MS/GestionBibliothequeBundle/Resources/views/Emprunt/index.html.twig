@@ -1,7 +1,45 @@
 {% extends "MSGestionBibliothequeBundle::layout.html.twig" %}
 
-{% block title %}{{ parent() }} - Index{% endblock %}
+{% block title %}
+  Votre liste d'emprunts - {{ parent() }}
+{% endblock %}
 
-{% block body %}
-  Notre plateforme est un peu vide pour le moment, mais cela viendra !
+{% block g2_ms_gestionbibliotheque_body %}
+{% if not is_granted('ROLE_ADHERENT') %}
+	<p class="btn-warning"><em>L'accès à cette page n'est pas autorisé aux adhérents non connectés.</em></p><br /><br />
+{% endif %}
+
+{% if is_granted('ROLE_ADHERENT') %}
+  <h2>Vos emprunts</h2>
+    {% if empruntAjoute is defined %}
+    	<p class="btn-info"><em>Votre nouvel emprunt a bien été pris en compte</em></p><br />
+    {% endif %}
+    {% if emprunts is not empty %}
+      <table class="table2" role="grid">
+    		<colgroup>
+    			<col style="width: 145px;" />
+    			<col style="width: 115px;" />
+    		</colgroup>
+    		<thead> 
+    			<tr> 
+    			    <th>Titre</th>
+    			    <th>Auteur</th> 
+    			    <th>Date d'emprunt</th>
+    			    <th>Date limite de retour</th>
+    			</tr> 
+    		</thead> 
+    		<tbody>
+    			{% for emprunt in emprunts %}
+    			<td>{{ emprunt.oeuvre.titre }}</td>
+    			<td>{{ emprunt.oeuvre.auteur.prenom }} {{ emprunt.oeuvre.auteur.nom }}</td>
+    			<td>{{ emprunt.dateEmprunt |date('d/m/Y')}}</td>
+    			<td>{{ emprunt.dateRetourTheorique |date('d/m/Y')}}	</td>
+    			{% endfor %}
+    		</tbody> 
+    	</table>
+    	{% endif %}
+	{% endif %}
+	{% if emprunts is empty %}
+    	<p class=""><em>Vous n'avez actuellement aucun emprunt en cours</em></p><br />
+    {% endif %}
 {% endblock %}

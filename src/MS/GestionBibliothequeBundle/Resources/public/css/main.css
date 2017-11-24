@@ -1,0 +1,56 @@
+nav ul a, nav .brand-logo, nav div ul li a {
+/* 	color: #444 !important; */
+}
+
+body {
+	display: flex;
+	min-height: 100vh;
+	flex-direction: column;
+	background-color: floralwhite;
+}
+
+main {
+	margin-top: 40px;
+	flex: 1 0 auto;
+}
+
+h1 {
+	font-size: 2.5rem;
+}
+
+/* .container-90-pos-absolute { */
+/* 	width: 90%; */
+/* 	margin: 0 auto; */
+/* 	max-width: 1280px; */
+/* 	position:absolute; */
+/* } */
+
+
+.parallax-container {
+  min-height: 350px;
+  line-height: 0;
+  height: auto;
+  color: rgba(255,255,255,.9);
+}
+ .parallax-container .section {
+   width: 100%;
+ }
+ 
+ .parallax img {
+ 	display: block;	
+ }
+
+@media only screen and (max-width : 992px) {
+ .parallax-container .section {
+   position: absolute;
+   top: 40%;
+ }
+
+.my-form-class, .search_form_div, table {
+	max-width: 500px !important;
+}
+
+.dropdown-content li > a {
+	padding-left: 3px !important;
+}
+

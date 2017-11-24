@@ -7,11 +7,14 @@ g2_ms_gestion_bibliotheque_home:
         _format: html
         page: \d*
         
-#api_post_show:
-#    path:     /api/posts/{id}
-#    defaults: { _controller: AppBundle:BlogApi:show }
-#    methods:  [GET, HEAD]
-    
+g2_ms_gestion_bibliotheque_auteur_view:
+    path:      /auteur/{id}
+    defaults:
+        _controller: MSGestionBibliothequeBundle:Auteur:view
+    requirements:
+        _format: html
+        id: \d+
+
 g2_ms_gestion_bibliotheque_livre_view:
     path:      /livre/{id}
     defaults:
@@ -64,34 +67,11 @@ g2_ms_gestion_bibliotheque_emprunts_add:
     requirements:
         _format: html
         id: \d+
-    
-g2_ms_gestion_bibliotheque_reservations_index:
-    path:      /reservation/
-    defaults:
-        _controller: MSGestionBibliothequeBundle:Reservation:index
-    requirements:
-        _format: html
-    
-g2_ms_gestion_bibliotheque_reservations_view:
-    path:      /reservation/{id}
-    defaults:
-        _controller: MSGestionBibliothequeBundle:Reservation:view
-    requirements:
-        _format: html
-        id: \d+
+        
+g2_ms_gestion_bibliotheque_reservations:
+    resource: "@MSGestionBibliothequeBundle/Resources/config/routing/reservations.yml"
+    prefix:   /reservation
 
-g2_ms_gestion_bibliotheque_reservations_annulation:
-    path:      /reservation/annulation/{id}
-    defaults:
-        _controller: MSGestionBibliothequeBundle:Reservation:annulation
-    requirements:
-        _format: html
-        id: \d+
-
-g2_ms_gestion_bibliotheque_reservations_add:
-    path:      /reservation/add
-    defaults:
-        _controller: MSGestionBibliothequeBundle:Reservation:add
-    requirements:
-        _format: html
-
+g2_ms_gestion_bibliotheque_gestionnaire:
+    resource: "@MSGestionBibliothequeBundle/Resources/config/routing/gestionnaire.yml"
+    prefix:   /gestionnaire

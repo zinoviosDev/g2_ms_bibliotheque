@@ -1,57 +1,72 @@
 {% extends "MSGestionBibliothequeBundle::layout.html.twig" %}
 
 {% block title %}
-  Accueil - {{ parent() }}
+Derniers livres et DVDs publiés -
+{{ parent() }}
 {% endblock %}
 
 {% block g2_ms_gestionbibliotheque_body %}
-
-  <h2>Derniers livres publiés</h2>
-  <table class="table2" role="grid">
-		<colgroup>
-			<col style="width: 145px;" />
-			<col style="width: 115px;" />
-		</colgroup>
-		<thead> 
-			<tr> 
-			    <th>Titre</th>
-			    <th>Auteur</th> 
-			    <th>Date de publication</th>
-			</tr> 
-		</thead> 
-		<tbody>
-			{% for livre in listeLivres %}
-    			<tr>
-    				<td><a href="{{ path('g2_ms_gestion_bibliotheque_livre_view', {'id': livre.id}) }}">{{ livre.titre }}</a></td>
-    				<td>{{ livre.auteur.prenom }} {{ livre.auteur.nom }}</td>
-    				<td>{{ livre.dateDePublication |date('d/m/Y') }}</td>
-    			</tr>
-			{% endfor %}
-		</tbody> 
-	</table>
-  <hr />
-  <h2>Derniers DVDs publiés</h2>
-  <table class="table2" role="grid">
-		<colgroup>
-			<col style="width: 145px;" />
-			<col style="width: 115px;" />
-		</colgroup>
-		<thead> 
-			<tr> 
-			    <th>Titre</th>
-			    <th>Auteur</th> 
-			    <th>Date de publication</th>
-			</tr> 
-		</thead> 
-		<tbody>
-			{% for dvd in listeDVDs %}
-    			<tr>
-    				<td><a href="{{ path('g2_ms_gestion_bibliotheque_dvd_view', {'id': dvd.id}) }}">{{ dvd.titre }}</a></td>
-    				<td>{{ dvd.auteur.prenom }} {{ dvd.auteur.nom }}</td>
-    				<td>{{ dvd.dateDePublication |date('d/m/Y') }}</td>
-    			</tr>
-			{% endfor %}
-		</tbody> 
-	</table>
-  <hr />
+<div class="row">
+    {% if listeLivres is not empty %}
+    <div class="col s6">
+        <h1 class="header teal-text text-lighten-2">Derniers livres publiés</h1>
+        <table class="responsive-table bordered" role="grid">
+        	<colgroup>
+        		<col style="width: 145px;" />
+        		<col style="width: 115px;" />
+        	</colgroup>
+        	<thead>
+        		<tr>
+        			<th>Titre</th>
+        			<th>Auteur</th>
+        			<th>Date de publication</th>
+        		</tr>
+        	</thead>
+        	<tbody>
+        		{% for livre in listeLivres %}
+        		<tr>
+        			<td><a
+        				href="{{ path('g2_ms_gestion_bibliotheque_livre_view', {'id': livre.id}) }}">{{ livre.titre }}</a></td>
+        			<td>{{ livre.auteur.prenom }} {{ livre.auteur.nom }}</a></td>
+        			<td class="right-align">{{ livre.dateDePublication |date('d/m/Y') }}</td>
+        		</tr>
+        		{% endfor %}
+        	</tbody>
+        </table>
+    </div>
+    {% endif %} 
+    
+    {% if listeDVDs is not empty %}
+    <div class="col s6">
+        <h1 class="header teal-text text-lighten-2">Derniers DVDs publiés</h1>
+        <table class="responsive-table bordered" role="grid">
+        	<colgroup>
+        		<col style="width: 145px;" />
+        		<col style="width: 115px;" />
+        	</colgroup>
+        	<thead>
+        		<tr>
+        			<th>Titre</th>
+        			<th>Auteur</th>
+        			<th>Date de publication</th>
+        		</tr>
+        	</thead>
+        	<tbody>
+        		{% for dvd in listeDVDs %}
+        		<tr>
+        			<td>
+        				<a href="{{ path('g2_ms_gestion_bibliotheque_dvd_view', {'id': dvd.id}) }}">{{ dvd.titre }}</a>
+        			</td>
+        			<td>
+{#         				<a href="{{ path('g2_ms_gestion_bibliotheque_auteur_view', {'id': dvd.auteur.id}) }}">{{ dvd.auteur.prenom }} {{ dvd.auteur.nom }}</a>#}
+        				{{ dvd.auteur.prenom }} {{ dvd.auteur.nom }}
+        			</td>
+        			<td class="right-align">{{ dvd.dateDePublication |date('d/m/Y') }}</td>
+        		</tr>
+        		{% endfor %}
+        	</tbody>
+        </table>
+    </div>
+    {% endif %}
+</div>
 {% endblock %}

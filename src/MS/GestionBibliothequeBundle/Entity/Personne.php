@@ -12,7 +12,7 @@ use Doctrine\Common\Collections\ArrayCollection;
  * @ORM\Table(name="personne")
  * @ORM\InheritanceType("JOINED")
  * @ORM\DiscriminatorColumn(name="discr", type="string")
- * @ORM\DiscriminatorMap({"adherent" = "Adherent", "auteur" = "Auteur", "editeur" = "Editeur" })
+ * @ORM\DiscriminatorMap({"adherent" = "Adherent", "auteur" = "Auteur", "editeur" = "Editeur", "gestionnaire" = "Gestionnaire" })
  */
 abstract class Personne  extends AbstractEntity {
     
@@ -29,7 +29,7 @@ abstract class Personne  extends AbstractEntity {
 	 * One Personne has Many Adresse (Unidirectional with Join Table)
 	 * AssociationType model.Adresse
 	 * AssociationMultiplicity 1..*
-	 * @ORM\ManyToMany(targetEntity="Adresse")
+	 * @ORM\ManyToMany(targetEntity="Adresse", cascade={"persist"})
 	 * @ORM\JoinTable(name="personnes_adresses",
 	 *     joinColumns={@ORM\JoinColumn(name="personne_id", referencedColumnName="id")},
 	 *     inverseJoinColumns={@ORM\JoinColumn(name="adresse_id", referencedColumnName="id", unique=true)}

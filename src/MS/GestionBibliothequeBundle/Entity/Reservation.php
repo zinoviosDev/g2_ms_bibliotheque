@@ -10,8 +10,13 @@ use DateTime;
  * @package model
  * @ORM\Entity 
  * @ORM\Table(name="reservation")
+ * @ORM\Entity(repositoryClass="MS\GestionBibliothequeBundle\Repository\ReservationRepository")
  */
 class Reservation extends AbstractEntity {
+    
+    public const SUITE_RESERVATION_ANNULATION = "annulation";
+    public const SUITE_RESERVATION_EMPRUNT= "emprunt";
+    public const SUITE_RESERVATION_RESERVE = "reserve";
     
 	/**
      * @var int
@@ -26,24 +31,24 @@ class Reservation extends AbstractEntity {
 	 * AttributeType DateTime
 	 * @ORM\Column(type="datetime", name="date_demande_reservation")
 	 */
-	private $dateDemandeReservation = null;
+	private $dateDemandeReservation;
 	
 	/**
 	 * AttributeType DateTime
-	 * @ORM\Column(type="datetime", name="date_annulation_reservation")
+	 * @ORM\Column(type="datetime", name="date_annulation_reservation", nullable=true)
 	 */
 	private $dateAnnulationReservation = null;
 	
 	/**
 	 * AttributeType DateTime
-	 * @ORM\Column(type="datetime", name="date_reservation")
+	 * @ORM\Column(type="datetime", name="date_reservation", nullable=true)
 	 */
 	private $dateReservation = null;
 	
 	/**
 	 * AssociationType model.Adherent
 	 * AssociationMultiplicity 0..*
-	 * @ORM\ManyToOne(targetEntity="Adherent", inversedBy="adherentReservations")
+	 * @ORM\ManyToOne(targetEntity="Adherent", inversedBy="reservations")
 	 * @ORM\JoinColumn(name="adherent_id", referencedColumnName="id")
 	 */
 	private $adherent;
@@ -55,6 +60,24 @@ class Reservation extends AbstractEntity {
 	 * @ORM\JoinColumn(name="oeuvre_id", referencedColumnName="id")
 	 */
 	private $oeuvre;
+	
+	/**
+	 * @ORM\ManyToOne(targetEntity="MS\GestionBibliothequeBundle\Entity\Exemplaire", inversedBy="reservations")
+	 * @ORM\JoinColumn(nullable=false)
+	 */
+	private $exemplaire;
+	
+	
+	/**
+	 * enum : devient soit :
+	 * - un emprunt
+	 * - une annulation
+	 * 
+	 * @ORM\Column(type="string", name="suite_reservation")
+	 */
+	private $suiteReservation;
+
+    
 
     /**
      * Get id
@@ -139,6 +162,30 @@ class Reservation extends AbstractEntity {
     }
 
     /**
+     * Set suiteReservation
+     *
+     * @param string $suiteReservation
+     *
+     * @return Reservation
+     */
+    public function setSuiteReservation($suiteReservation)
+    {
+        $this->suiteReservation = $suiteReservation;
+
+        return $this;
+    }
+
+    /**
+     * Get suiteReservation
+     *
+     * @return string
+     */
+    public function getSuiteReservation()
+    {
+        return $this->suiteReservation;
+    }
+
+    /**
      * Set adherent
      *
      * @param \MS\GestionBibliothequeBundle\Entity\Adherent $adherent
@@ -184,5 +231,29 @@ class Reservation extends AbstractEntity {
     public function getOeuvre()
     {
         return $this->oeuvre;
+    }
+
+    /**
+     * Set exemplaire
+     *
+     * @param \MS\GestionBibliothequeBundle\Entity\Exemplaire $exemplaire
+     *
+     * @return Reservation
+     */
+    public function setExemplaire(\MS\GestionBibliothequeBundle\Entity\Exemplaire $exemplaire)
+    {
+        $this->exemplaire = $exemplaire;
+
+        return $this;
+    }
+
+    /**
+     * Get exemplaire
+     *
+     * @return \MS\GestionBibliothequeBundle\Entity\Exemplaire
+     */
+    public function getExemplaire()
+    {
+        return $this->exemplaire;
     }
 }

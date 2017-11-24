@@ -31,27 +31,49 @@ class LoadExemplaire implements FixtureInterface
         $livreFilter->setAuteur($auteur);
 //         $livres = $manager->getRepository('MSGestionBibliothequeBundle:Livre')->findByMultiCriteres($livreFilter);
         $livres = $manager->getRepository('MSGestionBibliothequeBundle:Livre')->findAll();
-        $exemplaire = null;
-        foreach ($arrayFields as $data) {
-            $exemplaire = new Exemplaire();
-            $exemplaire->hydrate($data);
-        }
+        $dvds = $manager->getRepository('MSGestionBibliothequeBundle:DVD')->findAll();
         
         foreach($livres as $livre) {
-            $nbExemplaire = rand (1, 4);
-//             for($i = 0; i < $nbExemplaire; $i++) {  // weird exception; Doctrine\Bundle\FixturesBundle\Command\LoadDataFixturesDoctrineCommand->execute   Notice: Use of undefined constant i - assumed 'i'
-                $addresseKey = array_rand($adresses, 2);
-                $exemplaire->setAdresse($adresses[$addresseKey[0]]);
-                $exemplaire->setOeuvre($livre);
-                $manager->persist($exemplaire);
-                $exemplaire->setAdresse($adresses[$addresseKey[1]]);
-                $exemplaire->setOeuvre($livre);
-                $manager->persist($exemplaire);
-                
-//             }
+            $exemplaireArray = array();
+            foreach ($arrayFields as $data) {
+                $exemplaire = new Exemplaire();
+                $exemplaire->hydrate($data);
+                $nbExemplaire = rand (2, 6);
+                $adresseKeyArray = array_rand($adresses, $nbExemplaire);
+                foreach($adresseKeyArray as $adresseKey) {
+                    if(null !== $adresses[$adresseKey]) {
+                        $exemplaire->setAdresse($adresses[$adresseKey]);
+                        break;
+                    }
+                }
+                $exemplaireArray[] = $exemplaire;
+            }
+            foreach ($exemplaireArray as $myex) {
+                $livre->addExemplaire($myex);
+            }
+            $manager->persist($livre);
+        }
+        foreach($dvds as $dvd) {
+            $exemplaireArray = array();
+            foreach ($arrayFields as $data) {
+                $exemplaire = new Exemplaire();
+                $exemplaire->hydrate($data);
+                $nbExemplaire = rand (2, 6);
+                $adresseKeyArray = array_rand($adresses, $nbExemplaire);
+                foreach($adresseKeyArray as $adresseKey) {
+                    if(null !== $adresses[$adresseKey]) {
+                        $exemplaire->setAdresse($adresses[$adresseKey]);
+                        break;
+                    }
+                }
+                $exemplaireArray[] = $exemplaire;
+            }
+            foreach ($exemplaireArray as $myex) {
+                $dvd->addExemplaire($myex);
+            }
+            $manager->persist($dvd);
         }
         $manager->flush();
-//         var_dump(count($livres));
     }
 }
 

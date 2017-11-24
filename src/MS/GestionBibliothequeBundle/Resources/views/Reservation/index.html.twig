@@ -5,20 +5,22 @@
 {% endblock %}
 
 {% block g2_ms_gestionbibliotheque_body %}
-
+{% if not is_granted('ROLE_ADHERENT') %}
+	<p class="btn-warning"><em>L'accès à cette page n'est pas autorisé aux adhérents non connectés.</em></p><br /><br />
+{% endif %}
+{% if is_granted('ROLE_ADHERENT') %}
   <h2>Vos réservations</h2>
-
   <ul>
-    {% for reservation in listReservations %}
+    {% for reservation in reservations %}
       <li>
-        <a href="{{ path('ms_gestion_bibliotheque_reservations_view', {'id': reservation.id}) }}">
-          {{ reservation.title }}
+        <a href="">
+          {{ reservation.oeuvre.titre }} par {{ reservation.oeuvre.auteur.prenom }} {{ reservation.oeuvre.auteur.nom }}
         </a>
-        le {{ reservation.dateReservation|date('d/m/Y') }}
+        , demande de réservation le {{ reservation.dateDemandeReservation|date('d/m/Y') }}
       </li>
     {% else %}
       <li>Réservations non encore disponibles. Revenez dans un moment !</li>
     {% endfor %}
   </ul>
-
+{% endif %}
 {% endblock %}

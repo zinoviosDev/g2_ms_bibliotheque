@@ -1,6 +1,7 @@
 <?php namespace MS\GestionBibliothequeBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Context\ExecutionContextInterface;
 
 /**
  * Représente une oeuvre empruntable de type livre
@@ -15,9 +16,9 @@ class Livre extends Oeuvre {
     
 	/**
 	 * AttributeType string
-	 * @ORM\Column(type="string", name="isbn")
+	 * @ORM\Column(type="string", name="isbn", unique=true, nullable=false)
 	 */
-	private $isbn = null;
+	private $isbn;
 	
 	/**
 	 * AttributeType int
@@ -162,4 +163,15 @@ class Livre extends Oeuvre {
     {
         return $this->format;
     }
+    
+//     public function isContentValid(ExecutionContextInterface $context) {
+//         if (preg_match('#'.implode('|', $forbiddenWords).'#', $this->getContent())) {
+//             // La règle est violée, on définit l'erreur
+//             $context
+//             ->buildViolation('Contenu invalide car il contient un mot interdit.') // message
+//             ->atPath('content')                                                   // attribut de l'objet qui est violé
+//             ->addViolation() // ceci déclenche l'erreur, ne l'oubliez pas
+//             ;
+//         }
+//     }
 }

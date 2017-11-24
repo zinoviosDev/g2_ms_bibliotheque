@@ -1,0 +1,58 @@
+{% extends "MSGestionBibliothequeBundle::layout.html.twig" %}
+
+{% block title %}
+  Recherche d'adhérents - résultats - {{ parent() }}
+{% endblock %}
+
+{% block g2_ms_gestionbibliotheque_body %}
+<div class="well search_form_div row">
+  <div class="col s8 offset-s2">
+  <h1 class="header teal-text text-lighten-2">Adhérents correspondant à votre recherche</h1>
+  {% if listeAdherents is not empty %}
+  <table id="myTable" class="responsive-table row" role="grid">
+{# 		<colgroup>#}
+{# 			<col style="width: 145px;" />#}
+{# 			<col style="width: 115px;" />#}
+{# 		</colgroup>#}
+		<thead> 
+			<tr> 
+			    <th>Nom Prénom</th>
+			    <th>genre</th>
+{# 			    <th>Date de naissance</th>#}
+			    <th>Email</th>
+			    <th>Num téléphone</th>
+			    <th>Num carte</th>
+			    <th>Réservations</th>
+			    <th>Emprunts</th>
+			</tr> 
+		</thead> 
+		<tbody>
+			{% for adherent in listeAdherents %}
+    			<tr>
+    				<td><a href="{{ path('g2_ms_gestion_bibliotheque_gestionnaire_adherent_edit', {'id': adherent.id}) }}">{{ adherent.nom }} {{ adherent.prenom }}</a></td>
+    				<td>{{ adherent.genre }}</td>
+{#     				<td class="right">{{ adherent.dateNaissance |date('d/m/Y') }}</td>#}
+    				<td>{{ adherent.email }}</td>
+    				{% set splitArray = adherent.numTelephone|split('', 2) %}
+    				{% set numTelFormate = splitArray|join(' ') %}
+    				<td>{{ numTelFormate }}</td>
+    				<td class="truncate">{{ adherent.numCarte }}</td>
+    				<td style="text-align: right">{{ adherent.reservations|length }}</td>
+			    	<td style="text-align: right">{{ adherent.emprunts|length }}</td>
+    			</tr>
+			{% endfor %}
+		</tbody> 
+	</table>
+	{% endif %}
+	{% if listeAdherents is empty %}
+    	<p class=""><em>Il n'existe aucun adhérent correspondant à votre recherche</em></p><br />
+    {% endif %}
+    <div>
+    	<a href="{{ path('g2_ms_gestion_bibliotheque_gestionnaire_adherent_search') }}" class="btn btn-default">
+          <i class="glyphicon glyphicon-chevron-left"></i>
+          Retour
+        </a>
+    </div>
+  </div>
+</div>
+{% endblock %}

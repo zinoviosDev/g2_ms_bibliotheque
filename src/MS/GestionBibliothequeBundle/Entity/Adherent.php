@@ -15,6 +15,8 @@ use MS\UserBundle\Entity\User;
 class Adherent extends Personne
 {
     
+    public const DUREE_LIMITE_EMPRUNT= 15;
+    
     /**
      * @var string
      *
@@ -46,9 +48,14 @@ class Adherent extends Personne
     /**
      * @var int
      *
-     * @ORM\Column(name="nbreEmpruntsAuthorises", type="integer")
+     * @ORM\Column(name="nbreEmpruntsAutorises", type="integer")
      */
-    private $nbreEmpruntsAuthorises;
+    private $nbreEmpruntsAutorises = 10;
+    
+    /**
+     * @ORM\Column(name="nbreReservationsAutorisees", type="integer")
+     */
+    private $nbreReservationsAutorisees = 10;
 
     /**
      * @var string
@@ -71,20 +78,50 @@ class Adherent extends Personne
     private $commentaires;
     
     /**
-     * @var CarteBibliotheque
-     * @ORM\OneToOne(targetEntity="MS\GestionBibliothequeBundle\Entity\CarteBibliotheque", cascade={"persist"})
+     * @ORM\OneToMany(targetEntity="Emprunt", mappedBy="adherent")
+     * @var array
      */
-    private $carteBibliotheque;
+    private $emprunts;
+    
+    /**
+     * @ORM\OneToMany(targetEntity="Reservation", mappedBy="adherent")
+     * @var array
+     */
+    private $reservations;
+    
+    /**
+     * AttributeType string
+     * @ORM\Column(type="string", name="numero_carte")
+     */
+    private $numCarte;
     
     /**
      * @var User
-     * @ORM\OneToOne(targetEntity="MS\UserBundle\Entity\User", inversedBy="adherent", cascade={"persist"})
+     * @ORM\OneToOne(targetEntity="MS\UserBundle\Entity\User", cascade={"persist"})
      */
     private $userCredentials;
 
+    /**
+     * @return the $numCarte
+     */
+    public function getNumCarte()
+    {
+        return $this->numCarte;
+    }
+
+    /**
+     * @param field_type $numCarte
+     */
+    public function setNumCarte($numCarte)
+    {
+        $this->numCarte = $numCarte;
+    }
+
     public function __construct() {
         $this->commentaires = new ArrayCollection();
+        $this->emprunts = new ArrayCollection();
     }
+    
 
     /**
      * Set nom
@@ -183,27 +220,51 @@ class Adherent extends Personne
     }
 
     /**
-     * Set nbreEmpruntsAuthorises
+     * Set nbreEmpruntsAutorises
      *
-     * @param integer $nbreEmpruntsAuthorises
+     * @param integer $nbreEmpruntsAutorises
      *
      * @return Adherent
      */
-    public function setNbreEmpruntsAuthorises($nbreEmpruntsAuthorises)
+    public function setNbreEmpruntsAutorises($nbreEmpruntsAutorises)
     {
-        $this->nbreEmpruntsAuthorises = $nbreEmpruntsAuthorises;
+        $this->nbreEmpruntsAutorises = $nbreEmpruntsAutorises;
 
         return $this;
     }
 
     /**
-     * Get nbreEmpruntsAuthorises
+     * Get nbreEmpruntsAutorises
      *
      * @return integer
      */
-    public function getNbreEmpruntsAuthorises()
+    public function getNbreEmpruntsAutorises()
     {
-        return $this->nbreEmpruntsAuthorises;
+        return $this->nbreEmpruntsAutorises;
+    }
+
+    /**
+     * Set nbreReservationsAutorisees
+     *
+     * @param integer $nbreReservationsAutorisees
+     *
+     * @return Adherent
+     */
+    public function setNbreReservationsAutorisees($nbreReservationsAutorisees)
+    {
+        $this->nbreReservationsAutorisees = $nbreReservationsAutorisees;
+
+        return $this;
+    }
+
+    /**
+     * Get nbreReservationsAutorisees
+     *
+     * @return integer
+     */
+    public function getNbreReservationsAutorisees()
+    {
+        return $this->nbreReservationsAutorisees;
     }
 
     /**
@@ -289,33 +350,77 @@ class Adherent extends Personne
     }
 
     /**
-     * Set carteBibliotheque
+     * Add emprunt
      *
-     * @param \MS\GestionBibliothequeBundle\Entity\CarteBibliotheque $carteBibliotheque
+     * @param \MS\GestionBibliothequeBundle\Entity\Emprunt $emprunt
      *
      * @return Adherent
      */
-    public function setCarteBibliotheque(\MS\GestionBibliothequeBundle\Entity\CarteBibliotheque $carteBibliotheque = null)
+    public function addEmprunt(\MS\GestionBibliothequeBundle\Entity\Emprunt $emprunt)
     {
-        $this->carteBibliotheque = $carteBibliotheque;
+        $this->emprunts[] = $emprunt;
 
         return $this;
     }
 
     /**
-     * Get carteBibliotheque
+     * Remove emprunt
      *
-     * @return \MS\GestionBibliothequeBundle\Entity\CarteBibliotheque
+     * @param \MS\GestionBibliothequeBundle\Entity\Emprunt $emprunt
      */
-    public function getCarteBibliotheque()
+    public function removeEmprunt(\MS\GestionBibliothequeBundle\Entity\Emprunt $emprunt)
     {
-        return $this->carteBibliotheque;
+        $this->emprunts->removeElement($emprunt);
+    }
+
+    /**
+     * Get emprunts
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getEmprunts()
+    {
+        return $this->emprunts;
+    }
+
+    /**
+     * Add reservation
+     *
+     * @param \MS\GestionBibliothequeBundle\Entity\Reservation $reservation
+     *
+     * @return Adherent
+     */
+    public function addReservation(\MS\GestionBibliothequeBundle\Entity\Reservation $reservation)
+    {
+        $this->reservations[] = $reservation;
+
+        return $this;
+    }
+
+    /**
+     * Remove reservation
+     *
+     * @param \MS\GestionBibliothequeBundle\Entity\Reservation $reservation
+     */
+    public function removeReservation(\MS\GestionBibliothequeBundle\Entity\Reservation $reservation)
+    {
+        $this->reservations->removeElement($reservation);
+    }
+
+    /**
+     * Get reservations
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getReservations()
+    {
+        return $this->reservations;
     }
 
     /**
      * Set userCredentials
      *
-     * @param \MS\GestionBibliothequeBundle\Entity\User $userCredentials
+     * @param \MS\UserBundle\Entity\User $userCredentials
      *
      * @return Adherent
      */

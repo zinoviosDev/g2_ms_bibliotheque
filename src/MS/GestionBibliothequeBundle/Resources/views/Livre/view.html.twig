@@ -5,41 +5,36 @@
 {% endblock %}
 
 {% block g2_ms_gestionbibliotheque_body %}
-
-  <h2>{{ livre.titre }}</h2>
-  <div class="well">
-      <i>Publié le {{ livre.dateDePublication|date('d/m/Y') }} par {{ livre.auteur.prenom }} {{ livre.auteur.nom }}, 
-      édité par {{ livre.editeur.sigle }}</i><br />
-      <p><b>Sujet :</b> {{ livre.sujet }} <br />
-      <b>Langue :</b> {{ livre.langue }} <br />
-      <b>ISBN :</b> {{ livre.isbn }} <br />
-      <b>Nombre de pages :</b> {{ livre.nbrePages }} <br /></p>
-      <p><b>Description :</b> {{ livre.description }}</p>
-      <p><b>Résumé :</b> {{ livre.resume }}</p>
-      <p><b>Nombre d'exemplaires :</b> {{ nbreExemplaires }}</p>
-      <p><b>Exemplaires disponibles :</b> {{ nbreExemplairesDisponibles }}</p>
-  </div>
-<div>
-	{% if not is_granted('ROLE_ADHERENT') %}
-        	<p class="btn-info"><em>Veuillez vous connecter pour accéder à la réservation et à l'emprunt des oeuvres</em></p><br /><br />
+<div class="row">
+    <div class="col s6 offset-s3">
+      <div class="card blue-grey darken-1">
+        <div class="card-content white-text">
+          <span class="card-title">{{ livre.titre }}</span>
+          <p><i>Publié le {{ livre.dateDePublication|date('d/m/Y') }} par {{ livre.auteur.prenom }} {{ livre.auteur.nom }}, 
+              édité par {{ livre.editeur.sigle }}</i><br />
+              <b>Sujet :</b> {{ livre.sujet }} <br />
+              <b>Langue :</b> {{ livre.langue }} <br />
+              <b>ISBN :</b> {{ livre.isbn }} <br />
+              <b>Nombre de pages :</b> {{ livre.nbrePages }} <br />
+              <b>Description :</b> {{ livre.description }}<br />
+              <b>Résumé :</b> {{ livre.resume }}<br />
+              <b>Nombre d'exemplaires :</b> {{ nbreExemplaires }}<br />
+              <b>Exemplaires disponibles :</b> {{ nbreExemplairesDisponibles }}
+          </p>
+          {% if not is_granted('ROLE_ADHERENT') %}
+            	<p class="btn-info"><em>Veuillez vous connecter pour accéder à la réservation des oeuvres</em></p><br /><br />
         {% endif %}
-</div>
-  <div>
-  	<div>
-        <a href="{{ path('g2_ms_gestion_bibliotheque_home') }}" class="btn btn-default">
+        </div>
+        <div class="card-action">
+          <a href="{{ path('g2_ms_gestion_bibliotheque_home') }}" class="btn btn-default">
           <i class="glyphicon glyphicon-chevron-left"></i>
           Retour à la liste
         </a>
         {% if is_granted('ROLE_ADHERENT') %}
-        	{% if nbreExemplaires >= nbreExemplairesDisponibles %}
-              	<a href="{{ path('g2_ms_gestion_bibliotheque_emprunts_add', {'id': livre.id}) }}" role="" class="btn btn-primary"><i class="glyphicon glyphicon-book"></i> Emprunter</a>
-            {% endif %}
-            {% if nbreExemplaires < nbreExemplairesDisponibles %}
-              	<a href="{{ path('g2_ms_gestion_bibliotheque_reservations_add', {'id': livre.id}) }}" role="" class="btn btn-primary"><i class="glyphicon glyphicon-book"></i> Réserver ce livre</a>
-              	<p>Vous serez avertis par SMS ou par email de la disponiblité de l'ouvrage, dès retour d'un des exemplaires empruntés.</p>
-            {% endif %}
+              	<a href="{{ path('g2_ms_gestion_bibliotheque_reservations_add', {'id': livre.id}) }}" role="" class="btn btn-primary"><i class="glyphicon glyphicon-book"></i> Réserver</a>
         {% endif %}
+        </div>
+      </div>
     </div>
-  </div>
-
+</div>
 {% endblock %}

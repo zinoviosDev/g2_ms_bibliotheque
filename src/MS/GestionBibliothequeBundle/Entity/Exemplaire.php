@@ -68,15 +68,21 @@ class Exemplaire extends AbstractEntity {
 	 * @ORM\OneToMany(targetEntity="MS\GestionBibliothequeBundle\Entity\Emprunt", mappedBy="exemplaire")
 	 */
     private $emprunts;
-	
     
+    /**
+    * @ORM\OneToMany(targetEntity="MS\GestionBibliothequeBundle\Entity\Reservation", mappedBy="exemplaire")
+    */
+    private $reservations;
+	
     /**
      * Constructor
      */
     public function __construct()
     {
         $this->emprunts = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->reservations = new \Doctrine\Common\Collections\ArrayCollection();
     }
+    
 
     /**
      * Get id
@@ -240,5 +246,39 @@ class Exemplaire extends AbstractEntity {
     public function getEmprunts()
     {
         return $this->emprunts;
+    }
+
+    /**
+     * Add reservation
+     *
+     * @param \MS\GestionBibliothequeBundle\Entity\Reservation $reservation
+     *
+     * @return Exemplaire
+     */
+    public function addReservation(\MS\GestionBibliothequeBundle\Entity\Reservation $reservation)
+    {
+        $this->reservations[] = $reservation;
+
+        return $this;
+    }
+
+    /**
+     * Remove reservation
+     *
+     * @param \MS\GestionBibliothequeBundle\Entity\Reservation $reservation
+     */
+    public function removeReservation(\MS\GestionBibliothequeBundle\Entity\Reservation $reservation)
+    {
+        $this->reservations->removeElement($reservation);
+    }
+
+    /**
+     * Get reservations
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getReservations()
+    {
+        return $this->reservations;
     }
 }

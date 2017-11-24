@@ -5,9 +5,11 @@
 {% endblock %}
 
 {% block g2_ms_gestionbibliotheque_body %}
-
-  <h2>DVDs correspondant à votre recherche</h2>
-  <table id="myTable" class="table2" role="grid">
+<div class="well search_form_div row">
+  <div class="col s6 offset-s3">
+  <h1 class="header teal-text text-lighten-2">DVDs correspondant à votre recherche</h1>
+  <div  class="row">
+  	<table id="myTable" class="table2 col s8" role="grid">
 		<colgroup>
 			<col style="width: 145px;" />
 			<col style="width: 115px;" />
@@ -16,7 +18,7 @@
 			<tr> 
 			    <th>Titre</th>
 			    <th>Auteur</th> 
-			    <th>Date de publication</th>
+			    <th class="right">Date de publication</th>
 			</tr> 
 		</thead> 
 		<tbody>
@@ -24,9 +26,19 @@
     			<tr>
     				<td><a href="{{ path('g2_ms_gestion_bibliotheque_dvd_view', {'id': dvd.id}) }}">{{ dvd.titre }}</a></td>
     				<td>{{ dvd.auteur.prenom }} {{ dvd.auteur.nom }}</td>
-    				<td>{{ dvd.dateDePublication |date('d/m/Y') }}</td>
+    				<td class="right">{{ dvd.dateDePublication |date('d/m/Y') }}</td>
     			</tr>
 			{% endfor %}
 		</tbody> 
 	</table>
+  </div>
+  
+	<div>
+    	<a href="{{ path('g2_ms_gestion_bibliotheque_dvd_find') }}" class="btn btn-default">
+              <i class="glyphicon glyphicon-chevron-left"></i>
+              Retour
+            </a>
+    </div>
+   </div>
+ </div>
 {% endblock %}

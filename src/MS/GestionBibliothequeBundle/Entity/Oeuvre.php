@@ -3,6 +3,7 @@
 use Doctrine\ORM\Mapping as ORM;
 use Doctrine\Common\Collections\ArrayCollection;
 use DateTime;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 
 /**
  * Classe abstraite représentant tout type de document empruntable en bibliothèque
@@ -14,6 +15,7 @@ use DateTime;
  * @ORM\InheritanceType("JOINED")
  * @ORM\DiscriminatorColumn(name="discr", type="string")
  * @ORM\DiscriminatorMap({"livre" = "Livre", "dvd" = "DVD" })
+ * @UniqueEntity(fields="titre", message="Une oeuvre existe déjà avec ce titre.")
  */
 abstract class Oeuvre extends AbstractEntity {
     
@@ -89,6 +91,18 @@ abstract class Oeuvre extends AbstractEntity {
      * @ORM\OneToMany(targetEntity="Commentaire", mappedBy="oeuvre", cascade={"persist"})
      */
     private $commentaires;
+    
+    /**
+     * @ORM\OneToMany(targetEntity="Emprunt", mappedBy="oeuvre")
+     * @var array
+     */
+    private $emprunts;
+    
+    /**
+     * @ORM\OneToMany(targetEntity="Reservation", mappedBy="oeuvre")
+     * @var array
+     */
+    private $reservations;
 
     public function __construct() {
         $this->exemplaires = new ArrayCollection();
@@ -303,7 +317,7 @@ abstract class Oeuvre extends AbstractEntity {
     public function addExemplaire(\MS\GestionBibliothequeBundle\Entity\Exemplaire $exemplaire)
     {
         $this->exemplaires[] = $exemplaire;
-        
+        $exemplaire->setOeuvre($this);
         return $this;
     }
     
@@ -315,6 +329,7 @@ abstract class Oeuvre extends AbstractEntity {
     public function removeExemplaire(\MS\GestionBibliothequeBundle\Entity\Exemplaire $exemplaire)
     {
         $this->exemplaires->removeElement($exemplaire);
+        $exemplaire->setOeuvre(null);
     }
     
     /**
@@ -337,7 +352,7 @@ abstract class Oeuvre extends AbstractEntity {
     public function addCommentaire(\MS\GestionBibliothequeBundle\Entity\Commentaire $commentaire)
     {
         $this->commentaires[] = $commentaire;
-        
+        $commentaire->setOeuvre($this);
         return $this;
     }
     
@@ -349,6 +364,7 @@ abstract class Oeuvre extends AbstractEntity {
     public function removeCommentaire(\MS\GestionBibliothequeBundle\Entity\Commentaire $commentaire)
     {
         $this->commentaires->removeElement($commentaire);
+        $commentaire->setOeuvre(null);
     }
     
     /**

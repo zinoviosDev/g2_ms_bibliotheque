@@ -1,10 +1,11 @@
-<?php
-
-namespace MS\GestionBibliothequeBundle\Form;
+<?php namespace MS\GestionBibliothequeBundle\Form;
 
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
+use Symfony\Component\Form\Extension\Core\Type\EmailType;
+use Symfony\Component\Form\Extension\Core\Type\IntegerType;
 
 class AdherentType extends AbstractType
 {
@@ -13,7 +14,18 @@ class AdherentType extends AbstractType
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        $builder->add('_nom')->add('_prenom')->add('_genre')->add('_dateNaissance')->add('_nbreEmpruntsAuthorises')->add('_email')->add('_numTelephone')->add('_carteBibliotheque');
+//         $datePickerType = $this->container->get(DatePickerType::class);
+        $builder
+        ->add('nom', TextType::class, array('required' => false))
+        ->add('prenom', TextType::class, array('required' => false))
+        ->add('genre', TextType::class, array('required' => false))
+//         ->add('dateNaissance', DatePickerType::class, array('required' => false))
+        ->add('nbreEmpruntsAutorises', IntegerType::class, array('required' => false))
+        ->add('nbreReservationsAutorisees', IntegerType::class, array('required' => false))
+        ->add('email', EmailType::class, array('required' => false))
+        ->add('numTelephone', TextType::class, array('required' => false))
+        ->add('numCarte', TextType::class, array('required' => false))
+        ;
     }
     
     /**
@@ -25,7 +37,7 @@ class AdherentType extends AbstractType
             'data_class' => 'MS\GestionBibliothequeBundle\Entity\Adherent'
         ));
     }
-
+    
     /**
      * {@inheritdoc}
      */
@@ -33,6 +45,6 @@ class AdherentType extends AbstractType
     {
         return 'ms_gestionbibliothequebundle_adherent';
     }
-
-
+    
+    
 }

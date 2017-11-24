@@ -1,0 +1,30 @@
+g2_ms_gestion_bibliotheque_reservations_index:
+    path:      /
+    defaults:
+        _controller: MSGestionBibliothequeBundle:Reservation:index
+    requirements:
+        _format: html
+    
+g2_ms_gestion_bibliotheque_reservations_view:
+    path:      /{id}
+    defaults:
+        _controller: MSGestionBibliothequeBundle:Reservation:view
+    requirements:
+        _format: html
+        id: \d+
+
+g2_ms_gestion_bibliotheque_reservations_annulation:
+    path:      /annulation/{id}
+    defaults:
+        _controller: MSGestionBibliothequeBundle:Reservation:annulation
+    requirements:
+        _format: html
+        id: \d+
+
+g2_ms_gestion_bibliotheque_reservations_add:
+    path:      /add/{id}
+    defaults:
+        _controller: MSGestionBibliothequeBundle:Reservation:add
+    requirements:
+        _format: html
+        id: \d+

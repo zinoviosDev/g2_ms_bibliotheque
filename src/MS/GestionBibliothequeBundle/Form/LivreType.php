@@ -14,7 +14,8 @@ class LivreType extends AbstractType {
         ->add('titre', TextType::class, array('required' => false))
         ->add('isbn', TextType::class, array('required' => false))
         ->add('auteur', AuteurType::class, array('required' => false))
-            ->add('Rechercher', SubmitType::class   )
+        ->add('Rechercher', SubmitType::class, array(
+            'attr' => array('class' => 'left')))
         ;
     }
     

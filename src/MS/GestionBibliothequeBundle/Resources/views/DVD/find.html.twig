@@ -1,15 +1,17 @@
 {% extends "MSGestionBibliothequeBundle::layout.html.twig" %}
 
 {% block title %}
-  Recherche de livres et DVD par titre ou par auteur - {{ parent() }}
+  Recherche de  DVDs par titre ou par auteur - {{ parent() }}
 {% endblock %}
 
 {% block g2_ms_gestionbibliotheque_body %}
-
-  <h4>Formulaire de recherche</h4>
-
-  <div class="well">
-  {{ form(form) }}
+  <div class="well search_form_div row">
+  	<div class="col s6 offset-s3">
+  	  <h1 class="header teal-text text-lighten-2">Recherche de DVDs</h1>
+      {{ form(form) }}
+      <a href="{{ path('g2_ms_gestion_bibliotheque_home') }}" class="btn btn-default left">
+            <i class="glyphicon glyphicon-chevron-left"></i>Retour
+      </a>
+    </div>
 </div>
-
 {% endblock %}

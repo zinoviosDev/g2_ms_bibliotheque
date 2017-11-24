@@ -1,40 +1,50 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <meta http-equiv="Content-Type" content="text/html" charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
+<meta http-equiv="Content-Type" content="text/html" charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
 
-  <title>{% block title %}Bibliothèque du temps libre{% endblock %}</title>
+<title>{% block title %}Bibliothèque du temps libre{% endblock %}</title>
 
-  {% block stylesheets %}
-    {# On charge le CSS de bootstrap depuis le site directement #}
-    <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
-    <link rel="stylesheet" href="{{ asset('bundles/g2_ms_gestion_bibliotheque/stylesheet/main.css') }}" type="text/css" />
-  {% endblock %}
+{% block stylesheets %}
+{# On charge le CSS de bootstrap depuis le site directement #} {# <link
+rel="stylesheet"
+href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">#}
+{# <link rel="stylesheet" href="{{
+asset('bundles/msgestionbibliotheque/css/bootstrap.min.css') }}"
+type="text/css" />#} {# <link rel="stylesheet" href="{{
+asset('bundles/msgestionbibliotheque/css/bootstrap-theme.min.css') }}"
+type="text/css" />#}
+<link rel="stylesheet"
+	href="https://fonts.googleapis.com/icon?family=Material+Icons" />
+<link rel="stylesheet"
+	href="{{ asset('bundles/msgestionbibliotheque/css/materialize.min.css') }}" />
+<link rel="stylesheet"
+	href="{{ asset('bundles/msgestionbibliotheque/css/main.css') }}" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+{% endblock %}
 </head>
-
-        {% block body %}
-        {% endblock %}
-      </section>
-    </div>
-    <!-- fin block menu gauche -->
-    <hr>
-	</div>
-    <footer>
-      <p>Dernière édition du site : {{ 'now'|date('Y') }}.</p>
-    </footer>
-  </div>
-
-  {% block javascripts %}
-    <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+<body>
+	{% block body %}
+	{% endblock %}
+	{% block javascripts %}
+	<!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
 	<!--[if lt IE 9]>
 	  <script src="http://cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7/html5shiv.js"></script>
 	  <script src="http://cdnjs.cloudflare.com/ajax/libs/respond.js/1.3.0/respond.js"></script>
 	<![endif]-->
-    {# Ajoutez ces lignes JavaScript si vous comptez vous servir des fonctionnalités du bootstrap Twitter #}
-    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
-    <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
-  {% endblock %}
+	<script>
+		global = {
+            locale   : '{{ app.request.locale }}'
+        }
+	</script>
+	<script src="{{ asset('bundles/msgestionbibliotheque/js/jquery.min.js') }}"></script>
+	<script src="{{ asset('bundles/msgestionbibliotheque/js/jquery-ui.min.js') }}"></script>
+	<script src="{{ asset('bundles/msgestionbibliotheque/js/i18n/datepicker-fr.js') }}"></script>
+	<script src="{{ asset('bundles/msgestionbibliotheque/js/materialize.min.js') }}"></script>
+	<script src="{{ asset('bundles/msgestionbibliotheque/js/init_date_picker.js') }}"></script>
+	<script src="{{ asset('bundles/msgestionbibliotheque/js/main.js') }}"></script>
+	{% endblock %}
 
 </body>
 </html>

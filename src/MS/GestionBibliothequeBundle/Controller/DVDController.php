@@ -5,6 +5,8 @@ use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Symfony\Component\HttpFoundation\Request;
 use MS\GestionBibliothequeBundle\Entity\DVD;
 use MS\GestionBibliothequeBundle\Form\DVDType;
+use MS\GestionBibliothequeBundle\Entity\Exemplaire;
+use MS\GestionBibliothequeBundle\Entity\Reservation;
 
 class DVDController extends Controller {
     
@@ -31,17 +33,35 @@ class DVDController extends Controller {
     }
     
     public function viewAction($id) {
-        $repository = $this->getDoctrine()->getManager()
-            ->getRepository('MSGestionBibliothequeBundle:DVD');
-        $dvd = $repository->find($id);
+        $logger = $this->get('logger');
+        $em = $this->getDoctrine()->getManager();
+        $dvdRepository = $em->getRepository('MSGestionBibliothequeBundle:DVD');
+        $dvd = $dvdRepository->find($id);
         if (null === $dvd) {
             throw new NotFoundHttpException("Le dvd d'id ".$id." n'existe pas.");
         }
+        $nbreExemplaires = $dvdRepository->countExemplaires($dvd)[1];
+        $logger->debug($nbreExemplaires);
+        $exFilter = new Exemplaire();
+        $exFilter->setOeuvre($dvd);
+        $countEmpruntsEchus = $em->getRepository('MSGestionBibliothequeBundle:Exemplaire')->countEmpruntsEchusForAll($exFilter)[1];
+        $countAllEmprunts = $em->getRepository('MSGestionBibliothequeBundle:Exemplaire')->countAllEmpruntsForAll($exFilter)[1];
+        $reservationRepo = $em->getRepository('MSGestionBibliothequeBundle:Reservation');
+        $reservationFilter = new Reservation();
+        $reservationFilter->setOeuvre($dvd);
+        $reservationFilter->setSuiteReservation(Reservation::SUITE_RESERVATION_RESERVE);
+        $nbreReservationsEnCoursSurReservation = $reservationRepo->countByEtatReservation($reservationFilter)[1];
+        $reservationFilter->setSuiteReservation(Reservation::SUITE_RESERVATION_EMPRUNT); // reserve ou emprunt
+        $nbreEmpruntsEnCoursSurReservation = $reservationRepo->countByEtatReservation($reservationFilter)[1];
+        $nbreExemplairesDisponibles = $nbreExemplaires
+        - ($countAllEmprunts - $countEmpruntsEchus - $nbreReservationsEnCoursSurReservation - $nbreEmpruntsEnCoursSurReservation);
         
         return $this->render('MSGestionBibliothequeBundle:DVD:view.html.twig',
-            array('dvd' => $dvd
-            )
-        );
+            array('dvd' => $dvd,
+                'nbreExemplaires' => $nbreExemplaires,
+                'nbreExemplairesDisponibles' => $nbreExemplairesDisponibles
+                )
+         );
     }
 }
 

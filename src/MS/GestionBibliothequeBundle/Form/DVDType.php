@@ -13,7 +13,8 @@ class DVDType extends AbstractType {
         $builder
         ->add('titre', TextType::class, array('required' => false))
         ->add('auteur', AuteurType::class, array('required' => false))
-            ->add('Rechercher', SubmitType::class   )
+        ->add('Rechercher', SubmitType::class, array(
+            'attr' => array('class' => 'left')))
         ;
     }
     

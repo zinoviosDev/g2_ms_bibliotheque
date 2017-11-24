@@ -13,6 +13,7 @@ use DateTime;
  */
 class Emprunt {
     
+    
 	/**
      * @var int
      *
@@ -33,7 +34,7 @@ class Emprunt {
 	private $dateRetourTheorique = null;
 	
 	/**
-	 * @ORM\Column(type="datetime", name="date_retour_reelle")
+	 * @ORM\Column(type="datetime", name="date_retour_reelle", nullable=true)
 	 */
 	private $dateRetourReelle = null;
 	
@@ -45,7 +46,7 @@ class Emprunt {
 	/**
 	 * AssociationType model.Adherent (Many To One, Unidirectional)
 	 * AssociationMultiplicity 0..*
-	 * @ORM\ManyToOne(targetEntity="Adherent", inversedBy="adherentEmprunts")
+	 * @ORM\ManyToOne(targetEntity="Adherent", inversedBy="emprunts")
 	 * @ORM\JoinColumn(name="adherent_id", referencedColumnName="id")
 	 */
 	private $adherent;
@@ -63,8 +64,8 @@ class Emprunt {
 	 * @ORM\JoinColumn(nullable=false)
 	 */
 	private $exemplaire;
-
     
+	
 
     /**
      * Get id

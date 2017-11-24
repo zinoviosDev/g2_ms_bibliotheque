@@ -1,0 +1,24 @@
+{% set appRoute = app.request.attributes.get('_route') %}
+{% set homeRoute = 'g2_ms_gestion_bibliotheque_home' %}
+{% set livreFindRoute = 'g2_ms_gestion_bibliotheque_livre_find' %}
+{% set dvdFindRoute = 'g2_ms_gestion_bibliotheque_dvd_find' %}
+<ul class="tabs tabs-transparent">
+	<li class="tab {% if appRoute == homeRoute %}active{% endif %}">
+		<a class="{% if appRoute == homeRoute %}active{% endif %}" 
+			target="_self" href="{{ path(homeRoute) }}">
+			Dernières publications
+		</a>
+	</li>
+	<li class="tab {% if appRoute == livreFindRoute %}active{% endif %}">
+		<a class="{% if appRoute == livreFindRoute %}active{% endif %}"
+			target="_self" href="{{ path(livreFindRoute) }}"><i class="material-icons left">search</i>
+			Livres
+		</a>
+	</li>
+	<li class="tab {% if appRoute == dvdFindRoute %}active{% endif %}">
+		<a class="{% if appRoute == dvdFindRoute %}active{% endif %}"
+			target="_self" href="{{ path(dvdFindRoute) }}"><i class="material-icons left">search</i>
+			DVDs
+		</a>
+	</li>
+</ul>

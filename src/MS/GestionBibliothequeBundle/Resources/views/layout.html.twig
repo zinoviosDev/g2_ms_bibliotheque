@@ -1,100 +1,97 @@
-{% extends "::layout.html.twig" %}
+{% extends "/layout.html.twig" %}
 
 {% block title %}
-  Oeuvres - {{ parent() }}
+Bibliothèque Le Temps Libre -
+{{ parent() }}
 {% endblock %}
-
 {% block body %}
-
-<body>
-  <div class="container">
-  	<!-- block haut de page -->
-  	<header class="row panel">
-		<nav class="navbar navbar-default navbar-fixed-top" role="navigation">
-			<div class="container">
-				 <!-- Title -->
-		        <div class="navbar-header pull-left">
-		          <a href="{{ path('g2_ms_gestion_bibliotheque_home') }}" class="navbar-brand">Bibliothèque Le Temps Libre</a>
-		        </div>
-				<div class="navbar-header">
-					<button type="button" class="navbar-toggle collapsed"
-						data-toggle="collapse" data-target=".bs-js-navbar-scrollspy">
-						<span class="icon-bar"> <span class="sr-only">Toggle navigation</span>
-						</span> <span class="icon-bar"></span> <span class="icon-bar"></span>
-					</button>
-				</div>
-				<div class="collapse navbar-collapse bs-js-navbar-scrollspy" id="menu_bar" role="navigation">
-					<div class="nav navbar-nav">
-				        <!-- mettre en place une barre de recherche -->
-				        <!--form class="form-inline my-2 my-lg-0" role="form" action="" method="post">
-                          <input class="form-control mr-sm-2 menu-consult-search" type="search" 
-                          	placeholder="Rechercher une oeuvre par titre ou par auteur" aria-label="Search">
-                          <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Rechercher</button>
-                        </form-->
-			       </div>
-			       <div class="nav navbar-nav pull-right">
-		       		<div class="col-md-8 welcome-user">
-			       		<div class="sous-titre">
-                            <b>{% if app.user %}Bonjour {{ app.user.username }}{% endif %}</b>
-                        </div>
-                    </div>
-		       		<div class="col-md-4">
-						<ul class="nav">
-				            <li class="dropdown pull-right">
-				              <a href="#" data-toggle="dropdown" class="dropdown-toggle user-profil"><span class="glyphicon glyphicon-user"></span><b class="caret"></b></a>
-				              <ul class="dropdown-menu">
-				                {% if app.user %}
-				                <li class="navbar-text">
-				                  <a href="/users/id" title="Profil">Profil</a>
-				                </li>
-    				        	<li class="navbar-text">
-    				            	<a href="{{ path('logout') }}" title="Déconnexion">Déconnexion</a> {# TODO: suppress after implementing #}
-    				            </li>
-        				        {% endif %}
-			                	{% if not app.user %}
-        				        	<li class="navbar-text">
-        				            	<a href="{{ path('login') }}" title="Connexion">Connexion</a> {# TODO: suppress after implementing #}
-        				            </li>
-        				        {% endif %}
-				              </ul>
-				            </li>
-				         </ul>
-			         </div>
-			     </div>
-			</div>
-		</nav>
-	</header>
-	<div class="body_main container">
-	<!-- fin block haut de page -->
-	
-    <div class="row">
-      <!-- block menu gauche -->
-      <aside id="menu_gauche" class="col-md-2">
-        <h4>Rechercher des livres ou des DVDs</h4>
-        <ul class="nav nav-pills nav-stacked">
-          <li><a href="{{ path('g2_ms_gestion_bibliotheque_livre_find') }}">Rechercher des livres</a></li>
-          <li><a href="{{ path('g2_ms_gestion_bibliotheque_dvd_find') }}">Rechercher des DVDs</a></li>
-        </ul>
-        {% if is_granted('ROLE_ADHERENT') %}
-        <h4>Vos réservations</h4>
-		<ul class="nav nav-pills nav-stacked">
-          <li><a href="{{ path('g2_ms_gestion_bibliotheque_reservations_index') }}">Consulter vos réservations</a></li>
-        </ul>
-        <h4>Vos emprunts</h4>
-		<ul class="nav nav-pills nav-stacked">
-          <li><a href="{{ path('g2_ms_gestion_bibliotheque_emprunts_index') }}">Consulter vos emprunts</a></li>
-        </ul>
+{# <div class="container-90-pos-absolute">#}
+<header>
+	<div class="navbar-fixed">
+	<!-- Définition du menu adhérent -->
+	<ul id="user_menu" class="dropdown-content">
+		{% if app.user %}
+            <li><a href="/users/id" title="Profil"><i class="material-icons">person</i>Profil</a></li>
+            <li class="divider"></li>
+        	<li><a href="{{ path('logout') }}" title="Déconnexion">Déconnexion</a></li>
+        {% endif %}	
+    	{% if not app.user %}
+        	<li><a href="{{ path('login') }}" title="Connexion">Connexion</a></li>
         {% endif %}
-      </aside>
-      <section id="content" class="col-md-10">
-        <br />
-  {# On définit un sous-titre commun à toutes les pages du bundle, par exemple #}
-  <h4>Consulter les livres et DVD disponibles. Possibilité de réserver en ligne.</h4>
-
-  <hr>
-
-  {# On définit un nouveau bloc, que les vues du bundle pourront remplir #}
-  {% block g2_ms_gestionbibliotheque_body %}
-  {% endblock %}
-
+	</ul>
+	<nav class="nav-extended blue darken-3">
+		<div class="nav-wrapper">
+			{% if not app.session.get('gestionnaire') %}
+			<a href="{{ path('g2_ms_gestion_bibliotheque_home') }}"
+			{% endif %}
+			{% if app.session.get('gestionnaire') %}
+			<a href="{{ path('g2_ms_gestion_bibliotheque_gestionnaire_index') }}"
+			{% endif %}
+				class="brand-logo">Bibliothèque Le Temps Libre</a> 
+{# 			<a href="#" data-activates="dropdown1" class="button-collapse"><i class="material-icons">menu</i></a>#}
+			<a class="dropdown-button right" data-beloworigin="true" data-constrainWidth="false" href="#" data-activates="user_menu">
+				{% if not app.user %}Connexion{% endif %}
+				<i class="material-icons right">arrow_drop_down</i>
+			</a>
+			<div class="right">
+                {# ATTN: si c'est un gestionnaire qui est connecté, il faut récupérer le nom du gestionnaire et non celui de l'adhérent #}
+                <b>
+                    {% if app.user %}
+                    	Bonjour 
+                    	{% if app.session.get('adherent') %} 
+                    	    {{ app.session.get('adherent').prenom }}
+                    	{% endif %}
+                    	{% if app.session.get('gestionnaire') %} 
+                    	    {{ app.session.get('gestionnaire').prenom }}
+                    	{% endif %}
+                    {% endif %}
+                 </b>
+            </div>
+		</div>
+		<div class="nav-content">
+    		{% if not is_granted('ROLE_GESTIONNAIRE') %}
+    		 {% include("@GestionBibliothequeBundle/menu_standard.html.twig") %}
+    		{% endif %}
+    		{% if is_granted('ROLE_GESTIONNAIRE') %}
+    		 {% include("@GestionBibliothequeBundle/Gestionnaire/menu_gestionnaire.html.twig") %}
+    		{% endif %}
+    	</div>
+	</nav>
+  </div>
+</header>
+<div id="index-banner" class="parallax-container">
+    <div class="parallax"><img src="{{ asset('bundles/msgestionbibliotheque/img/Melk_Abbey_Library.jpg') }}" alt="Unsplashed background img 1"></div>
+  </div>
+{# On définit un nouveau bloc, que les vues du bundle pourront remplir
+#}
+<main>
+    {% block g2_ms_gestionbibliotheque_body %}
+    {% endblock %}
+</main>
+<footer class="page-footer blue darken-4">
+	<div class="container">
+		<div class="row">
+			<div class="col l6 s12">
+				<h5 class="white-text">Footer Content</h5>
+				<p class="grey-text text-lighten-4">You can use rows and
+					columns here to organize your footer content.</p>
+			</div>
+			<div class="col l4 offset-l2 s12">
+				<h5 class="white-text">Links</h5>
+				<ul>
+					<li><a class="grey-text text-lighten-3" href="#!">Link 1</a></li>
+					<li><a class="grey-text text-lighten-3" href="#!">Link 2</a></li>
+					<li><a class="grey-text text-lighten-3" href="#!">Link 3</a></li>
+					<li><a class="grey-text text-lighten-3" href="#!">Link 4</a></li>
+				</ul>
+			</div>
+		</div>
+	</div>
+	<div class="footer-copyright">
+		<div class="container">
+			© 2014 Copyright Text <a class="grey-text text-lighten-4 right" href="#!">More Links</a>
+		</div>
+	</div>
+</footer>
+{# </div>#}
 {% endblock %}

@@ -1,0 +1,43 @@
+{% set appRoute = app.request.attributes.get('_route') %}
+{% set homeRoute = 'g2_ms_gestion_bibliotheque_home' %}
+{% set adherentRoute = 'g2_ms_gestion_bibliotheque_gestionnaire_adherent_search' %}
+{% set reservationRoute = 'g2_ms_gestion_bibliotheque_home' %}
+{% set empruntRoute = 'g2_ms_gestion_bibliotheque_home' %}
+{% set oeuvreRoute = 'g2_ms_gestion_bibliotheque_home' %}
+
+
+<ul id="reservation_dropdown" class="dropdown-content">
+  <li><a href="#!">one</a></li>
+  <li><a href="#!">two</a></li>
+  <li class="divider"></li>
+  <li><a href="#!">three</a></li>
+</ul>
+
+<ul class="tabs tabs-transparent">
+	<li class="tab {% if appRoute == adherentRoute %}active{% endif %}">
+		<a class="{% if appRoute == adherentRoute %}active{% endif %}" 
+			target="_self" href="{{ path(adherentRoute) }}">
+			Adhérents
+		</a>
+	</li>
+	<li class="tab {% if appRoute == reservationRoute %}active{% endif %}">
+		<a class="{% if appRoute == reservationRoute %}active{% endif %}" 
+			data-beloworigin="true" data-constrainWidth="false" href="#" data-activates="reservation_menu">
+			Réservations
+			<i class="material-icons right">arrow_drop_down</i>
+		</a>
+
+	</li>
+	<li class="tab {% if appRoute == empruntRoute %}active{% endif %}">
+		<a class="{% if appRoute == empruntRoute %}active{% endif %}"
+			target="_self" href="{{ path(empruntRoute) }}">
+			Emprunts
+		</a>
+	</li>
+	<li class="tab {% if appRoute == oeuvreRoute %}active{% endif %}">
+		<a class="{% if appRoute == oeuvreRoute %}active{% endif %}"
+			target="_self" href="{{ path(oeuvreRoute) }}">
+			Oeuvres
+		</a>
+	</li>
+</ul>

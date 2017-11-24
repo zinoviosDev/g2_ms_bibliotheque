@@ -1,26 +1,14 @@
 services:
-#    ms_gestion_bibliotheque.example:
-#        class: MS\GestionBibliothequeBundle\Example
-#        arguments: ["@service_id", "plain_value", "%parameter%"]
-#services:
-#    data_fixtures.provider.artwork:
-#        class: MS\GestionBibliothequeBundle\DataFixtures\Faker\Provider\ArtworkProvider
-#        tags: [ { name: nelmio_alice.faker.provider } ]
-
-#parameters:
-#    artwork.provider.class: MS\GestionBibliothequeBundle\DataFixtures\Faker\Provider\ArtworkProvider
-#    faker.generator.class: Faker\Factory
-services:
+    _defaults:
+        autowire: true
+        autoconfigure: true
     artwork.provider:
         class: MS\GestionBibliothequeBundle\DataFixtures\Faker\Provider\ArtworkProvider
         tags:
             -  { name: h4cc_alice_fixtures.provider }
-#services:
-#    faker.generator:
-#        class: "%faker.generator.class%"
-#        factory: ["%faker.generator.class%", create]
-#    artwork.provider:
-#        class: "%artwork.provider.class%"
-#        arguments: ['@faker.generator']
-#        tags:
-#            -  { name: h4cc_alice_fixtures.provider }
+    form.type.datePicker:
+        class:  MS\GestionBibliothequeBundle\Form\Type\DatePickerType
+        tags:
+           - { name: form.type, alias: datePicker }
+        autowire: true
+        public: true

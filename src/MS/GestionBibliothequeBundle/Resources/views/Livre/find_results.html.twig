@@ -1,12 +1,13 @@
 {% extends "MSGestionBibliothequeBundle::layout.html.twig" %}
 
 {% block title %}
-  Accueil - {{ parent() }}
+  Résultats de la recherche de livres - {{ parent() }}
 {% endblock %}
 
 {% block g2_ms_gestionbibliotheque_body %}
 
-  <h2>Livres correspondant à votre recherche</h2>
+  <h1 class="header teal-text text-lighten-2">Livres correspondant à votre recherche</h1>
+  {% if listeLivres is not empty %}
   <table id="myTable" class="table2" role="grid">
 		<colgroup>
 			<col style="width: 145px;" />
@@ -24,9 +25,19 @@
     			<tr>
     				<td><a href="{{ path('g2_ms_gestion_bibliotheque_livre_view', {'id': livre.id}) }}">{{ livre.titre }}</a></td>
     				<td>{{ livre.auteur.prenom }} {{ livre.auteur.nom }}</td>
-    				<td>{{ livre.dateDePublication |date('d/m/Y') }}</td>
+    				<td class="right">{{ livre.dateDePublication |date('d/m/Y') }}</td>
     			</tr>
 			{% endfor %}
 		</tbody> 
 	</table>
+	{% endif %}
+	{% if listeLivres is empty %}
+    	<p class=""><em>Il n'existe aucun livre disponible correspondant à votre recherche</em></p><br />
+    {% endif %}
+    <div>
+    	<a href="{{ path('g2_ms_gestion_bibliotheque_livre_find') }}" class="btn btn-default">
+              <i class="glyphicon glyphicon-chevron-left"></i>
+              Retour
+            </a>
+    </div>
 {% endblock %}

@@ -6,22 +6,35 @@
 
 {% block g2_ms_gestionbibliotheque_body %}
 
-  <h2>{{ dvd.titre }}</h2>
-  <div class="well">
-      <i>Publié le {{ dvd.dateDePublication|date('d/m/Y') }} par {{ dvd.auteur.prenom }} {{ dvd.auteur.nom }}, 
-      édité par {{ dvd.editeur.sigle }}</i><br />
-      <p><b>Sujet :</b> {{ dvd.sujet }} <br />
-      <b>Langue :</b> {{ dvd.langue }} <br />
-      <b>Durée :</b> {{ dvd.duree|date('H:i:s') }} <br />
-      <b>Type :</b> {{ dvd.type }}</p>
-      <p><b>Contenu :</b> {{ dvd.contenu }} <br /></p>
-  </div>
-
-  <p>
-    <a href="{{ path('g2_ms_gestion_bibliotheque_home') }}" class="btn btn-default">
-      <i class="glyphicon glyphicon-chevron-left"></i>
-      Retour à la liste
-    </a>
-  </p>
-
+<div class="row">
+    <div class="col s6 offset-s3">
+      <div class="card blue-grey darken-1">
+        <div class="card-content white-text">
+          <span class="card-title">{{ dvd.titre }}</span>
+          <p><i>Publié le {{ dvd.dateDePublication|date('d/m/Y') }} par {{ dvd.auteur.prenom }} {{ dvd.auteur.nom }}, 
+              édité par {{ dvd.editeur.sigle }}</i><br />
+              <b>Sujet :</b> {{ dvd.sujet }} <br />
+              <b>Langue :</b> {{ dvd.langue }} <br />
+              <b>Durée :</b> {{ dvd.duree|date('H:i:s') }} <br />
+              <b>Type :</b> {{ dvd.type }} <br />
+              <b>Contenu :</b> {{ dvd.contenu }}<br />
+              <b>Nombre d'exemplaires :</b> {{ nbreExemplaires }}<br />
+              <b>Exemplaires disponibles :</b> {{ nbreExemplairesDisponibles }}
+          </p>
+          {% if not is_granted('ROLE_ADHERENT') %}
+            	<p class="btn-info"><em>Veuillez vous connecter pour accéder à la réservation des oeuvres</em></p><br /><br />
+        {% endif %}
+        </div>
+        <div class="card-action">
+          <a href="{{ path('g2_ms_gestion_bibliotheque_home') }}" class="btn btn-default">
+          <i class="glyphicon glyphicon-chevron-left"></i>
+          Retour à la liste
+        </a>
+        {% if is_granted('ROLE_ADHERENT') %}
+              	<a href="{{ path('g2_ms_gestion_bibliotheque_reservations_add', {'id': dvd.id}) }}" role="" class="btn btn-primary"><i class="glyphicon glyphicon-book"></i> Réserver</a>
+        {% endif %}
+        </div>
+      </div>
+    </div>
+</div>
 {% endblock %}
