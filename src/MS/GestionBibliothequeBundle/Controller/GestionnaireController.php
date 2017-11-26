@@ -6,6 +6,7 @@ use Symfony\Component\HttpFoundation\Request;
 use MS\GestionBibliothequeBundle\Form\AdherentSearchType;
 use MS\GestionBibliothequeBundle\Form\AdherentEditType;
 use MS\GestionBibliothequeBundle\Form\AdherentAddType;
+use MS\GestionBibliothequeBundle\Entity\Reservation;
 
 class GestionnaireController extends Controller {
     
@@ -62,7 +63,34 @@ class GestionnaireController extends Controller {
      */
     public function searchReservationAction(Request $request) {
         
-        return $this->render('');
+        $reservation = new Reservation();
+        $form = $this->get('form.factory')->create(AdherentSearchType::class, $adherent);
+        if($request->isMethod('POST')) {
+            $form->handleRequest($request);
+            if($form->isSubmitted() /*&& $form->isValid()*/) {
+                if($adherent->getNom() == "" && $adherent->getPrenom() == "" && $adherent->getDateNaissance() == ""
+                    && $adherent->getEmail() == "" && $adherent->getNumCarte() == ""){
+                        return $this->render('MSGestionBibliothequeBundle:Adherent:search.html.twig', array(
+                            'form' => $form->createView(),
+                        ));
+                }
+                $findFilter = array();
+                if(!empty($adherent->getNom())) { $findFilter['nom'] = $adherent->getNom(); }
+                if(!empty($adherent->getPrenom())) { $findFilter['prenom'] = $adherent->getPrenom(); }
+                if(!empty($adherent->getDateNaissance())) { $findFilter['dateNaissance'] = $adherent->getDateNaissance(); }
+                if(!empty($adherent->getEmail())) { $findFilter['email'] = $adherent->getEmail(); }
+                if(!empty($adherent->getNumCarte())) { $findFilter['numCarte'] = $adherent->getNumCarte(); }
+                $em = $this->getDoctrine()->getManager();
+                $adherents = $em->getRepository('MSGestionBibliothequeBundle:Adherent')->findBy($findFilter);
+            }
+            $request->getSession()->getFlashBag()->add('notice', "Recherche d'adhérent(s) effectuée.");
+            
+            return $this->render('MSGestionBibliothequeBundle:Adherent:search_results.html.twig',
+                array('listeAdherents' => $adherents));
+        }
+        return $this->render('MSGestionBibliothequeBundle:Adherent:search.html.twig', array(
+            'form' => $form->createView(),
+        ));
     }
     
     public function addAdherentAction(Request $request) {

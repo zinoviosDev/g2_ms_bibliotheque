@@ -10,6 +10,7 @@
     </div>
 {%- endblock form_row %}
 
+
 {% block form_widget_simple %}
     {% if type is not defined or type not in ['file', 'hidden'] %}
         {%- set attr = attr|merge({class: (attr.class|default(''))|trim}) -%}
@@ -93,16 +94,6 @@
     {% set attr = attr|merge({class: (attr.class|default('') ~ 'materialize-textarea')|trim}) %}
     {{ parent() }}
 {%- endblock -%}
-
-{% block datePicker_widget %}
-    {% spaceless %}
-        {% set attr = attr|merge({'class': (attr.class|default('') ~ ' acmeDateTimePicker')|trim}) %}
-        {{ form_errors(form.date) }}
-        {{ form_errors(form.time) }}
-        {{ form_widget(form.date, {'id' : id ~ '_date'}) }}
-        {{ form_widget(form.time, {'id' : id ~ '_time'}) }}
-    {% endspaceless %}
-{% endblock datePicker_widget %}
 
 {%- block form_errors -%}
     {%- if errors|length > 0 -%}

@@ -68,6 +68,10 @@ g2_ms_gestion_bibliotheque_emprunts_add:
         _format: html
         id: \d+
         
+g2_ms_gestion_bibliotheque_adherent:
+    resource: "@MSGestionBibliothequeBundle/Resources/config/routing/adherent.yml"
+    prefix:   /adherent
+        
 g2_ms_gestion_bibliotheque_reservations:
     resource: "@MSGestionBibliothequeBundle/Resources/config/routing/reservations.yml"
     prefix:   /reservation

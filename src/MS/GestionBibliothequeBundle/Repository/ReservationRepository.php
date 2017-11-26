@@ -14,7 +14,7 @@ class ReservationRepository extends EntityRepository {
     }
     
     public function countByEtatReservationForAllAdherents(Reservation $reservation) {
-        $qb = $this->createQueryBuilder('r')->select('COUNT(r)')->join('r.adherent', 'a')->join('r.oeuvre', 'o');
+        $qb = $this->createQueryBuilder('r')->select('COUNT(r)')->join('r.oeuvre', 'o');
         $qb->andWhere('r.suiteReservation = :suiteReservation')->setParameter('suiteReservation', $reservation->getSuiteReservation());
         $qb->andWhere('o.id = :o_id')->setParameter('o_id', $reservation->getOeuvre()->getId());
         return $qb->getQuery()->getOneOrNullResult();

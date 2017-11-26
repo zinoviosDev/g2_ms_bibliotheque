@@ -44,8 +44,6 @@ class DVDController extends Controller {
         $logger->debug($nbreExemplaires);
         $exFilter = new Exemplaire();
         $exFilter->setOeuvre($dvd);
-        $countEmpruntsEchus = $em->getRepository('MSGestionBibliothequeBundle:Exemplaire')->countEmpruntsEchusForAll($exFilter)[1];
-        $countAllEmprunts = $em->getRepository('MSGestionBibliothequeBundle:Exemplaire')->countAllEmpruntsForAll($exFilter)[1];
         $reservationRepo = $em->getRepository('MSGestionBibliothequeBundle:Reservation');
         $reservationFilter = new Reservation();
         $reservationFilter->setOeuvre($dvd);
@@ -53,8 +51,7 @@ class DVDController extends Controller {
         $nbreReservationsEnCoursSurReservation = $reservationRepo->countByEtatReservation($reservationFilter)[1];
         $reservationFilter->setSuiteReservation(Reservation::SUITE_RESERVATION_EMPRUNT); // reserve ou emprunt
         $nbreEmpruntsEnCoursSurReservation = $reservationRepo->countByEtatReservation($reservationFilter)[1];
-        $nbreExemplairesDisponibles = $nbreExemplaires
-        - ($countAllEmprunts - $countEmpruntsEchus - $nbreReservationsEnCoursSurReservation - $nbreEmpruntsEnCoursSurReservation);
+        $nbreExemplairesDisponibles = $nbreExemplaires - ($nbreReservationsEnCoursSurReservation + $nbreEmpruntsEnCoursSurReservation);
         
         return $this->render('MSGestionBibliothequeBundle:DVD:view.html.twig',
             array('dvd' => $dvd,

@@ -11,7 +11,9 @@ Bibliothèque Le Temps Libre -
 	<!-- Définition du menu adhérent -->
 	<ul id="user_menu" class="dropdown-content">
 		{% if app.user %}
-            <li><a href="/users/id" title="Profil"><i class="material-icons">person</i>Profil</a></li>
+			{% if app.session.get('adherent') %} 
+            <li><a href="adherent/profil/{{ app.session.get('adherent').id }}" title="Profil"><i class="material-icons">person</i>Profil</a></li>
+            {% endif %}
             <li class="divider"></li>
         	<li><a href="{{ path('logout') }}" title="Déconnexion">Déconnexion</a></li>
         {% endif %}	

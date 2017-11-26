@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "93883220881e5ba6b7b6f7d49424f82b",
+    "content-hash": "46a625e4f02da7a22a4e2226a6fd2ab8",
     "packages": [
         {
             "name": "components/jquery",
@@ -2415,6 +2415,52 @@
             "time": "2017-02-13T14:15:07+00:00"
         },
         {
+            "name": "stephanecollot/datetimepicker-bundle",
+            "version": "dev-master",
+            "target-dir": "SC/DatetimepickerBundle",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/stephanecollot/DatetimepickerBundle.git",
+                "reference": "ebecd027c702816bc86e6727c8075a67b01a43f1"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/stephanecollot/DatetimepickerBundle/zipball/ebecd027c702816bc86e6727c8075a67b01a43f1",
+                "reference": "ebecd027c702816bc86e6727c8075a67b01a43f1",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.3.9",
+                "symfony/framework-bundle": "~2.8 || ~3.0",
+                "symfony/symfony": "~2.8 || ~3.0"
+            },
+            "type": "symfony-bundle",
+            "autoload": {
+                "psr-0": {
+                    "SC\\DatetimepickerBundle": ""
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Stephane Collot"
+                }
+            ],
+            "description": "Symfony bundle for Bootstrap DateTime picker",
+            "keywords": [
+                "bootstrap",
+                "bundle",
+                "datepicker",
+                "picker",
+                "symfony",
+                "timepicker"
+            ],
+            "time": "2017-04-29T09:13:09+00:00"
+        },
+        {
             "name": "swiftmailer/swiftmailer",
             "version": "v5.4.8",
             "source": {
@@ -3329,6 +3375,49 @@
         }
     ],
     "packages-dev": [
+        {
+            "name": "anh/datetimepicker-bundle",
+            "version": "v1.1.2",
+            "target-dir": "Anh/DateTimePickerBundle",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/hilobok/AnhDateTimePickerBundle.git",
+                "reference": "6a4d495bd3e2f4ed0e71ab71cd82f947e154a3bf"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/hilobok/AnhDateTimePickerBundle/zipball/6a4d495bd3e2f4ed0e71ab71cd82f947e154a3bf",
+                "reference": "6a4d495bd3e2f4ed0e71ab71cd82f947e154a3bf",
+                "shasum": ""
+            },
+            "require": {
+                "sp/bower-bundle": "~0.9"
+            },
+            "type": "symfony-bundle",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "1.1-dev"
+                }
+            },
+            "autoload": {
+                "psr-0": {
+                    "Anh\\DateTimePickerBundle": ""
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Andrew Hilobok",
+                    "email": "hilobok@gmail.com",
+                    "role": "Developer"
+                }
+            ],
+            "description": "Symfony bundle which implements jQuery UI date and time pickers in a Form Type Extension.",
+            "time": "2014-01-16T09:48:56+00:00"
+        },
         {
             "name": "fzaninotto/faker",
             "version": "v1.7.1",
@@ -4887,6 +4976,68 @@
             "time": "2017-07-18T07:57:44+00:00"
         },
         {
+            "name": "sp/bower-bundle",
+            "version": "v0.12",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/Spea/SpBowerBundle.git",
+                "reference": "7d6378cee3b96bda542ec9e03ba640c44487571c"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/Spea/SpBowerBundle/zipball/7d6378cee3b96bda542ec9e03ba640c44487571c",
+                "reference": "7d6378cee3b96bda542ec9e03ba640c44487571c",
+                "shasum": ""
+            },
+            "require": {
+                "doctrine/cache": "~1.0",
+                "doctrine/collections": "1.*",
+                "php": ">=5.3.3",
+                "symfony/assetic-bundle": "~2.1",
+                "symfony/framework-bundle": "~2.1 | ~3.0",
+                "symfony/process": "~2.3,>=2.3.20 | ~2.4,>=2.4.10 | ~2.5,>=2.5.5 | ~3.0"
+            },
+            "require-dev": {
+                "phpunit/phpunit": "4.0.*",
+                "symfony/console": "~2.1"
+            },
+            "type": "symfony-bundle",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "0.12-dev"
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Sp\\BowerBundle\\": ""
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Martin Parsiegla",
+                    "email": "martin.parsiegla@gmail.com",
+                    "homepage": "http://speanet.info"
+                },
+                {
+                    "name": "Community contributions",
+                    "homepage": "https://github.com/Spea/SpBowerBundle/contributors"
+                }
+            ],
+            "description": "Handle asset dependencies with bower",
+            "keywords": [
+                "asset",
+                "bower",
+                "bower manager",
+                "dependencies"
+            ],
+            "abandoned": true,
+            "time": "2017-08-23T15:20:45+00:00"
+        },
+        {
             "name": "theofidry/alice-data-fixtures",
             "version": "v1.0.0-rc.1",
             "source": {
@@ -5052,6 +5203,7 @@
     "aliases": [],
     "minimum-stability": "stable",
     "stability-flags": {
+        "stephanecollot/datetimepicker-bundle": 20,
         "hautelook/alice-bundle": 10,
         "nelmio/alice": 10,
         "theofidry/alice-data-fixtures": 5

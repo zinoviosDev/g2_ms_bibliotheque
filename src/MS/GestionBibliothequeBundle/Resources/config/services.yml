@@ -6,9 +6,15 @@ services:
         class: MS\GestionBibliothequeBundle\DataFixtures\Faker\Provider\ArtworkProvider
         tags:
             -  { name: h4cc_alice_fixtures.provider }
-    form.type.datePicker:
-        class:  MS\GestionBibliothequeBundle\Form\Type\DatePickerType
-        tags:
-           - { name: form.type, alias: datePicker }
-        autowire: true
+#    form.type.datePicker:
+#        class:  MS\GestionBibliothequeBundle\Form\Type\DatePickerType
+#        tags:
+#           - { name: form.type, alias: datePicker }
+#        autowire: true
+#        public: true
+    cov.twig.class_test:
+        class: MS\GestionBibliothequeBundle\Twig\ClassTestExtension
         public: true
+        autowire: true
+        tags:
+            - { name: twig.extension }

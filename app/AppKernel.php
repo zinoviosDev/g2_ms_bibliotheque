@@ -16,10 +16,11 @@ class AppKernel extends Kernel
             new Doctrine\Bundle\DoctrineBundle\DoctrineBundle(),
             new Symfony\Bundle\AsseticBundle\AsseticBundle(),
             new Sensio\Bundle\FrameworkExtraBundle\SensioFrameworkExtraBundle(),
+            new EasyCorp\Bundle\EasyAdminBundle\EasyAdminBundle(),
             new FOS\UserBundle\FOSUserBundle(),
             new MS\GestionBibliothequeBundle\MSGestionBibliothequeBundle(),
-            new EasyCorp\Bundle\EasyAdminBundle\EasyAdminBundle(),
             new MS\UserBundle\MSUserBundle(),
+            new SC\DatetimepickerBundle\SCDatetimepickerBundle(),
         ];
 
         if (in_array($this->getEnvironment(), ['dev', 'test'], true)) {

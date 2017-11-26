@@ -1,0 +1,7 @@
+g2_ms_gestion_bibliotheque_adherent_profil_view:
+    path:      /profil/{id}
+    defaults:
+        _controller: MSGestionBibliothequeBundle:Adherent:viewProfil
+    requirements:
+        _format: html
+        id: \d+

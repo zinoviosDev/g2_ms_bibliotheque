@@ -1,0 +1,54 @@
+{% extends "MSGestionBibliothequeBundle::layout.html.twig" %}
+
+{% block title %}
+  Profil {{ adherent.prenom }} {{ adherent.nom }}
+{% endblock %}
+
+{% block g2_ms_gestionbibliotheque_body %}
+<div class="row">
+    <div class="col s6 offset-s3">
+      <div class="card blue-grey darken-1">
+        <div class="card-content white-text">
+          <span class="card-title">Profil {{ adherent.prenom }} {{ adherent.nom }}</span>
+          <p>
+              <b>Date de naissance :</b> {{ adherent.dateNaissance|date('d/m/Y') }} <br />
+              <b>Nombre d'emprunts autorisés :</b> {{ adherent.nbreEmpruntsAutorises }} <br />
+              <b>Nombre de réservations autorisées :</b> {{ adherent.nbreReservationsAutorisees }} <br />
+              <b>Email :</b> {{ adherent.email }} <br />
+              <b>Numéro de téléphone :</b> {{ adherent.numTelephone }}<br />
+              <b>Carte de bibliothèque :</b> {{ adherent.numCarte }}<br /><br />
+              <b>Réservations :</b>
+              <ul>
+              {% for reservation in adherent.reservations %}
+                {% if reservation.oeuvre is instanceOfLivre %}
+                	<li>Oeuvre réservée : <a href="{{ path('g2_ms_gestion_bibliotheque_livre_view', {'id': reservation.oeuvre.id}) }}">
+                		                	<em>{{ reservation.oeuvre.titre }}</em></a>
+                {% endif %}
+              	{% if reservation.oeuvre is instanceOfDVD %}
+                	<li>Oeuvre réservée : <a href="{{ path('g2_ms_gestion_bibliotheque_dvd_view', {'id': reservation.oeuvre.id}) }}">
+                		                	<em>{{ reservation.oeuvre.titre }}</em></a>
+                {% endif %}
+              	<li>Date de demande de réservation : {{ reservation.dateDemandeReservation|date('d/m/Y') }}</li>
+              	<li>Date de réservation : {{ reservation.dateReservation|date('d/m/Y') }}</li>
+              {% endfor %}
+              </ul>
+              <br /><br />
+              <b>Emprunts :</b>
+              <ul>
+              {% for emprunt in adherent.emprunts %}
+                <li>Date d'emprunt : {{ emprunt.dateEmprunt|date('d/m/Y') }}</li>
+              	<li>Date limite de retour : {{ emprunt.dateRetourTheorique|date('d/m/Y') }}</li>
+              {% endfor %}
+              </ul>
+          </p>
+        </div>
+        <div class="card-action">
+          <a href="{{ path('g2_ms_gestion_bibliotheque_home') }}" class="btn btn-default">
+          <i class="glyphicon glyphicon-chevron-left"></i>
+          Retour
+        </a>
+        </div>
+      </div>
+    </div>
+</div>
+{% endblock %}

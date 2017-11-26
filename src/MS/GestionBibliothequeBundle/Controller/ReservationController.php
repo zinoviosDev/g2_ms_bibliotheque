@@ -21,7 +21,7 @@ class ReservationController extends Controller {
         if (null === $user) {
             throw new AccessDeniedException('Accès limité aux adhérents.');
         } else {
-            $adherent = $user->getAdherent();
+            $adherent = $this->getDoctrine()->getManager()->getRepository('MSGestionBibliothequeBundle:Adherent')->findOneBy(array('userCredentials' => $user));
         }
         return $this->render('MSGestionBibliothequeBundle:Reservation:index.html.twig', array(
             'reservations' => $adherent->getReservations(),
@@ -56,8 +56,9 @@ class ReservationController extends Controller {
         if (null === $user) {
             throw new AccessDeniedException('Accès limité aux adhérents.');
         } else {
-            $adherent = $user->getAdherent();
+            $adherent = $this->getDoctrine()->getManager()->getRepository('MSGestionBibliothequeBundle:Adherent')->findOneBy(array('userCredentials' => $user));
         }
+        dump($adherent);
         // 0. Si l'adhérent a 10 réservations non suivies d'emprunt, il ne peut plus réserver TODO plus tard
         // 1. si l'adherent a atteind le nombre d'emprunts max. -> return message d'alerte
         $nbreReservationsAdherent = count($adherent->getReservations());

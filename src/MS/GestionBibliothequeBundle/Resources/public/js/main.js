@@ -1,9 +1,13 @@
 //require('init_date_picker.js')
 
 $( document ).ready(function(){
-	 acme.initLocale();
-	 acme.initDatePicker();
+//	 acme.initLocale();
+//	 acme.initDatePicker();
 	
+//	$('.acmeDatePicker	').datepicker({
+//        format: 'yyyy-mm-dd'
+//    });
+//	
 	// activation du menu adherent
 	$(".dropdown-button").dropdown();
 

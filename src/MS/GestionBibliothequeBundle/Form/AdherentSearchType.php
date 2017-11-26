@@ -13,7 +13,7 @@ class AdherentSearchType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->remove('dateNaissance')
+//             ->remove('dateNaissance')
             ->add('Rechercher', SubmitType::class, array(
                 'attr' => array('class' => 'left')))
             ;

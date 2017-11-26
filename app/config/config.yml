@@ -97,3 +97,5 @@ assetic:
 #        - OC\PlatformBundle\Entity\Image
 #        - OC\PlatformBundle\Entity\Application
 #        - OC\PlatformBundle\Entity\Category
+sc_datetimepicker:
+    picker: ~
